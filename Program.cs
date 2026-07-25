@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using San_Pham_Do_An1.Models;
+
 namespace San_Pham_Do_An1
 {
     public class Program
@@ -7,7 +10,14 @@ namespace San_Pham_Do_An1
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddDbContext<WedQuanAoDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+
             builder.Services.AddControllersWithViews();
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -19,7 +29,7 @@ namespace San_Pham_Do_An1
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
 
             app.MapControllerRoute(
