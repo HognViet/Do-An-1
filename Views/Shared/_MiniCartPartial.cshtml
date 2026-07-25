@@ -1,0 +1,72 @@
+@model List<San_Pham_Do_An1.Models.CartItem>
+<div class="minicart__header ">
+    <div class="minicart__header--top d-flex justify-content-between align-items-center">
+        <h2 class="minicart__title h3"> Shopping Cart</h2>
+        <button class="minicart__close--btn" aria-label="minicart close button" data-offcanvas>
+            <svg class="minicart__close--icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="32" d="M368 368L144 144M368 144L144 368" />
+            </svg>
+        </button>
+    </div>
+    <p class="minicart__header--desc">Clothing and fashion products are limited</p>
+</div>
+@{
+    var hasItems = Model != null && Model.Count > 0;
+    var totalAmount = hasItems ? Model.Sum(item => (item.Price ?? 0) * item.Quantity) : 0;
+}
+<div class="minicart__product">
+    @if (hasItems)
+    {
+        foreach (var item in Model)
+        {
+            <div class="minicart__product--items d-flex" data-product-id="@item.ProductId">
+                <div class="minicart__thumb">
+                    <a href="/Product/Details/@item.ProductId"><img src="@item.Image"
+                            alt="product-img"></a>
+                </div>
+                <div class="minicart__text">
+                    <h3 class="minicart__subtitle h4">
+                        <a href="/Product/Details/@item.ProductId">@item.Title</a>
+                    </h3>
+                    <div class="minicart__price">
+                        <span class="current__price" data-price="@item.Price">@String.Format("{0:N0}", item.Price)</span>
+                    </div>
+                    <span class="color__variant"><b>Color:</b> @item.Color</span>
+                    <span class="color__variant"><b>Size:</b> @item.Size</span>
+                    <div class="minicart__text--footer d-flex align-items-center">
+                        <div class="quantity__box minicart__quantity" data-id="@item.ProductId">
+                            <div class="quantity__box minicart__quantity">
+                                <button type="button" class="quantity__value decrease" aria-label="quantity value"
+                                    data-id="@item.ProductId">-</button>
+                                <label>
+                                    <input type="number" class="quantity__number" value="@item.Quantity" data-counter
+                                        data-id="@item.ProductId" min="1" />
+                                </label>
+                                <button type="button" class="quantity__value increase" aria-label="quantity value"
+                                    data-id="@item.ProductId">+</button>
+                            </div>
+                            <button class="minicart__product--remove" data-id="@item.ProductId">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div>Giỏ hàng trống.</div>
+    }
+</div>
+<div class="minicart__amount">
+    <div class="minicart__amount_list d-flex justify-content-between">
+        <span>Total:</span>
+        <div class="minicart__total">
+            Tổng tiền: <span><b id="minicart-total">@String.Format("{0:N0}", totalAmount)</b></span>
+        </div>
+    </div>
+</div>
+<div class="minicart__button d-flex justify-content-center">
+    <a class="primary__btn minicart__button--link" asp-controller="Cart" asp-action="Index">View cart</a>
+    <a class="primary__btn minicart__button--link" asp-controller="Checkout" asp-action="Index">Checkout</a>
+</div>
