@@ -1,0 +1,57 @@
+@model San_Pham_Do_An1.Models.ViewModels.CheckoutResultViewModel
+
+@{
+    ViewData["Title"] = "Kết quả thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center p-5">
+                    @if (Model.IsSuccess)
+                    {
+                        <div class="mb-4">
+                            <span class="display-4 text-success">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </span>
+                        </div>
+                        <h2 class="mb-3 text-success">Thanh toán thành công</h2>
+                    }
+                    else
+                    {
+                        <div class="mb-4">
+                            <span class="display-4 text-danger">
+                                <i class="bi bi-x-circle-fill"></i>
+                            </span>
+                        </div>
+                        <h2 class="mb-3 text-danger">Thanh toán thất bại</h2>
+                    }
+
+                    <p class="mb-4">@Model.Message</p>
+
+                    @if (!string.IsNullOrEmpty(Model.OrderCode))
+                    {
+                        <div class="mb-2">
+                            <strong>Mã đơn hàng:</strong> @Model.OrderCode
+                        </div>
+                    }
+
+                    @if (Model.TotalAmount > 0)
+                    {
+                        <div class="mb-4">
+                            <strong>Tổng tiền:</strong> @Model.TotalAmount.ToString("N0") đ
+                        </div>
+                    }
+
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">
+                        Tiếp tục mua sắm
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

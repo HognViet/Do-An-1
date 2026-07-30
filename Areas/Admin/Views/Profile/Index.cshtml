@@ -1,0 +1,104 @@
+@model San_Pham_Do_An1.Models.TbAccount
+@{
+    ViewData["Title"] = "Hồ sơ";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <!-- Breadcrumb -->
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">App</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Profile</a></li>
+            </ol>
+        </div>
+        
+        <!-- Profile Photo Section -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="profile card card-body px-3 pt-3 pb-0">
+                    <div class="profile-head">
+                        <div class="photo-content">
+                            <div class="cover-photo rounded"></div>
+                        </div>
+                        <div class="profile-info">
+                            <div class="profile-photo">
+                                <img src="~/Admin/images/profile/profile.png" class="img-fluid rounded-circle" alt="">
+                            </div>
+                            <div class="profile-details">
+                                <div class="profile-name px-3 pt-2">
+                                    <h4 class="text-primary mb-0">@(Model?.Username ?? "N/A")</h4>
+                                    <p>@(Model?.FullName ?? "Quản trị viên")</p>
+                                </div>
+                                <div class="profile-email px-2 pt-2">
+                                    <h4 class="text-muted mb-0">@(Model?.Email ?? "N/A")</h4>
+                                    <p>Email</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Account Setting Section -->
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="settings-form">
+                            <h4 class="text-primary">Account Setting</h4>
+                            @if (TempData["SuccessMessage"] != null)
+                            {
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    @TempData["SuccessMessage"]
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            }
+                            <form asp-action="UpdateProfile" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="accountId" value="@Model?.AccountId" />
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">Tên đăng nhập</label>
+                                        <input type="text" name="username" value="@Model?.Username" placeholder="Tên đăng nhập" class="form-control">
+                                        @Html.ValidationMessage("Username", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" name="email" value="@Model?.Email" placeholder="Email" class="form-control">
+                                        @Html.ValidationMessage("Email", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">Họ và tên</label>
+                                        <input type="text" name="fullName" value="@Model?.FullName" placeholder="Họ và tên" class="form-control">
+                                        @Html.ValidationMessage("FullName", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">Số điện thoại</label>
+                                        <input type="text" name="phone" value="@Model?.Phone" placeholder="Số điện thoại" class="form-control">
+                                        @Html.ValidationMessage("Phone", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Mật khẩu mới (để trống nếu không đổi)</label>
+                                    <input type="password" name="password" placeholder="Mật khẩu mới" class="form-control">
+                                    @Html.ValidationMessage("Password", new { @class = "text-danger" })
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check custom-checkbox">
+                                        <input type="checkbox" name="isActive" value="true" @(Model?.IsActive == true ? "checked" : "") class="form-check-input" id="isActive">
+                                        <label class="form-check-label form-label" for="isActive">Kích hoạt tài khoản</label>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary" type="submit">Cập nhật</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

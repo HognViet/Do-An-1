@@ -25,10 +25,57 @@ namespace San_Pham_Do_An1.Models
         public virtual DbSet<TbMenu> TbMenus { get; set; } = null!;
         public virtual DbSet<TbColor> TbColors { get; set; } = null!;
         public virtual DbSet<TbSize> TbSizes { get; set; } = null!;
+        public virtual DbSet<TbProductVariant> TbProductVariants { get; set; } = null!;
+        public virtual DbSet<TbOrder> TbOrders { get; set; } = null!;
+        public virtual DbSet<TbOrderDetail> TbOrderDetails { get; set; } = null!;
+        public virtual DbSet<TbOrderStatus> TbOrderStatuses { get; set; } = null!;
+        public virtual DbSet<TbContact> TbContacts { get; set; } = null!;
+        public virtual DbSet<TbChatMessage> TbChatMessages { get; set; } = null!;
+        public virtual DbSet<TbBlogComment> TbBlogComments { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // Configure composite primary key for TbOrderDetail
+            modelBuilder.Entity<TbOrderDetail>().HasKey(e => new { e.OrderId, e.ProductId });
+
+            modelBuilder.Entity<TbBlogComment>(entity =>
+            {
+                entity.HasKey(e => e.CommentId);
+                entity.ToTable("tb_BlogComment");
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+                entity.HasOne(d => d.Blog).WithMany(p => p.TbBlogComments)
+                    .HasForeignKey(d => d.BlogId);
+                entity.HasOne(d => d.Customer).WithMany(p => p.TbBlogComments)
+                    .HasForeignKey(d => d.CustomerId);
+            });
+
+            modelBuilder.Entity<TbChatMessage>(entity =>
+            {
+                entity.HasKey(e => e.MessageId);
+                entity.ToTable("tb_ChatMessage");
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+                entity.Property(e => e.GuestToken).HasMaxLength(100);
+                entity.Property(e => e.Message).HasColumnType("ntext");
+                entity.Property(e => e.Sender).HasMaxLength(10);
+                entity.HasOne(d => d.User).WithMany(p => p.TbChatMessages)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.SetNull);
+            });
+
+            modelBuilder.Entity<TbContact>(entity =>
+            {
+                entity.HasKey(e => e.ContactId);
+                entity.ToTable("tb_Contact");
+                entity.Property(e => e.CreatedBy).HasMaxLength(50);
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+                entity.Property(e => e.Email).HasMaxLength(100);
+                entity.Property(e => e.ModifiedBy).HasMaxLength(50);
+                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+                entity.Property(e => e.Name).HasMaxLength(100);
+                entity.Property(e => e.Phone).HasMaxLength(20);
+            });
 
             // Seed Data for tb_Role
             modelBuilder.Entity<TbRole>().HasData(
@@ -110,7 +157,7 @@ namespace San_Pham_Do_An1.Models
 
             // Seed Data for tb_Blog
             modelBuilder.Entity<TbBlog>().HasData(
-                new TbBlog { BlogId = 1, Title = "Xu hướng thời trang 2025", Alias = null, BlogCategoryId = 1, Description = "Những xu hướng nổi bật 2025", Image = "/assets/img/blog/blog1.png", AccountId = 2, IsActive = true, CreatedDate = DateTime.Parse("2026-07-04 08:36:19.421"), CreatedBy = "admin" },
+                new TbBlog { BlogId = 1, Title = "Xu hướng thời trang 2025", Alias = null, BlogCategoryId = 1, Description = "Nhưng xu hướng nổi bật 2025", Image = "/assets/img/blog/blog1.png", AccountId = 2, IsActive = true, CreatedDate = DateTime.Parse("2026-07-04 08:36:19.421"), CreatedBy = "admin" },
                 new TbBlog { BlogId = 2, Title = "Cách phối đồ cơ bản", Alias = "cach-phoi-do", BlogCategoryId = 2, Description = "Mẹo phối đồ", Image = "/assets/img/blog/blog2.png", AccountId = 2, IsActive = true, CreatedDate = DateTime.Parse("2026-07-15 14:28:42.765"), CreatedBy = "admin" },
                 new TbBlog { BlogId = 3, Title = "Hướng dẫn chưng cất nước hoa", Alias = "huong-dan-nuoc-hoa", BlogCategoryId = 4, Description = "Nước hoa tự chế", Image = "/assets/img/blog/blog3.png", AccountId = 2, IsActive = true, CreatedDate = DateTime.Parse("2026-07-25 22:49:08.233"), CreatedBy = "admin" }
             );
@@ -136,6 +183,32 @@ namespace San_Pham_Do_An1.Models
                 new TbProductReview { ProductReviewId = 1, CustomerId = 1, Detail = "Sản phẩm tốt, chất lượng ổn.", Star = 5, ProductId = 1, CreatedDate = DateTime.Parse("2026-07-06 10:32:19.647"), IsActive = true },
                 new TbProductReview { ProductReviewId = 2, CustomerId = 2, Detail = "Vải mềm, giao hàng nhanh.", Star = 2, ProductId = 1, CreatedDate = DateTime.Parse("2026-07-19 15:47:58.114"), IsActive = true },
                 new TbProductReview { ProductReviewId = 3, CustomerId = 3, Detail = "Form đẹp nhưng hơi chật.", Star = 4, ProductId = 2, CreatedDate = DateTime.Parse("2026-07-30 21:06:42.389"), IsActive = true }
+            );
+
+            // Seed Data for tb_OrderStatus
+            modelBuilder.Entity<TbOrderStatus>().HasData(
+                new TbOrderStatus { OrderStatusId = 1, Name = "Pending", Description = "Chờ xử lý" },
+                new TbOrderStatus { OrderStatusId = 3, Name = "Processing", Description = "Đã xử lý" },
+                new TbOrderStatus { OrderStatusId = 4, Name = "Shipped", Description = "Đã gửi hàng" },
+                new TbOrderStatus { OrderStatusId = 5, Name = "Delivered", Description = "Đã giao" },
+                new TbOrderStatus { OrderStatusId = 6, Name = "Canceled", Description = "Đã hủy" },
+                new TbOrderStatus { OrderStatusId = 7, Name = "Refunded", Description = "Đã hoàn tiền" },
+                new TbOrderStatus { OrderStatusId = 9, Name = "Returned", Description = "Trả hàng" },
+                new TbOrderStatus { OrderStatusId = 10, Name = "Failed", Description = "Giao dịch thất bại" }
+            );
+
+            // Seed Data for tb_ProductVariant
+            modelBuilder.Entity<TbProductVariant>().HasData(
+                new TbProductVariant { VariantId = 11, ProductId = 1, ColorId = 1, SizeId = 1, Image = "/files/product1.png", Sku = "ATCN-DEN-S", Price = 250000.00m, PriceSale = 199000.00m, Quantity = 40, IsActive = true },
+                new TbProductVariant { VariantId = 12, ProductId = 1, ColorId = 1, SizeId = 2, Image = "/files/big-product2.jpg", Sku = "ATCN-DEN-M", Price = 250000.00m, PriceSale = 199000.00m, Quantity = 35, IsActive = true },
+                new TbProductVariant { VariantId = 13, ProductId = 1, ColorId = 1, SizeId = 3, Image = "/files/big-product3.jpg", Sku = "ATCN-DEN-L", Price = 250000.00m, PriceSale = 199000.00m, Quantity = 30, IsActive = true },
+                new TbProductVariant { VariantId = 14, ProductId = 1, ColorId = 3, SizeId = 1, Image = "/files/big-product4.jpg", Sku = "ATCN-TRANG-S", Price = 250000.00m, PriceSale = 199000.00m, Quantity = 45, IsActive = true },
+                new TbProductVariant { VariantId = 15, ProductId = 1, ColorId = 3, SizeId = 2, Image = "/files/big-product5.jpg", Sku = "ATCN-TRANG-M", Price = 250000.00m, PriceSale = 199000.00m, Quantity = 40, IsActive = true },
+                new TbProductVariant { VariantId = 17, ProductId = 2, ColorId = 1, SizeId = 1, Image = "/files/product2.png", Sku = "QJN-DEN-S", Price = 300000.00m, PriceSale = 399000.00m, Quantity = 40, IsActive = true },
+                new TbProductVariant { VariantId = 18, ProductId = 2, ColorId = 1, SizeId = 2, Image = "/files/big-product4.jpg", Sku = "QJN-DEN-M", Price = 450000.00m, PriceSale = 399000.00m, Quantity = 35, IsActive = true },
+                new TbProductVariant { VariantId = 19, ProductId = 2, ColorId = 1, SizeId = 3, Image = "/files/product1.png", Sku = "QJN-DEN-L", Price = 450000.00m, PriceSale = 399000.00m, Quantity = 30, IsActive = true },
+                new TbProductVariant { VariantId = 20, ProductId = 2, ColorId = 2, SizeId = 1, Image = "/files/big-product4.jpg", Sku = "QJN-XANH-S", Price = 450000.00m, PriceSale = 399000.00m, Quantity = 40, IsActive = true },
+                new TbProductVariant { VariantId = 21, ProductId = 2, ColorId = 2, SizeId = 2, Image = "/files/big-product5.jpg", Sku = "QJN-XANH-M", Price = 450000.00m, PriceSale = 399000.00m, Quantity = 35, IsActive = true }
             );
         }
     }

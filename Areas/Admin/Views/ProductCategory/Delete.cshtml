@@ -1,0 +1,31 @@
+@model San_Pham_Do_An1.Models.TbProductCategory
+@{
+    ViewData["Title"] = "Xoá danh mục sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h2>Xác nhận xoá danh mục sản phẩm</h2>
+<hr />
+<div class="alert alert-warning">
+    <strong>Bạn có chắc muốn xoá danh mục này?</strong>
+</div>
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">Tiêu đề</dt>
+        <dd class = "col-sm-10">@Model.Title</dd>
+        <dt class = "col-sm-2">Alias</dt>
+        <dd class = "col-sm-10">@Model.Alias</dd>
+        <dt class = "col-sm-2">Mô tả</dt>
+        <dd class = "col-sm-10">@Model.Description</dd>
+        <dt class = "col-sm-2">Icon</dt>
+        <dd class = "col-sm-10">@Model.Icon</dd>
+        <dt class = "col-sm-2">Vị trí</dt>
+        <dd class = "col-sm-10">@Model.Position</dd>
+        <dt class = "col-sm-2">Ngày tạo</dt>
+        <dd class = "col-sm-10">@Model.CreatedDate</dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CategoryProductId" />
+        <button type="submit" class="btn btn-danger">Xoá</button>
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>

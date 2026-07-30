@@ -3,6 +3,34 @@
   "WorkspaceRootPath": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|d:\\tren_lop\\hoc ky phu\\san-pham-do-an1\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|d:\\tren_lop\\hoc ky phu\\san-pham-do-an1\\views\\cart\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:views\\cart\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|d:\\tren_lop\\hoc ky phu\\san-pham-do-an1\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|d:\\tren_lop\\hoc ky phu\\san-pham-do-an1\\areas\\employees\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:areas\\employees\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|d:\\tren_lop\\hoc ky phu\\san-pham-do-an1\\models\\wedquanaodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:models\\wedquanaodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|d:\\tren_lop\\hoc ky phu\\san-pham-do-an1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|d:\\tren_lop\\hoc ky phu\\san-pham-do-an1\\models\\tbproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:models\\tbproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|d:\\tren_lop\\hoc ky phu\\san-pham-do-an1\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -31,16 +59,12 @@
       "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:models\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|d:\\tren_lop\\hoc ky phu\\san-pham-do-an1\\models\\wedquanaodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:models\\wedquanaodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|d:\\tren_lop\\hoc ky phu\\san-pham-do-an1\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|d:\\tren_lop\\hoc ky phu\\san-pham-do-an1\\migrations\\20260725072156_initialdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:migrations\\20260725072156_initialdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|d:\\tren_lop\\hoc ky phu\\san-pham-do-an1\\migrations\\20260728065000_addcartandcustomer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:migrations\\20260728065000_addcartandcustomer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -50,11 +74,36 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Views\\Cart\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Cart\\Index.cshtml",
+              "ToolTip": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Views\\Cart\\Index.cshtml",
+              "RelativeToolTip": "Views\\Cart\\Index.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACAAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-30T06:45:10.825Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "OrdersController.cs",
+              "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Areas\\Employees\\Controllers\\OrdersController.cs",
+              "RelativeDocumentMoniker": "Areas\\Employees\\Controllers\\OrdersController.cs",
+              "ToolTip": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Areas\\Employees\\Controllers\\OrdersController.cs",
+              "RelativeToolTip": "Areas\\Employees\\Controllers\\OrdersController.cs",
+              "ViewState": "AgIAAEkAAAAAAAAAAAA8wFoAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-30T06:28:36.574Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "HomeController.cs",
               "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
@@ -62,12 +111,11 @@
               "RelativeToolTip": "Controllers\\HomeController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-25T07:29:09.776Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-25T07:29:09.776Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 8,
               "Title": "TbAccount.cs",
               "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Models\\TbAccount.cs",
               "RelativeDocumentMoniker": "Models\\TbAccount.cs",
@@ -79,7 +127,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 9,
               "Title": "TbProductCategory.cs",
               "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Models\\TbProductCategory.cs",
               "RelativeDocumentMoniker": "Models\\TbProductCategory.cs",
@@ -91,7 +139,56 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-25T06:55:25.236Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CartController.cs",
+              "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Controllers\\CartController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CartController.cs",
+              "ToolTip": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Controllers\\CartController.cs",
+              "RelativeToolTip": "Controllers\\CartController.cs",
+              "ViewState": "AgIAALQAAAAAAAAAAAAAAMwAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-30T06:30:53.369Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "WedQuanAoDbContext.cs",
+              "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Models\\WedQuanAoDbContext.cs",
+              "RelativeDocumentMoniker": "Models\\WedQuanAoDbContext.cs",
+              "ToolTip": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Models\\WedQuanAoDbContext.cs",
+              "RelativeToolTip": "Models\\WedQuanAoDbContext.cs",
+              "ViewState": "AgIAAEgAAAAAAAAAAAA7wFgAAACZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T07:12:31.173Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAA8wAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-30T06:24:32.353Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "TbProductReview.cs",
               "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Models\\TbProductReview.cs",
               "RelativeDocumentMoniker": "Models\\TbProductReview.cs",
@@ -103,7 +200,31 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 15,
+              "Title": "20260728065000_AddCartAndCustomer.cs",
+              "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Migrations\\20260728065000_AddCartAndCustomer.cs",
+              "RelativeDocumentMoniker": "Migrations\\20260728065000_AddCartAndCustomer.cs",
+              "ToolTip": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Migrations\\20260728065000_AddCartAndCustomer.cs",
+              "RelativeToolTip": "Migrations\\20260728065000_AddCartAndCustomer.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAA8wBMAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-28T06:50:00.521Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TbProduct.cs",
+              "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Models\\TbProduct.cs",
+              "RelativeDocumentMoniker": "Models\\TbProduct.cs",
+              "ToolTip": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Models\\TbProduct.cs",
+              "RelativeToolTip": "Models\\TbProduct.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAUwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-28T06:45:59.462Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "TbRole.cs",
               "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Models\\TbRole.cs",
               "RelativeDocumentMoniker": "Models\\TbRole.cs",
@@ -115,7 +236,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 12,
               "Title": "TbSize.cs",
               "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Models\\TbSize.cs",
               "RelativeDocumentMoniker": "Models\\TbSize.cs",
@@ -127,7 +248,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 13,
               "Title": "CartItem.cs",
               "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Models\\CartItem.cs",
               "RelativeDocumentMoniker": "Models\\CartItem.cs",
@@ -139,7 +260,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 14,
               "Title": "20260725072156_InitialDb.cs",
               "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Migrations\\20260725072156_InitialDb.cs",
               "RelativeDocumentMoniker": "Migrations\\20260725072156_InitialDb.cs",
@@ -148,30 +269,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-25T07:21:56.223Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "WedQuanAoDbContext.cs",
-              "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Models\\WedQuanAoDbContext.cs",
-              "RelativeDocumentMoniker": "Models\\WedQuanAoDbContext.cs",
-              "ToolTip": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\Models\\WedQuanAoDbContext.cs",
-              "RelativeToolTip": "Models\\WedQuanAoDbContext.cs",
-              "ViewState": "AgIAAEgAAAAAAAAAAAA7wFgAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-25T07:12:31.173Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "D:\\Tren_Lop\\Hoc Ky Phu\\San-Pham-Do-An1\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-07-25T06:55:25.236Z"
             }
           ]
         }

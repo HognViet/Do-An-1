@@ -1,4 +1,4 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
@@ -326,4 +326,74 @@ $(document).off("click", ".variant__buy--now__btn").on("click", ".variant__buy--
         .catch(() => {
             alert("Không thể mua ngay. Vui lòng thử lại.");
         });
+});
+
+// Cart page: remove individual item
+$(document).on("click", ".cart__remove--btn", function (e) {
+  e.preventDefault();
+  var $btn = $(this);
+  var productId = $btn.data("id");
+  var size = $btn.data("size");
+  var color = $btn.data("color");
+  var row = $btn.closest("tr");
+
+  $.ajax({
+    url: "/Cart/RemoveFromCart",
+    method: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({ id: productId, size: size, color: color }),
+    success: function (res) {
+      if (res.success) {
+        row.remove();
+        updateCartTotalDisplays(res.total);
+        if (
+          typeof window.setCartCount === "function" &&
+          typeof res.cartCount !== "undefined"
+        ) {
+          window.setCartCount(res.cartCount);
+        }
+        if (res.cartCount === 0) {
+          location.reload();
+        }
+      }
+    },
+  });
+});
+
+// Cart page: clear entire cart
+$(document).on("click", ".continue__shopping--clear", function (e) {
+  e.preventDefault();
+  $.ajax({
+    url: "/Cart/ClearCart",
+    method: "POST",
+    success: function (res) {
+      if (res.success) {
+        location.reload();
+      }
+    },
+  });
+});
+
+// Wishlist heart icon color toggle
+$(document).on("click", "a[href*='wishlist.html'], .product__items--action__btn, .variant__wishlist--icon", function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+  var $btn = $(this);
+  var $svg = $btn.find("svg");
+  if ($svg.length) {
+    var $path = $svg.find("path");
+    if ($path.length) {
+      var currentFill = $path.attr("fill");
+      if (currentFill === "red") {
+        $path.attr("fill", "none");
+        $path.attr("stroke", "currentColor");
+        $svg.css("color", "");
+      } else {
+        $path.attr("fill", "red");
+        $path.attr("stroke", "red");
+        $svg.css("color", "red");
+      }
+    }
+  }
+  return false;
 });

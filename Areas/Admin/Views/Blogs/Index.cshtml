@@ -1,0 +1,84 @@
+@model IEnumerable<San_Pham_Do_An1.Models.TbBlog>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content-body">
+    <div class="container-fluid">
+
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Table</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Datatable</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+
+
+        <div class="row">
+            <!-- cái tôi copy -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Fees Collection</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <a asp-action="Create" class="btn btn-success mb-3">
+                                <i class="fa fa-plus"> Tạo mới</i>
+                            </a>
+                            <table id="example4" class="display" style="min-width: 845px">
+                                <thead>
+                                    <tr>
+                                        <th>Số Thứ tự</th>
+                                        <th>Tiêu đề</th>
+                                        <th>Mô Tả</th>
+                                        <th>Danh mục</th>
+                                        <th>Ảnh</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Người tạo</th>
+                                        <th>Trạng Thái</th>
+                                        <th>Hành Động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int i = 1;
+                                    }
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@(i++)</td>
+                                            <td>@Html.DisplayFor(ModelItem => item.Title)</td>
+                                            <td>@Html.DisplayFor(ModelItem => item.Description)</td>
+                                            <td>@(item.BlogCategory?.Title ?? "Chưa có danh mục")</td>
+                                            <td>
+                                                <img src="@Url.Content(item.Image)" width="50" height="50" />
+                                            </td>
+                                            <td>@Html.DisplayFor(ModelItem => item.CreatedDate)</td>
+                                            <td>@(item.Account != null ? (item.Account.FullName ?? item.Account.Username ?? $"Account {item.Account.AccountId}") : (item.CreatedBy ?? "Chưa có"))</td>
+                                            <td>@Html.DisplayFor(ModelItem => item.IsActive)</td>
+                                            <td>
+                                                <div class="d-flex">
+                                                    <a asp-action="Edit" asp-route-id="@item.BlogId"
+                                                        class="btn btn-primary shadow btn-xs sharp me-1"><i
+                                                            class="fas fa-pencil-alt"></i></a>
+                                                    <a asp-action="Delete" asp-route-id="@item.BlogId"
+                                                        class="btn btn-danger shadow btn-xs sharp"><i
+                                                            class="fa fa-trash"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

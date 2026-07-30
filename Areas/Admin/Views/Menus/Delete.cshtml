@@ -1,0 +1,69 @@
+@model San_Pham_Do_An1.Models.TbMenu
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Quản lý</a></li>
+                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Menus" asp-action="Index">Menu</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="col-md">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Xóa menu</h3>
+                        </div>
+                        <div class="card-body">
+                            @if (TempData["ErrorMessage"] != null)
+                            {
+                                <div class="alert alert-danger">
+                                    @TempData["ErrorMessage"]
+                                </div>
+                            }
+                            <div class="form-group"><label>Tiêu đề:</label> @Html.DisplayFor(model => model.Title)</div>
+                            <div class="form-group"><label>Alias:</label> @Html.DisplayFor(model => model.Alias)</div>
+                            <div class="form-group"><label>Mô tả:</label> @Html.DisplayFor(model => model.Description)</div>
+                            <div class="form-group">
+                                <label>Menu cha:</label>
+                                @if (ViewBag.ParentName != null)
+                                {
+                                    @ViewBag.ParentName
+                                }
+                                else
+                                {
+                                    <span class="text-muted">-</span>
+                                }
+                            </div>
+                            <div class="form-group"><label>Cấp độ:</label> @Html.DisplayFor(model => model.Levels)</div>
+                            <div class="form-group"><label>Vị trí:</label> @Html.DisplayFor(model => model.Position)</div>
+                            <div class="form-group"><label>Ngày tạo:</label> @Html.DisplayFor(model => model.CreatedDate)</div>
+                            <div class="form-group"><label>Người tạo:</label> @Html.DisplayFor(model => model.CreatedBy)</div>
+                            <div class="form-group"><label>Hoạt động:</label> 
+                                @if (Model.IsActive)
+                                {
+                                    <span class="badge light badge-success">Kích hoạt</span>
+                                }
+                                else
+                                {
+                                    <span class="badge light badge-danger">Ẩn</span>
+                                }
+                            </div>
+                            <form asp-action="Delete">
+                                <input type="hidden" asp-for="MenuId" />
+                                <input type="submit" value="Xóa" class="btn btn-danger" />
+                                <a asp-action="Index" class="btn btn-primary">Quay lại</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

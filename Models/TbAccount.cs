@@ -37,6 +37,5 @@ public partial class TbAccount
 
     public virtual ICollection<TbBlog> TbBlogs { get; set; } = new List<TbBlog>();
 
-    // Commented out to focus on homepage:
-    // public virtual ICollection<TbChatMessage> TbChatMessages { get; set; } = new List<TbChatMessage>();
+    public virtual ICollection<TbChatMessage> TbChatMessages { get; set; } = new List<TbChatMessage>();
 }

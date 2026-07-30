@@ -1,0 +1,59 @@
+@model IEnumerable<San_Pham_Do_An1.Models.TbAccount>
+@{
+    ViewData["Title"] = "Nhân viên & Quyền";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Cài đặt</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Nhân viên & Quyền</a></li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">NHÂN VIÊN & QUYỀN</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example3" class="display" style="min-width: 845px">
+                                <thead>
+                                    <tr>
+                                        <th>Số TT</th>
+                                        <th>Họ tên</th>
+                                        <th>Email</th>
+                                        <th>Username</th>
+                                        <th>Vai trò</th>
+                                        <th>Điện thoại</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int i = 1;
+                                    }
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@(i++)</td>
+                                            <td>@item.FullName</td>
+                                            <td>@item.Email</td>
+                                            <td>@item.Username</td>
+                                            <td>@(item.Role?.RoleName ?? "N/A")</td>
+                                            <td>@item.Phone</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

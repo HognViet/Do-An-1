@@ -57,7 +57,6 @@ public partial class TbProduct
 
     public virtual ICollection<TbProductReview> TbProductReviews { get; set; } = new List<TbProductReview>();
 
-    // Commended out navigation properties to other features to keep the database initial migration clean for homepage:
-    // public virtual ICollection<TbOrderDetail> TbOrderDetails { get; set; } = new List<TbOrderDetail>();
-    // public virtual ICollection<TbProductVariant> TbProductVariants { get; set; } = new List<TbProductVariant>();
+    public virtual ICollection<TbOrderDetail> TbOrderDetails { get; set; } = new List<TbOrderDetail>();
+    public virtual ICollection<TbProductVariant> TbProductVariants { get; set; } = new List<TbProductVariant>();
 }

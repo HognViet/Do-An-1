@@ -1,0 +1,90 @@
+@model IEnumerable<San_Pham_Do_An1.Models.TbProduct>
+@{
+    ViewData["Title"] = "Báo cáo tồn kho";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Báo cáo</a></li>
+                <li class="breadcrumb-item">Tồn kho</li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">BÁO CÁO TỒN KHO</h4>
+                    </div>
+                    <div class="card-body">
+                        @{
+                            var lowStock = ViewBag.LowStock as List<San_Pham_Do_An1.Models.TbProduct>;
+                        }
+                        @if (lowStock != null && lowStock.Any())
+                        {
+                            <div class="alert alert-warning">
+                                <strong>Cảnh báo:</strong> Có @lowStock.Count sản phẩm sắp hết hàng (dưới 10 sản phẩm)
+                            </div>
+                        }
+                        <div class="table-responsive">
+                            <table id="example3" class="display" style="min-width: 845px">
+                                <thead>
+                                    <tr>
+                                        <th>Số TT</th>
+                                        <th>Sản phẩm</th>
+                                        <th>Danh mục</th>
+                                        <th>Số lượng tồn</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int i = 1;
+                                    }
+                                    @if (Model != null && Model.Any())
+                                    {
+                                        @foreach (var item in Model)
+                                        {
+                                            var quantity = item.TbProductVariants?.Any() == true 
+                                                ? item.TbProductVariants.Where(v => v.IsActive == true).Sum(v => v.Quantity ?? 0) 
+                                                : (item.Quantity ?? 0);
+                                            <tr>
+                                                <td>@(i++)</td>
+                                                <td>@item.Title</td>
+                                                <td>@(item.CategoryProduct?.Title ?? "N/A")</td>
+                                                <td>@quantity</td>
+                                                <td>
+                                                    @if (quantity < 10)
+                                                    {
+                                                        <span class="badge badge-danger">Sắp hết</span>
+                                                    }
+                                                    else if (quantity < 50)
+                                                    {
+                                                        <span class="badge badge-warning">Còn ít</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-success">Đủ hàng</span>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="5" class="text-center">Không có dữ liệu</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

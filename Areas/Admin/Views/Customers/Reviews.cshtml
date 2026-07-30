@@ -1,0 +1,70 @@
+@model IEnumerable<San_Pham_Do_An1.Models.TbProductReview>
+@{
+    ViewData["Title"] = "Đánh giá của khách";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index">Khách hàng</a></li>
+                <li class="breadcrumb-item active">Đánh giá</li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">ĐÁNH GIÁ CỦA KHÁCH HÀNG</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example3" class="display" style="min-width: 845px">
+                                <thead>
+                                    <tr>
+                                        <th>Số TT</th>
+                                        <th>Khách hàng</th>
+                                        <th>Sản phẩm</th>
+                                        <th>Sao</th>
+                                        <th>Nội dung</th>
+                                        <th>Ngày đánh giá</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int i = 1;
+                                    }
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@(i++)</td>
+                                            <td>@(item.Customer?.Name ?? "N/A")</td>
+                                            <td>@(item.Product?.Title ?? "N/A")</td>
+                                            <td>
+                                                @for (int j = 0; j < (item.Star ?? 0); j++)
+                                                {
+                                                    <i class="fas fa-star text-warning"></i>
+                                                }
+                                            </td>
+                                            <td>@item.Detail</td>
+                                            <td>@(item.CreatedDate?.ToString("dd/MM/yyyy HH:mm") ?? "")</td>
+                                            <td>
+                                                <span class="badge badge-@(item.IsActive == true ? "success" : "danger")">
+                                                    @(item.IsActive == true ? "Hiển thị" : "Ẩn")
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

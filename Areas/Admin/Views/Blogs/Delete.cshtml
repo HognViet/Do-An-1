@@ -1,0 +1,146 @@
+@model San_Pham_Do_An1.Models.TbBlog
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Table</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Datatable</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="col-md">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Xóa sản phẩm</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail">Tiêu đề:</label>
+                                @Html.DisplayFor(model => model.Title)
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Danh mục:</label>
+                                @(Model.BlogCategory?.Title ?? "Chưa có danh mục")
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Mô tả:</label>
+                                @Html.DisplayFor(model => model.Description)
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Chi tiết:</label>
+                                @Html.DisplayFor(model => model.Detail)
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Ảnh:</label>
+                                <img src="@Url.Content(Model.Image)" width="50" height="50" />
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Ngày tạo:</label>
+                                @Html.DisplayFor(model => model.CreatedDate)
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Người tạo:</label>
+                                @Html.DisplayFor(model => model.CreatedBy)
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Hoạt động: </label>
+                                @Html.DisplayFor(model => model.IsActive)
+                            </div>
+                            <form asp-action="Delete">
+                                <input type="hidden" asp-for="BlogId" />
+                                <input type="submit" value="Xóa" class="btn btn-danger">
+                                <a asp-action="Index" class="btn btn-primary">Quay lại</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card-body .form-group label {
+        font-size: 14px;
+        color: #495057;
+    }
+    
+    .card-body .bg-light {
+        background-color: #f8f9fa !important;
+        min-height: 45px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .card-body .min-height-100 {
+        min-height: 100px;
+    }
+    
+    .alert-warning {
+        border-left: 4px solid #ffc107;
+        background-color: #fff3cd;
+        border-color: #ffc107;
+    }
+    
+    .badge-success {
+        background-color: #28a745;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-weight: 500;
+    }
+    
+    .badge-danger {
+        background-color: #dc3545;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-weight: 500;
+    }
+    
+    .btn-lg {
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 500;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-lg:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+    }
+    
+    .img-thumbnail {
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .card-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-bottom: none;
+    }
+    
+    .card-header h4 {
+        color: white;
+        margin: 0;
+    }
+    
+    .border {
+        border: 1px solid #dee2e6 !important;
+    }
+    
+    .rounded {
+        border-radius: 8px !important;
+    }
+</style>

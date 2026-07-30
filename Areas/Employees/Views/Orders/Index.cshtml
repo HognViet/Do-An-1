@@ -1,0 +1,105 @@
+@model IEnumerable<San_Pham_Do_An1.Models.TbOrder>
+@{
+    ViewData["Title"] = "Nhân viên - Quản lý đơn hàng";
+    Layout = "~/Areas/Employees/Views/Shared/_Layout.cshtml";
+    var status = ViewBag.Status as string ?? "all";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Đơn hàng</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Danh sách</a></li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">QUẢN LÝ ĐƠN HÀNG (NHÂN VIÊN)</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <form method="get" asp-action="Index" asp-area="Employees" asp-controller="Orders" class="d-flex gap-2">
+                                <select name="status" id="statusFilter" class="form-select" style="max-width: 250px;">
+                                    @if (ViewBag.StatusList != null)
+                                    {
+                                        @foreach (var item in ViewBag.StatusList as SelectList)
+                                        {
+                                            var isSelected = item.Value == status;
+                                            <option value="@item.Value" selected="@isSelected">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                            </form>
+                        </div>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                var statusFilter = document.getElementById('statusFilter');
+                                if (statusFilter) {
+                                    statusFilter.addEventListener('change', function() {
+                                        var form = this.closest('form');
+                                        if (form) {
+                                            form.submit();
+                                        }
+                                    });
+                                }
+                            });
+                        </script>
+                        <div class="table-responsive">
+                            <table id="example3" class="display" style="min-width: 845px">
+                                <thead>
+                                    <tr>
+                                        <th>Mã đơn</th>
+                                        <th>Khách hàng</th>
+                                        <th>Địa chỉ giao hàng</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Trạng thái</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(m => item.Code)</td>
+                                            <td>@(item.Customer?.Name ?? "N/A")</td>
+                                            <td>@Html.DisplayFor(m => item.ShippingAddress)</td>
+                                            <td>@string.Format("{0:n0}", item.TotalAmount) đ</td>
+                                            <td>
+                                                <span
+                                                    class="badge badge-@(item.OrderStatus?.Name?.Contains("Mới") == true ? "primary" : 
+                                                                                                                            item.OrderStatus?.Name?.Contains("Xử lý") == true ? "warning" :
+                                                                                                                            item.OrderStatus?.Name?.Contains("Giao hàng") == true ? "info" :
+                                                                                                                            item.OrderStatus?.Name?.Contains("Hoàn thành") == true ? "success" :
+                                                                                                                            item.OrderStatus?.Name?.Contains("Hủy") == true ? "danger" : "secondary")">
+                                                @(item.OrderStatus?.Description ?? "N/A")
+                                            </span>
+                                        </td>
+                                        <td>@(item.CreatedDate?.ToString("dd/MM/yyyy HH:mm") ?? "")</td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="@Url.Action("Details", "Orders", new { area = "Employees", id = item.OrderId, status = status })"
+                                                   class="btn btn-primary btn-xs me-1">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="@Url.Action("Delete", "Orders", new { area = "Employees", id = item.OrderId, status = status })"
+                                                   class="btn btn-danger btn-xs">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

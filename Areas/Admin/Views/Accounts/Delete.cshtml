@@ -1,0 +1,50 @@
+@model San_Pham_Do_An1.Models.TbAccount
+@{
+    ViewData["Title"] = "Xóa tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index">Tài khoản</a></li>
+                <li class="breadcrumb-item active">Xóa</li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">XÓA TÀI KHOẢN</h4>
+                    </div>
+                    <div class="card-body">
+                        <h3>Bạn có chắc chắn muốn xóa tài khoản này?</h3>
+                        <div>
+                            <dl class="row">
+                                <dt class="col-sm-2">Tên đăng nhập:</dt>
+                                <dd class="col-sm-10">@Model.Username</dd>
+                                <dt class="col-sm-2">Họ và tên:</dt>
+                                <dd class="col-sm-10">@(Model.FullName ?? "N/A")</dd>
+                                <dt class="col-sm-2">Email:</dt>
+                                <dd class="col-sm-10">@(Model.Email ?? "N/A")</dd>
+                                <dt class="col-sm-2">Điện thoại:</dt>
+                                <dd class="col-sm-10">@(Model.Phone ?? "N/A")</dd>
+                                <dt class="col-sm-2">Vai trò:</dt>
+                                <dd class="col-sm-10">@(Model.Role?.RoleName ?? "Chưa phân quyền")</dd>
+                            </dl>
+
+                            <form asp-action="Delete" method="post">
+                                <input type="hidden" asp-for="AccountId" />
+                                <input type="submit" value="Xóa" class="btn btn-danger" />
+                                <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

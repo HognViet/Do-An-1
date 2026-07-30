@@ -40,7 +40,6 @@ public partial class TbCustomer
 
     public virtual ICollection<TbProductReview> TbProductReviews { get; set; } = new List<TbProductReview>();
 
-    // Commented out to focus on homepage:
-    // public virtual ICollection<TbBlogComment> TbBlogComments { get; set; } = new List<TbBlogComment>();
-    // public virtual ICollection<TbOrder> TbOrders { get; set; } = new List<TbOrder>();
+    public virtual ICollection<TbBlogComment> TbBlogComments { get; set; } = new List<TbBlogComment>();
+    public virtual ICollection<TbOrder> TbOrders { get; set; } = new List<TbOrder>();
 }

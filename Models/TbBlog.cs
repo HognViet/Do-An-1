@@ -46,6 +46,5 @@ public partial class TbBlog
     [ForeignKey("BlogCategoryId")]
     public virtual TbBlogCategory? BlogCategory { get; set; }
 
-    // Commented out to focus on homepage:
-    // public virtual ICollection<TbBlogComment> TbBlogComments { get; set; } = new List<TbBlogComment>();
+    public virtual ICollection<TbBlogComment> TbBlogComments { get; set; } = new List<TbBlogComment>();
 }

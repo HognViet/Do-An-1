@@ -1,0 +1,23 @@
+@model San_Pham_Do_An1.Models.TbBlogCategory
+@{
+    ViewData["Title"] = "Chi tiết danh mục bài viết";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h2>Chi tiết danh mục bài viết</h2>
+<hr />
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">Tiêu đề</dt>
+        <dd class = "col-sm-10">@Model.Title</dd>
+        <dt class = "col-sm-2">Alias</dt>
+        <dd class = "col-sm-10">@Model.Alias</dd>
+        <dt class = "col-sm-2">Mô tả</dt>
+        <dd class = "col-sm-10">@Model.Description</dd>
+        <dt class = "col-sm-2">Ngày tạo</dt>
+        <dd class = "col-sm-10">@Model.CreatedDate</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.BlogCategoryId" class="btn btn-primary">Sửa</a>
+    <a asp-action="Index" class="btn btn-secondary">Danh sách</a>
+</div>

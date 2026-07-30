@@ -1,0 +1,119 @@
+@model San_Pham_Do_An1.Models.TbAccount
+@{
+    ViewData["Title"] = "Chi tiết tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index">Tài khoản</a></li>
+                <li class="breadcrumb-item active">Chi tiết</li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">CHI TIẾT TÀI KHOẢN</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h5>Thông tin tài khoản</h5>
+                                <dl class="row">
+                                    <dt class="col-sm-4">ID:</dt>
+                                    <dd class="col-sm-8">@Model.AccountId</dd>
+                                    <dt class="col-sm-4">Tên đăng nhập:</dt>
+                                    <dd class="col-sm-8">@Model.Username</dd>
+                                    <dt class="col-sm-4">Họ và tên:</dt>
+                                    <dd class="col-sm-8">@(Model.FullName ?? "N/A")</dd>
+                                    <dt class="col-sm-4">Email:</dt>
+                                    <dd class="col-sm-8">@(Model.Email ?? "N/A")</dd>
+                                    <dt class="col-sm-4">Điện thoại:</dt>
+                                    <dd class="col-sm-8">@(Model.Phone ?? "N/A")</dd>
+                                    <dt class="col-sm-4">Vai trò:</dt>
+                                    <dd class="col-sm-8">@(Model.Role?.RoleName ?? "Chưa phân quyền")</dd>
+                                    <dt class="col-sm-4">Đăng nhập cuối:</dt>
+                                    <dd class="col-sm-8">@(Model.LastLogin?.ToString("dd/MM/yyyy HH:mm") ?? "Chưa đăng nhập")</dd>
+                                    <dt class="col-sm-4">Trạng thái:</dt>
+                                    <dd class="col-sm-8">
+                                        <span class="badge badge-@(Model.IsActive == true ? "success" : "danger")">
+                                            @(Model.IsActive == true ? "Hoạt động" : "Khóa")
+                                        </span>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+
+                        @if (Model.TbBlogs != null && Model.TbBlogs.Any())
+                        {
+                            <div class="mb-4">
+                                <h5>Bài viết đã tạo (@Model.TbBlogs.Count)</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Tiêu đề</th>
+                                                <th>Ngày tạo</th>
+                                                <th>Trạng thái</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var blog in Model.TbBlogs)
+                                            {
+                                                <tr>
+                                                    <td>@blog.Title</td>
+                                                    <td>@(blog.CreatedDate?.ToString("dd/MM/yyyy") ?? "N/A")</td>
+                                                    <td>
+                                                        <span class="badge badge-@(blog.IsActive == true ? "success" : "danger")">
+                                                            @(blog.IsActive == true ? "Hoạt động" : "Khóa")
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model.TbChatMessages != null && Model.TbChatMessages.Any())
+                        {
+                            <div class="mb-4">
+                                <h5>Tin nhắn đã gửi (@Model.TbChatMessages.Count)</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Nội dung</th>
+                                                <th>Ngày gửi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var message in Model.TbChatMessages.Take(10))
+                                            {
+                                                <tr>
+                                                    <td>@(message.Message?.Length > 50 ? message.Message.Substring(0, 50) + "..." : message.Message)</td>
+                                                    <td>@(message.CreatedDate?.ToString("dd/MM/yyyy HH:mm") ?? "N/A")</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="mt-3">
+                            <a asp-action="Edit" asp-route-id="@Model.AccountId" class="btn btn-warning">Chỉnh sửa</a>
+                            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

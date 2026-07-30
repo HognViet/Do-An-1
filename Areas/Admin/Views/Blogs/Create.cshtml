@@ -1,0 +1,99 @@
+@model San_Pham_Do_An1.Models.TbBlog
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Form</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Validation</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Tạo mới Blog</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-validation">
+                            <form asp-action="Create">
+                                <div class="card-body">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-group">
+                                        <label asp-for="Title" class="control-label">Tiêu đề</label>
+                                        <input asp-for="Title" class="form-control">
+                                        <span asp-validation-for="Title" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Alias" class="control-label">Mô tả</label>
+                                        <input asp-for="Alias" class="form-control">
+                                        <span asp-validation-for="Alias" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="BlogCategoryId" class="control-label">Danh mục</label>
+                                        <select asp-for="BlogCategoryId" class="form-control"
+                                            asp-items="ViewBag.BlogCategoryId">
+                                            <option value="">-- Chọn danh mục --</option>
+                                        </select>
+                                        <span asp-validation-for="BlogCategoryId" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Description" class="control-label">mô tả</label>
+                                        <input asp-for="Description" class="form-control">
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Detail" class="control-label">Chi tiết</label>
+                                        <textarea asp-for="Detail" class="form-control"></textarea>
+                                        <span asp-validation-for="Detail" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Image" class="control-label">Ảnh</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <button type="button" class="btn btn-success" onclick="openDialog()">
+                                                    Chosse a picture</button>
+                                            </div>
+                                            <input type="text" class="form-control" id="file_input" asp-for="Image"
+                                                aria-describedby="button-addon2">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="CreatedDate" class="control-label">Ngày tạo</label>
+                                        <input asp-for="CreatedDate" class="form-control">
+                                        <span asp-validation-for="CreatedDate" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="AccountId" class="control-label">Người tạo</label>
+                                        <select asp-for="AccountId" class="form-control" asp-items="ViewBag.AccountId">
+                                            <option value="">-- Chọn người tạo --</option>
+                                        </select>
+                                        <span asp-validation-for="AccountId" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" asp-for="IsActive" /> Hiển thị
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Thêm mới" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@{
+    var summerNote = new San_Pham_Do_An1.Areas.Admin.Models.SummerNote("#Detail");
+    <partial name="_SummerNote" model="summerNote" />
+}

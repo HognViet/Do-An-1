@@ -1,0 +1,96 @@
+@model San_Pham_Do_An1.Models.TbMenu
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Form</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Validation</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Thêm menu mới</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-validation">
+                            <form asp-action="Create" method="post" class="needs-validation" novalidate="">
+                                <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="mb-3 row">
+                                            <label asp-for="Title" class="col-lg-1 col-form-label"
+                                                for="validationCustom01">Tiêu đề <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input asp-for="Title" type="text" class="form-control"
+                                                    id="validationCustom01" required>
+                                                <span asp-validation-for="Title" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label asp-for="Alias" class="col-lg-1 col-form-label"
+                                                for="validationCustom02">Alias</label>
+                                            <div class="col-lg-6">
+                                                <input asp-for="Alias" type="text" class="form-control"
+                                                    id="validationCustom02" placeholder="Tự động tạo nếu để trống">
+                                                <span asp-validation-for="Alias" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label asp-for="Description" class="col-lg-1 col-form-label">Mô tả</label>
+                                            <div class="col-lg-6">
+                                                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                                                <span asp-validation-for="Description" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label asp-for="ParentId" class="col-lg-1 col-form-label">Menu cha</label>
+                                            <div class="col-lg-6">
+                                                <select asp-for="ParentId" class="form-control"
+                                                    asp-items="ViewBag.ParentId">
+                                                    <option value="">-- Chọn menu cha (nếu có) --</option>
+                                                </select>
+                                                <span asp-validation-for="ParentId" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label asp-for="Position" class="col-lg-1 col-form-label">Vị trí</label>
+                                            <div class="col-lg-6">
+                                                <input asp-for="Position" type="number" class="form-control" value="0" />
+                                                <small class="form-text text-muted">Số càng nhỏ, hiển thị càng trước</small>
+                                                <span asp-validation-for="Position" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-lg-1 col-form-label">Kích hoạt</label>
+                                            <div class="col-lg-6">
+                                                <input asp-for="IsActive" type="checkbox" class="form-check-input" checked />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8 ms-auto">
+                                            <button type="submit" class="btn btn-success btn-lg">Tạo menu</button>
+                                            <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

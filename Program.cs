@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using San_Pham_Do_An1.Models;
+using San_Pham_Do_An1.Services;
+using San_Pham_Do_An1.Settings;
 
 namespace San_Pham_Do_An1
 {
@@ -15,9 +17,14 @@ namespace San_Pham_Do_An1
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddSession();
+            builder.Services.AddHttpClient();
+
+            // Register VNPay settings and services
+            builder.Services.Configure<VnPaySettings>(builder.Configuration.GetSection("VnPay"));
+            builder.Services.AddScoped<IVnPayService, VnPayService>();
 
             var app = builder.Build();
 
@@ -31,6 +38,10 @@ namespace San_Pham_Do_An1
             app.UseRouting();
             app.UseSession();
             app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "areas",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
             app.MapControllerRoute(
                 name: "default",

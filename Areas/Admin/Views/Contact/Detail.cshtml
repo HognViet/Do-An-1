@@ -1,0 +1,48 @@
+@model San_Pham_Do_An1.Models.TbContact
+
+@{
+    ViewData["Title"] = "Chi tiết tin nhắn";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Nội dung tin nhắn từ: @Model.Name</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form>
+                                <div class="mb-3">
+                                    <label class="form-label">Người gửi:</label>
+                                    <input type="text" class="form-control" value="@Model.Name" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email:</label>
+                                    <input type="text" class="form-control" value="@Model.Email" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Số điện thoại:</label>
+                                    <input type="text" class="form-control" value="@Model.Phone" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Ngày gửi:</label>
+                                    <input type="text" class="form-control" value="@Model.CreatedDate" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Nội dung tin nhắn:</label>
+                                    <textarea class="form-control" rows="6" readonly>@Model.Message</textarea>
+                                </div>
+
+                                <a href="/Admin/Contact" class="btn btn-secondary">Quay lại danh sách</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

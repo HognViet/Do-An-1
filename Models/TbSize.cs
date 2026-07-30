@@ -18,6 +18,5 @@ public partial class TbSize
 
     public bool? IsActive { get; set; }
 
-    // Commented out to focus on homepage:
-    // public virtual ICollection<TbProductVariant> TbProductVariants { get; set; } = new List<TbProductVariant>();
+    public virtual ICollection<TbProductVariant> TbProductVariants { get; set; } = new List<TbProductVariant>();
 }

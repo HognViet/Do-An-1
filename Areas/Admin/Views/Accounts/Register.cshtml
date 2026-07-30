@@ -1,0 +1,112 @@
+@{
+    ViewData["Title"] = "Đăng ký Quản trị";
+    Layout = null; // Trang register không dùng Layout chung
+}
+
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="robots" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Đăng ký Hệ thống Quản trị</title>
+
+    <link rel="shortcut icon" type="image/png" href="~/Admin/images/favicon.png">
+    <link href="~/Admin/css/style.css" rel="stylesheet">
+    <link href="~/Admin/css/custom-auth.css" rel="stylesheet">
+
+</head>
+
+<body class="vh-100">
+    <div class="authincation h-100">
+        <div class="container h-100">
+            <div class="row justify-content-center h-100 align-items-center">
+                <div class="col-md-6">
+                    <div class="authincation-content">
+                        <div class="row no-gutters">
+                            <div class="col-xl-12">
+                                <div class="auth-form">
+                                    <div class="text-center mb-3">
+                                        <a href="#"><img src="/Admin/images/6681204.png" alt="Logo"></a>
+                                    </div>
+                                    <h4 class="text-center mb-4">Đăng ký Admin</h4>
+
+                                    <form action="/Admin/Accounts/Register" method="post">
+
+                                        @if (ViewBag.Error != null)
+                                        {
+                                            <div class="alert alert-danger">@ViewBag.Error</div>
+                                        }
+
+                                        @if (ViewBag.Success != null)
+                                        {
+                                            <div class="alert alert-success">@ViewBag.Success</div>
+                                        }
+
+                                        <div class="mb-3">
+                                            <label class="mb-1"><strong>Tên đăng nhập <span class="text-danger">*</span></strong></label>
+                                            <input type="text" name="username" class="form-control" placeholder="Nhập tên đăng nhập" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="mb-1"><strong>Email</strong></label>
+                                            <input type="email" name="email" class="form-control" placeholder="Nhập email">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="mb-1"><strong>Họ và tên</strong></label>
+                                            <input type="text" name="fullName" class="form-control" placeholder="Nhập họ và tên">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="mb-1"><strong>Số điện thoại</strong></label>
+                                            <input type="text" name="phone" class="form-control" placeholder="Nhập số điện thoại">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="mb-1"><strong>Chức vụ <span class="text-danger">*</span></strong></label>
+                                            <select name="roleId" class="form-control" required style="color: black;">
+                                                <option value="1">Admin</option>
+                                                <option value="2">Employees</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="mb-1"><strong>Mật khẩu <span class="text-danger">*</span></strong></label>
+                                            <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="mb-1"><strong>Xác nhận mật khẩu <span class="text-danger">*</span></strong></label>
+                                            <input type="password" name="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu" required>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary btn-block">ĐĂNG KÝ NGAY</button>
+                                        </div>
+                                    </form>
+
+                                    <div class="new-account mt-3 text-center">
+                                        <p class="mb-0">Đã có tài khoản? <a href="/Admin/Accounts/Login">Đăng nhập tại đây</a></p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Admin/vendor/global/global.min.js"></script>
+    <script src="~/Admin/js/custom.min.js"></script>
+    <script src="~/Admin/js/dlabnav-init.js"></script>
+</body>
+</html>
+
