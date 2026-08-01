@@ -2173,10 +2173,10 @@
                 <div class="col">
                     <div class="banner__section--inner position__relative">
                         <a class="banner__items--thumbnail display-block" href="Product">
-                            <img class="banner__items--thumbnail__img banner__img--height__md display-block" src="~/assets/img/banner/banner-bg2.png" alt="banner-img">
+                            <img class="banner__items--thumbnail__img banner__img--height__md display-block" src="~/assets/img/banner/banner_aolen.png" alt="banner-img">
                             <div class="banner__content--style2">
-                                <h2 class="banner__content--style2__title text-white">Cần giày mùa đông? </h2>
-                                <p class="banner__content--style2__desc">Khám phá bộ sưu tập giày mùa đông mới nhất với nhiều mẫu mã đa dạng và chất lượng cao. Đặt hàng ngay để nhận ưu đãi đặc biệt! </p>
+                                <h2 class="banner__content--style2__title text-white">Cần áo ấm mùa đông? </h2>
+                                <p class="banner__content--style2__desc">Khám phá bộ sưu tập áo ấm mùa đông mới nhất với nhiều mẫu mã đa dạng và chất lượng cao. Đặt hàng ngay để nhận ưu đãi đặc biệt! </p>
                                 <span class="primary__btn">
                                     Mua ngay
                                     <svg class="primary__btn--arrow__icon" xmlns="http://www.w3.org/2000/svg" width="20.2" height="12.2" viewBox="0 0 6.2 6.2">
@@ -2201,7 +2201,7 @@
                 <div class="swiper-wrapper">
                     @foreach (var item in Blogs)
                     {
-                        string sUrl = $"/blog/{item.Alias}-{item.BlogId}.html";
+                        string sUrl = $"/blog/{(!string.IsNullOrEmpty(item.Alias) ? item.Alias : (string.IsNullOrEmpty(item.Title) ? "post" : San_Pham_Do_An1.Utilities.Function.TitleSlugGenerationAlias(item.Title)))}-{item.BlogId}.html";
                         <div class="swiper-slide">
                             <div class="blog__items">
                                 <div class="blog__thumbnail">

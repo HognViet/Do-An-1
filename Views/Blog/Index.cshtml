@@ -51,7 +51,7 @@
                     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-sm-u-2 row-cols-1 mb--n30">
                         @foreach (var item in Model)
                         {
-                            string sUrl = $"/blog/{item.Alias}-{item.BlogId}.html";
+                            string sUrl = $"/blog/{(!string.IsNullOrEmpty(item.Alias) ? item.Alias : (string.IsNullOrEmpty(item.Title) ? "post" : San_Pham_Do_An1.Utilities.Function.TitleSlugGenerationAlias(item.Title)))}-{item.BlogId}.html";
                             <div class="col mb-30">
                                 <div class="blog__items">
                                     <div class="blog__thumbnail">

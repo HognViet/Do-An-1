@@ -62,6 +62,7 @@ namespace San_Pham_Do_An1.Controllers
 
                     HttpContext.Session.SetString("CustomerId", customer.CustomerId.ToString());
                     HttpContext.Session.SetString("UserName", customer.Username ?? "Khách hàng");
+                    HttpContext.Session.SetString("Avatar", customer.Avatar ?? "");
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -186,6 +187,7 @@ namespace San_Pham_Do_An1.Controllers
 
             _context.Update(customer);
             _context.SaveChanges();
+            HttpContext.Session.SetString("Avatar", customer.Avatar ?? "");
             TempData["SuccessMessage"] = "Cập nhật thông tin thành công!";
             return RedirectToAction("Dashboard");
         }

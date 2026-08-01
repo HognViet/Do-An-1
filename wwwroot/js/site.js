@@ -375,7 +375,7 @@ $(document).on("click", ".continue__shopping--clear", function (e) {
 });
 
 // Wishlist heart icon color toggle
-$(document).on("click", "a[href*='wishlist.html'], .product__items--action__btn, .variant__wishlist--icon", function (e) {
+$(document).on("click", "a[href*='wishlist.html'], .variant__wishlist--icon", function (e) {
   e.preventDefault();
   e.stopPropagation();
   var $btn = $(this);

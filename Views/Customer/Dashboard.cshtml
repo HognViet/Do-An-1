@@ -46,8 +46,8 @@
                         <form asp-action="UpdateProfile" enctype="multipart/form-data" method="post">
                             <div class="mb-3">
                                 <img src="@(string.IsNullOrEmpty(Model.Customer.Avatar) ? "/assets/img/avatar/default.png" : Model.Customer.Avatar)"
-                                    alt="Avatar" style="width:100px;height:100px;border-radius:50%;object-fit:cover;">
-                                <input type="file" name="AvatarFile" class="form-control mt-2" />
+                                    alt="Avatar" id="avatar-preview" style="width:100px;height:100px;border-radius:50%;object-fit:cover;">
+                                <input type="file" name="AvatarFile" class="form-control mt-2" onchange="previewImage(this)" />
                             </div>
                             <div class="mb-2">
                                 <label>Họ tên</label>

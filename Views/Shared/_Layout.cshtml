@@ -28,6 +28,29 @@
     <link rel="stylesheet" href="~/assets/css/style.css">
     <link rel="stylesheet" href="~/assets/css/chat.css">
 
+    <style>
+        @@keyframes bounceCart {
+            0% { transform: scale(1); }
+            30% { transform: scale(1.3); }
+            50% { transform: scale(0.9); }
+            70% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+        .bounce-cart {
+            animation: bounceCart 0.5s ease-in-out;
+            display: inline-block !important;
+        }
+        .fly-image-clone {
+            position: fixed;
+            z-index: 999999;
+            border-radius: 50%;
+            pointer-events: none;
+            object-fit: cover;
+            transition: all 0.8s cubic-bezier(0.1, 0.8, 0.3, 1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            border: 2px solid #fff;
+        }
+    </style>
 </head>
 
 <body>
@@ -86,7 +109,8 @@
                             <li class="header__shipping--text text-white d-sm-2-none"><img
                                     class="header__shipping--text__icon" src="~/assets/img/icon/email.png"
                                     alt="email-icon"> <a class="header__shipping--text__link"
-                                    href="mailto:demo@gmail.com">demo@gmail.com</a></li>
+                                                          href="mailto:ntpthao.dhti17a5hn@sv.uneti.edu.vn">ntpthao.dhti17a5hn@sv.uneti.edu.vn</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="language__currency d-none d-lg-block">
@@ -111,25 +135,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="language__currency--list">
-                                <a class="account__currency--link text-white" href="#">
-                                    <img src="~/assets/img/icon/usd-icon.png" alt="currency">
-                                    <span>$ Đô la Mỹ</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="11.797" height="9.05"
-                                        viewBox="0 0 9.797 6.05">
-                                        <path d="M14.646,8.59,10.9,12.329,7.151,8.59,6,9.741l4.9,4.9,4.9-4.9Z"
-                                            transform="translate(-6 -8.59)" fill="currentColor" opacity="0.7" />
-                                    </svg>
-                                </a>
-                                <div class="dropdown__currency">
-                                    <ul>
-                                        <li class="currency__items"><a class="currency__text" href="#">CAD</a></li>
-                                        <li class="currency__items"><a class="currency__text" href="#">CNY</a></li>
-                                        <li class="currency__items"><a class="currency__text" href="#">EUR</a></li>
-                                        <li class="currency__items"><a class="currency__text" href="#">GBP</a></li>
-                                    </ul>
-                                </div>
-                            </li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -177,28 +183,22 @@
                         </form>
                     </div>
                     <div class="header__account header__sticky--none">
-                        <ul class="d-flex">
+                        <ul class="d-flex align-items-center">
                             <li class="header__account--items">
                                 <a class="header__account--btn" href="/Customer/Dashboard">
                                     @if (Context.Session.GetString("CustomerId") != null)
                                     {
-                                        <!-- Icon người dùng dạng hình tròn -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443"
-                                             viewBox="0 0 512 512">
-                                            <path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48z"
-                                                  fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
-                                            <path d="M256 128a80 80 0 1080 80 80 80 0 00-80-80z"
-                                                  fill="none" stroke="currentColor" stroke-linecap="round"
-                                                  stroke-linejoin="round" stroke-width="32" />
-                                            <path d="M91.68 400a145.15 145.15 0 01164.32-172 145 145 0 01164.32 172"
-                                                  fill="none" stroke="currentColor" stroke-linecap="round"
-                                                  stroke-linejoin="round" stroke-width="32" />
-                                        </svg>
-                                        <div class="mt-2">@Context.Session.GetString("UserName")</div>
+                                        var avatarUrl = Context.Session.GetString("Avatar");
+                                        if (string.IsNullOrEmpty(avatarUrl))
+                                        {
+                                            avatarUrl = "/assets/img/avatar/default-avatar.png";
+                                        }
+                                        <img src="@avatarUrl" alt="Avatar" class="header__account--avatar" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto;" />
+                                        <span class="header__account--btn__text">@Context.Session.GetString("UserName")</span>
                                     }
                                     else
                                     {
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443"
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" style="width: 28px; height: 28px; display: block; margin: 0 auto;"
                                              viewBox="0 0 512 512">
                                             <path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z"
                                                   fill="none" stroke="currentColor" stroke-linecap="round"
@@ -227,7 +227,7 @@
                             <li class="header__account--items">
                                 <a class="header__account--btn minicart__open--btn" href="javascript:void(0)"
                                     data-offcanvas>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" style="width: 24px; height: 24px; display: inline-block; vertical-align: middle;"
                                         viewBox="0 0 14.706 13.534">
                                         <g transform="translate(0 0)">
                                             <g>
@@ -265,7 +265,7 @@
                         </nav>
                     </div>
                     <div class="header__account header__account2 header__sticky--block">
-                        <ul class="d-flex">
+                        <ul class="d-flex align-items-center">
                             <li
                                 class="header__account--items header__account2--items  header__account--search__items d-none d-lg-block">
                                 <a class="header__account--btn search__open--btn" href="javascript:void(0)"
@@ -283,17 +283,29 @@
                             </li>
                             <li class="header__account--items header__account2--items">
                                 <a class="header__account--btn" href="/Customer/Dashboard">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443"
-                                        viewBox="0 0 512 512">
-                                        <path
-                                            d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z"
-                                            fill="none" stroke="currentColor" stroke-linecap="round"
-                                            stroke-linejoin="round" stroke-width="32" />
-                                        <path
-                                            d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z"
-                                            fill="none" stroke="currentColor" stroke-miterlimit="10"
-                                            stroke-width="32" />
-                                    </svg>
+                                    @if (Context.Session.GetString("CustomerId") != null)
+                                    {
+                                        var avatarUrl = Context.Session.GetString("Avatar");
+                                        if (string.IsNullOrEmpty(avatarUrl))
+                                        {
+                                            avatarUrl = "/assets/img/avatar/default-avatar.png";
+                                        }
+                                        <img src="@avatarUrl" alt="Avatar" class="header__account--avatar" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; display: inline-block; vertical-align: middle;" />
+                                    }
+                                    else
+                                    {
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" style="width: 28px; height: 28px; display: block; margin: 0 auto;"
+                                            viewBox="0 0 512 512">
+                                            <path
+                                                d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z"
+                                                fill="none" stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="32" />
+                                            <path
+                                                d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z"
+                                                fill="none" stroke="currentColor" stroke-miterlimit="10"
+                                                stroke-width="32" />
+                                        </svg>
+                                    }
                                 </a>
                             </li>
                             @* <li class="header__account--items header__account2--items d-none d-lg-block"> 
@@ -311,7 +323,7 @@
                             <li class="header__account--items header__account2--items">
                                 <a class="header__account--btn minicart__open--btn" href="javascript:void(0)"
                                     data-offcanvas>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" style="width: 24px; height: 24px; display: inline-block; vertical-align: middle;"
                                         viewBox="0 0 14.706 13.534">
                                         <g transform="translate(0 0)">
                                             <g>
@@ -487,21 +499,40 @@
                         </li>
                     </ul>
                     <div class="offcanvas__account--items">
-                        <a class="offcanvas__account--items__btn d-flex align-items-center" href="login.html">
-                            <span class="offcanvas__account--items__icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20.51" height="19.443"
-                                    viewBox="0 0 512 512">
-                                    <path
-                                        d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z"
-                                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="32" />
-                                    <path
-                                        d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z"
-                                        fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
-                                </svg>
-                            </span>
-                            <span class="offcanvas__account--items__label">Đăng nhập / Đăng ký</span>
-                        </a>
+                        @if (Context.Session.GetString("CustomerId") != null)
+                        {
+                            <a class="offcanvas__account--items__btn d-flex align-items-center" href="/Customer/Dashboard">
+                                <span class="offcanvas__account--items__icon">
+                                    @{
+                                        var avatarUrl = Context.Session.GetString("Avatar");
+                                        if (string.IsNullOrEmpty(avatarUrl))
+                                        {
+                                            avatarUrl = "/assets/img/avatar/default-avatar.png";
+                                        }
+                                    }
+                                    <img src="@avatarUrl" alt="Avatar" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; margin-right: 5px;" />
+                                </span>
+                                <span class="offcanvas__account--items__label">@Context.Session.GetString("UserName")</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="offcanvas__account--items__btn d-flex align-items-center" href="login.html">
+                                <span class="offcanvas__account--items__icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20.51" height="19.443"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z"
+                                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="32" />
+                                        <path
+                                            d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z"
+                                            fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                                    </svg>
+                                </span>
+                                <span class="offcanvas__account--items__label">Đăng nhập / Đăng ký</span>
+                            </a>
+                        }
                     </div>
                     <div class="language__currency">
                         <ul class="d-flex align-items-center">
@@ -1027,7 +1058,96 @@
             }
         })();
 
+        function flyToCart(clickedEl) {
+            if (!clickedEl) return;
+            
+            // Prevent duplicate triggers
+            if (clickedEl.dataset.flying === "true") return;
+            clickedEl.dataset.flying = "true";
+            setTimeout(function() { clickedEl.dataset.flying = "false"; }, 1000);
+
+            // Find the image element to animate
+            var img = null;
+            
+            // Try to find image relative to the clicked button
+            var container = clickedEl.closest('.product__details, .quickview__inner, .product__details__side, .product__items');
+            if (container) {
+                // Try swiper active slide first, then any preview image
+                img = container.querySelector('.swiper-slide-active img.product__media--preview__items--img') 
+                   || container.querySelector('img.product__media--preview__items--img')
+                   || container.querySelector('.product__primary--img')
+                   || container.querySelector('img');
+            }
+            
+            if (!img) {
+                // Search globally
+                img = document.querySelector('.swiper-slide-active img.product__media--preview__items--img')
+                   || document.querySelector('img.product__media--preview__items--img')
+                   || document.querySelector('.product__primary--img')
+                   || document.querySelector('img');
+            }
+            
+            if (!img) return;
+
+            // Get source image position and clone it
+            var rect = img.getBoundingClientRect();
+            var clone = document.createElement('img');
+            clone.src = img.src;
+            clone.className = 'fly-image-clone';
+            clone.style.left = rect.left + 'px';
+            clone.style.top = rect.top + 'px';
+            clone.style.width = rect.width + 'px';
+            clone.style.height = rect.height + 'px';
+            document.body.appendChild(clone);
+
+            // Find target shopping cart icon (the visible one)
+            var cartBtn = document.querySelector('.header__account2--items .minicart__open--btn'); // Sticky cart
+            if (!cartBtn || cartBtn.offsetWidth === 0 || cartBtn.offsetHeight === 0) {
+                cartBtn = document.querySelector('.header__sticky--none .minicart__open--btn'); // Main header cart
+            }
+            if (!cartBtn) {
+                cartBtn = document.querySelector('.minicart__open--btn'); // General fallback
+            }
+
+            if (!cartBtn) {
+                clone.remove();
+                return;
+            }
+
+            var cartRect = cartBtn.getBoundingClientRect();
+
+            // Force reflow
+            clone.offsetWidth;
+
+            // Set final coordinates (centered on cart button)
+            clone.style.left = (cartRect.left + cartRect.width / 2 - 15) + 'px';
+            clone.style.top = (cartRect.top + cartRect.height / 2 - 15) + 'px';
+            clone.style.width = '30px';
+            clone.style.height = '30px';
+            clone.style.opacity = '0.1';
+
+            // Clean up and animate cart button scale/bounce
+            setTimeout(function () {
+                clone.remove();
+                cartBtn.classList.add('bounce-cart');
+                setTimeout(function () {
+                    cartBtn.classList.remove('bounce-cart');
+                }, 500);
+            }, 800);
+        }
+
         function addToCart(productId, size, color, quantity) {
+            // Auto fly to cart using window.event if active
+            if (window.event) {
+                var target = window.event.target || window.event.srcElement;
+                if (target) {
+                    var clickedEl = target.closest('.quickview__cart--btn, .add__to--cart, button, a');
+                    if (clickedEl) {
+                        flyToCart(clickedEl);
+                    }
+                }
+            }
+
             fetch('/Cart/AddToCart', {
                 method: 'POST',
                 headers: {

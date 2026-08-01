@@ -40,6 +40,7 @@ namespace San_Pham_Do_An1.Controllers
             return View(blog);
         }
         [Route("/blog/{alias}-{id}.html")]
+        [Route("/blog/{id:int}.html")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.TbBlogs == null)
