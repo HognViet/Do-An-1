@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using System.Text.Json;
 using System.Text;
+using System.Net.Http.Headers;
 
 namespace San_Pham_Do_An1.Controllers
 {
@@ -17,11 +18,17 @@ namespace San_Pham_Do_An1.Controllers
         private readonly IConfiguration _configuration;
         private readonly HttpClient _httpClient;
 
-        // Gemini API Configuration - Model có thể được config trong appsettings.json
-        private string GetGeminiApiEndpoint()
+        // Groq API Configuration - Model có thể được config trong appsettings.json
+        // appsettings.json cần có:
+        // "GroqAI": {
+        //   "ApiKey": "gsk_xxxxxxxxxxxxxxxxxxxxxxxx",
+        //   "ModelName": "llama-3.3-70b-versatile"
+        // }
+        private const string GroqApiEndpoint = "https://api.groq.com/openai/v1/chat/completions";
+
+        private string GetGroqModelName()
         {
-            var modelName = _configuration["GeminiAI:ModelName"] ?? "gemini-1.5-flash";
-            return $"https://generativelanguage.googleapis.com/v1beta/models/{modelName}:generateContent";
+            return _configuration["GroqAI:ModelName"] ?? "llama-3.3-70b-versatile";
         }
 
         public ChatController(
@@ -85,7 +92,7 @@ namespace San_Pham_Do_An1.Controllers
             }
         }
 
-        // Send message with real Gemini AI integration
+        // Send message - AI trả lời tự nhiên, dựa trên dữ liệu thật từ database
         [HttpPost("send")]
         public async Task<IActionResult> SendMessage([FromBody] SendMessageRequest request)
         {
@@ -102,99 +109,83 @@ namespace San_Pham_Do_An1.Controllers
                 // Save user message
                 var userMsg = await SaveUserMessage(userId, guestToken, request.Message);
 
-                // Check for special queries first
-                var specialResponse = await HandleSpecialQueries(request.Message.ToLower());
-                if (specialResponse != null)
-                {
-                    var botReply = await SaveBotMessage(userId, guestToken, specialResponse.Message);
-                    return Ok(BuildResponse(userMsg, botReply, specialResponse.Data));
-                }
-
-                // Get AI response with context
+                // Get AI response with full database context
                 var aiResponse = await GetAIResponse(userId, guestToken, request.Message);
 
                 // Save bot message
                 var botMsg = await SaveBotMessage(userId, guestToken, aiResponse);
 
-                // Detect and attach structured data (categories/products)
-                var structuredData = await DetectAndFetchStructuredData(request.Message.ToLower());
-
-                return Ok(BuildResponse(userMsg, botMsg, structuredData));
+                return Ok(BuildResponse(userMsg, botMsg, null));
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Lỗi khi gửi tin nhắn: {Message}", ex.Message);
                 _logger.LogError(ex, "Stack trace: {StackTrace}", ex.StackTrace);
-                
+
                 // Đảm bảo luôn trả về JSON
-                return StatusCode(500, new { 
+                return StatusCode(500, new
+                {
                     error = "Lỗi server khi xử lý tin nhắn. Vui lòng thử lại sau.",
-                    details = ex.Message 
+                    details = ex.Message
                 });
             }
         }
 
-        // Real Gemini AI Integration
+        // Real Groq AI Integration (OpenAI-compatible Chat Completions API)
         private async Task<string> GetAIResponse(int? userId, string guestToken, string userMessage)
         {
             try
             {
-                // Get system context
-                var systemContext = await BuildSystemContext();
+                // Lấy toàn bộ dữ liệu cửa hàng từ database, đưa cho AI tự đọc và ứng biến
+                var storeContext = await BuildStoreContext(userMessage);
 
                 // Get chat history
                 var chatHistory = await GetChatHistory(userId, guestToken, 10);
 
-                // Build Gemini API request
-                var geminiRequest = new
-                {
-                    contents = BuildGeminiContents(systemContext, chatHistory, userMessage),
-                    generationConfig = new
-                    {
-                        temperature = 0.7,
-                        maxOutputTokens = 800,
-                        topP = 0.8,
-                        topK = 40
-                    },
-                    safetySettings = new[]
-                    {
-                        new { category = "HARM_CATEGORY_HARASSMENT", threshold = "BLOCK_MEDIUM_AND_ABOVE" },
-                        new { category = "HARM_CATEGORY_HATE_SPEECH", threshold = "BLOCK_MEDIUM_AND_ABOVE" },
-                        new { category = "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold = "BLOCK_MEDIUM_AND_ABOVE" },
-                        new { category = "HARM_CATEGORY_DANGEROUS_CONTENT", threshold = "BLOCK_MEDIUM_AND_ABOVE" }
-                    }
-                };
-
                 // Get API Key from configuration
-                var apiKey = _configuration["GeminiAI:ApiKey"];
+                var apiKey = _configuration["GroqAI:ApiKey"];
                 if (string.IsNullOrEmpty(apiKey))
                 {
-                    _logger.LogError("GeminiAI:ApiKey không được cấu hình trong appsettings.json");
+                    _logger.LogError("GroqAI:ApiKey không được cấu hình trong appsettings.json");
                     return GetFallbackResponse(userMessage);
                 }
-                var requestUrl = $"{GetGeminiApiEndpoint()}?key={apiKey}";
 
-                // Call Gemini API
-                var jsonRequest = JsonSerializer.Serialize(geminiRequest);
+                // Build Groq API request (OpenAI chat/completions format)
+                var groqRequest = new
+                {
+                    model = GetGroqModelName(),
+                    messages = BuildGroqMessages(storeContext, chatHistory, userMessage),
+                    temperature = 0.8,
+                    max_tokens = 500,
+                    top_p = 0.9
+                };
+
+                var jsonRequest = JsonSerializer.Serialize(groqRequest);
                 var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PostAsync(requestUrl, content);
+                using var httpRequest = new HttpRequestMessage(HttpMethod.Post, GroqApiEndpoint)
+                {
+                    Content = content
+                };
+                httpRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+
+                var response = await _httpClient.SendAsync(httpRequest);
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    _logger.LogWarning("Gemini API returned {StatusCode}", response.StatusCode);
+                    var errorBody = await response.Content.ReadAsStringAsync();
+                    _logger.LogWarning("Groq API returned {StatusCode}: {Body}", response.StatusCode, errorBody);
                     return GetFallbackResponse(userMessage);
                 }
 
                 var responseBody = await response.Content.ReadAsStringAsync();
-                var geminiResponse = JsonSerializer.Deserialize<JsonElement>(responseBody);
+                var groqResponse = JsonSerializer.Deserialize<JsonElement>(responseBody);
 
-                // Extract AI text
-                var aiText = geminiResponse
-                    .GetProperty("candidates")[0]
+                // Extract AI text: choices[0].message.content
+                var aiText = groqResponse
+                    .GetProperty("choices")[0]
+                    .GetProperty("message")
                     .GetProperty("content")
-                    .GetProperty("parts")[0]
-                    .GetProperty("text")
                     .GetString() ?? GetFallbackResponse(userMessage);
 
                 // Clean up response
@@ -202,52 +193,55 @@ namespace San_Pham_Do_An1.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Lỗi khi gọi Gemini API");
+                _logger.LogError(ex, "Lỗi khi gọi Groq API");
                 return GetFallbackResponse(userMessage);
             }
         }
 
-        // Build Gemini API contents with history
-        private List<object> BuildGeminiContents(string systemContext, List<TbChatMessage> history, string currentMessage)
+        // Build Groq (OpenAI-style) chat messages with history
+        private List<object> BuildGroqMessages(string systemContext, List<TbChatMessage> history, string currentMessage)
         {
-            var contents = new List<object>();
+            var messages = new List<object>();
 
-            // Add system context as first user message
-            contents.Add(new
+            // System context as the "system" role
+            messages.Add(new
             {
-                role = "user",
-                parts = new[] { new { text = systemContext } }
-            });
-
-            contents.Add(new
-            {
-                role = "model",
-                parts = new[] { new { text = "Tôi hiểu. Tôi sẽ hỗ trợ bạn với thông tin về cửa hàng thời trang theo đúng dữ liệu bạn cung cấp." } }
+                role = "system",
+                content = systemContext
             });
 
             // Add chat history
             foreach (var msg in history)
             {
-                contents.Add(new
+                messages.Add(new
                 {
-                    role = msg.Sender == "user" ? "user" : "model",
-                    parts = new[] { new { text = msg.Message ?? "" } }
+                    role = msg.Sender == "user" ? "user" : "assistant",
+                    content = msg.Message ?? ""
                 });
             }
 
             // Add current message
-            contents.Add(new
+            messages.Add(new
             {
                 role = "user",
-                parts = new[] { new { text = currentMessage } }
+                content = currentMessage
             });
 
-            return contents;
+            return messages;
         }
 
-        // Build system context from database
-        private async Task<string> BuildSystemContext()
+        // Đưa toàn bộ dữ liệu liên quan từ database cho AI, để AI tự đọc và tự quyết định cách trả lời.
+        // Không có rule cứng nào ép định dạng câu trả lời — AI tự nhiên, tự ứng biến theo ngữ cảnh.
+        private async Task<string> BuildStoreContext(string userMessage)
         {
+            var sb = new StringBuilder();
+
+            sb.AppendLine("Bạn là trợ lý bán hàng của cửa hàng thời trang NETMARK, đang trò chuyện trực tiếp với khách trên website. " +
+                          "Nói chuyện tự nhiên, thân thiện như một nhân viên tư vấn thực thụ, không máy móc, không rập khuôn. " +
+                          "Dưới đây là dữ liệu thật lấy từ hệ thống cửa hàng — chỉ dùng những thông tin này để trả lời, không tự bịa sản phẩm/giá không có trong dữ liệu.");
+            sb.AppendLine();
+
+            // 1. Toàn bộ danh mục sản phẩm
             var categories = await _context.TbProductCategories
                 .Include(c => c.TbProducts.Where(p => p.IsActive == true))
                 .Where(c => c.TbProducts.Any(p => p.IsActive == true))
@@ -256,47 +250,73 @@ namespace San_Pham_Do_An1.Controllers
                     c.Title,
                     ProductCount = c.TbProducts.Count(p => p.IsActive == true)
                 })
-                .Take(10)
                 .ToListAsync();
 
-            var sampleProducts = await _context.TbProducts
+            sb.AppendLine("=== DANH MỤC SẢN PHẨM ===");
+            foreach (var c in categories)
+            {
+                sb.AppendLine($"- {c.Title} ({c.ProductCount} sản phẩm)");
+            }
+            sb.AppendLine();
+
+            // 2. Sản phẩm liên quan trực tiếp tới câu hỏi hiện tại (tìm theo từ khóa trong DB)
+            var keywords = ExtractProductKeywords(userMessage.ToLower());
+            var validKeywords = keywords.Where(kw => kw.Length >= 2).ToList();
+
+            var activeProducts = await _context.TbProducts
                 .Include(p => p.CategoryProduct)
-                .Where(p => p.IsActive == true && p.IsBestSeller == true)
-                .OrderByDescending(p => p.Star)
-                .Take(5)
-                .Select(p => new
-                {
-                    p.Title,
-                    CategoryName = p.CategoryProduct != null ? p.CategoryProduct.Title : "Khác",
-                    Price = p.PriceSale ?? p.Price
-                })
+                .Where(p => p.IsActive == true && p.Title != null)
                 .ToListAsync();
 
-            var categoryList = string.Join("\n", categories.Select(c => $"- {c.Title}: {c.ProductCount} sản phẩm"));
-            var productList = string.Join("\n", sampleProducts.Select(p => $"- {p.Title} ({p.CategoryName}): {FormatPrice(p.Price)}"));
+            List<TbProduct> relevantProducts;
+            if (validKeywords.Any())
+            {
+                relevantProducts = activeProducts
+                    .Where(p => validKeywords.Any(kw =>
+                        p.Title.ToLower().Contains(kw) ||
+                        (p.Description != null && p.Description.ToLower().Contains(kw))))
+                    .OrderByDescending(p => p.IsBestSeller)
+                    .ThenByDescending(p => p.Star)
+                    .Take(10)
+                    .ToList();
+            }
+            else
+            {
+                relevantProducts = new List<TbProduct>();
+            }
 
-            return $@"BẠN LÀ TRỢ LÝ BÁN HÀNG CỦA CỬA HÀNG THỜI TRANG NETMARK
+            // Nếu không tìm thấy sản phẩm khớp từ khóa, đưa luôn sản phẩm nổi bật để AI có gì đó tham khảo
+            if (!relevantProducts.Any())
+            {
+                relevantProducts = activeProducts
+                    .Where(p => p.IsBestSeller == true)
+                    .OrderByDescending(p => p.Star)
+                    .Take(8)
+                    .ToList();
+            }
 
-**QUY TẮC TRẢLỜI:**
-1. Trả lời ngắn gọn, thân thiện và chuyên nghiệp (tối đa 2-3 câu)
-2. Chỉ sử dụng thông tin có trong danh sách bên dưới
-3. KHÔNG bịa đặt sản phẩm hoặc giá cả
-4. Khi khách hỏi về danh mục, CHỈ nói chung chung, KHÔNG liệt kê sản phẩm cụ thể
-5. Khuyến khích khách xem danh sách chi tiết trên website
-6. Sử dụng emoji phù hợp để tạo cảm giác thân thiện
+            sb.AppendLine("=== SẢN PHẨM LIÊN QUAN (dùng để trả lời câu hỏi hiện tại của khách) ===");
+            if (relevantProducts.Any())
+            {
+                foreach (var p in relevantProducts)
+                {
+                    var price = FormatPrice(p.PriceSale ?? p.Price);
+                    var cat = p.CategoryProduct?.Title ?? "Khác";
+                    var desc = TruncateDescription(p.Description, 100);
+                    sb.AppendLine($"- {p.Title} | Danh mục: {cat} | Giá: {price} | Mô tả: {desc}");
+                }
+            }
+            else
+            {
+                sb.AppendLine("(Không có sản phẩm nào khớp — nếu khách hỏi về sản phẩm cụ thể, hãy nói thật là chưa tìm thấy và gợi ý họ xem thêm trên website hoặc mô tả rõ hơn nhu cầu.)");
+            }
+            sb.AppendLine();
 
-**DANH MỤC SẢN PHẨM:**
-{categoryList}
+            sb.AppendLine("=== CÁC TÍNH NĂNG HỖ TRỢ KHÁC ===");
+            sb.AppendLine("- Khách có thể tra cứu đơn hàng bằng mã đơn (ví dụ: #123)");
+            sb.AppendLine("- Khách có thể yêu cầu tư vấn theo tiêu chí (giới tính, phong cách, mức giá)");
 
-**SẢN PHẨM NỔI BẬT:**
-{productList}
-
-**CÁC TÍNH NĂNG HỖ TRỢ:**
-- Tra cứu đơn hàng (khách có thể hỏi về mã đơn hàng)
-- Tư vấn sản phẩm theo tiêu chí (giới tính, phong cách, giá)
-- Thông tin về danh mục và sản phẩm
-
-Hãy bắt đầu hỗ trợ khách hàng!";
+            return sb.ToString();
         }
 
         // Get chat history
@@ -309,192 +329,6 @@ Hãy bắt đầu hỗ trợ khách hàng!";
                 .OrderBy(m => m.CreatedDate);
 
             return await query.ToListAsync();
-        }
-
-        // Handle special queries (categories, product search)
-        private async Task<SpecialResponse?> HandleSpecialQueries(string messageLower)
-        {
-            // Check for category listing
-            var categoryKeywords = new[] { "danh mục", "loại", "category", "có những gì", "có gì", "loại nào" };
-            if (categoryKeywords.Any(kw => messageLower.Contains(kw)))
-            {
-                var categories = await FetchCategories();
-                return new SpecialResponse
-                {
-                    Message = "Chúng tôi có các danh mục sản phẩm sau. Bạn có thể xem danh sách chi tiết bên dưới: 📂",
-                    Data = new { categories }
-                };
-            }
-
-            // Check for specific category match
-            var matchedCategory = await FindMatchingCategory(messageLower);
-            if (matchedCategory != null)
-            {
-                var productList = await FetchCategoryProducts(matchedCategory.CategoryProductId);
-                return new SpecialResponse
-                {
-                    Message = $"Đây là các sản phẩm trong danh mục {matchedCategory.Title}: 🛍️",
-                    Data = new
-                    {
-                        category_matched = matchedCategory.Title,
-                        category_id = matchedCategory.CategoryProductId,
-                        product_list = productList.ProductList,
-                        top_products = productList.TopProducts,
-                        show_category_button = true
-                    }
-                };
-            }
-
-            // Check for product search
-            var searchKeywords = ExtractProductKeywords(messageLower);
-            if (searchKeywords.Any(kw => kw.Length >= 3))
-            {
-                var products = await SearchProducts(messageLower, searchKeywords);
-                if (products != null && products.Any())
-                {
-                    return new SpecialResponse
-                    {
-                        Message = $"Tìm thấy {products.Count()} sản phẩm phù hợp với yêu cầu của bạn: ✨",
-                        Data = new
-                        {
-                            products,
-                            search_type = products.Count() == 1 ? "exact_match" : "keyword_match",
-                            is_specific_product = true
-                        }
-                    };
-                }
-            }
-
-            return null;
-        }
-
-        // Detect and fetch structured data
-        private async Task<object?> DetectAndFetchStructuredData(string messageLower)
-        {
-            // This is already handled in HandleSpecialQueries, 
-            // but we keep this for additional context detection
-            return null;
-        }
-
-        // Fetch categories
-        private async Task<List<object>> FetchCategories()
-        {
-            return await _context.TbProductCategories
-                .Include(c => c.TbProducts.Where(p => p.IsActive == true))
-                .Where(c => c.TbProducts.Any(p => p.IsActive == true))
-                .OrderBy(c => c.Title)
-                .Select(c => new
-                {
-                    id = c.CategoryProductId,
-                    name = c.Title,
-                    slug = c.Alias ?? c.Title.ToLower().Replace(" ", "-"),
-                    product_count = c.TbProducts.Count(p => p.IsActive == true)
-                })
-                .ToListAsync<object>();
-        }
-
-        // Find matching category
-        private async Task<TbProductCategory?> FindMatchingCategory(string messageLower)
-        {
-            var allCategories = await _context.TbProductCategories.ToListAsync();
-            return allCategories.FirstOrDefault(cat =>
-            {
-                var catName = cat.Title?.ToLower() ?? "";
-                return messageLower.Contains(catName);
-            });
-        }
-
-        // Fetch category products
-        private async Task<(List<object> ProductList, List<object> TopProducts)> FetchCategoryProducts(int categoryId)
-        {
-            var products = await _context.TbProducts
-                .Include(p => p.TbOrderDetails)
-                .Where(p => p.CategoryProductId == categoryId && p.IsActive == true)
-                .OrderByDescending(p => p.TbOrderDetails.Sum(od => od.Quantity ?? 0))
-                .ToListAsync();
-
-            var productList = products.Select(p => new
-            {
-                id = p.ProductId,
-                name = p.Title
-            }).ToList<object>();
-
-            var topProducts = products.Take(3).Select(p => new
-            {
-                id = p.ProductId,
-                name = p.Title,
-                slug = p.Alias ?? p.Title?.ToLower().Replace(" ", "-"),
-                price = p.PriceSale ?? p.Price,
-                price_formatted = FormatPrice(p.PriceSale ?? p.Price),
-                description = TruncateDescription(p.Description, 150),
-                image_url = p.Image ?? "/assets/img/default-product.png",
-                detail_url = $"/product/{(p.Alias ?? p.ProductId.ToString())}-{p.ProductId}.html"
-            }).ToList<object>();
-
-            return (productList, topProducts);
-        }
-
-        // Search products
-        private async Task<List<object>?> SearchProducts(string cleanMessage, List<string> keywords)
-        {
-            // Try exact match first
-            var exactMatch = await _context.TbProducts
-                .Include(p => p.CategoryProduct)
-                .Where(p => p.IsActive == true && p.Title != null &&
-                           p.Title.ToLower().Contains(cleanMessage))
-                .FirstOrDefaultAsync();
-
-            if (exactMatch != null)
-            {
-                return new List<object>
-                {
-                    new
-                    {
-                        id = exactMatch.ProductId,
-                        name = exactMatch.Title,
-                        slug = exactMatch.Alias ?? exactMatch.Title?.ToLower().Replace(" ", "-"),
-                        price = exactMatch.PriceSale ?? exactMatch.Price,
-                        price_formatted = FormatPrice(exactMatch.PriceSale ?? exactMatch.Price),
-                        description = TruncateDescription(exactMatch.Description, 150),
-                        image_url = exactMatch.Image ?? "/assets/img/default-product.png",
-                        detail_url = $"/product/{(exactMatch.Alias ?? exactMatch.ProductId.ToString())}-{exactMatch.ProductId}.html"
-                    }
-                };
-            }
-
-            // Keyword search
-            var matchedProducts = await _context.TbProducts
-                .Include(p => p.CategoryProduct)
-                .Include(p => p.TbOrderDetails)
-                .Where(p => p.IsActive == true &&
-                           keywords.Any(kw => kw.Length >= 3 &&
-                           p.Title != null && p.Title.ToLower().Contains(kw)))
-                .ToListAsync();
-
-            if (!matchedProducts.Any()) return null;
-
-            return matchedProducts
-                .Select(p => new
-                {
-                    Product = p,
-                    Score = keywords.Count(kw => kw.Length >= 3 &&
-                            p.Title != null && p.Title.ToLower().Contains(kw)) * 10 +
-                            p.TbOrderDetails.Sum(od => od.Quantity ?? 0)
-                })
-                .OrderByDescending(p => p.Score)
-                .Take(3)
-                .Select(p => (object)new
-                {
-                    id = p.Product.ProductId,
-                    name = p.Product.Title,
-                    slug = p.Product.Alias ?? p.Product.Title?.ToLower().Replace(" ", "-"),
-                    price = p.Product.PriceSale ?? p.Product.Price,
-                    price_formatted = FormatPrice(p.Product.PriceSale ?? p.Product.Price),
-                    description = TruncateDescription(p.Product.Description, 150),
-                    image_url = p.Product.Image ?? "/assets/img/default-product.png",
-                    detail_url = $"/product/{(p.Product.Alias ?? p.Product.ProductId.ToString())}-{p.Product.ProductId}.html"
-                })
-                .ToList();
         }
 
         // Track order
@@ -960,11 +794,4 @@ Hãy bắt đầu hỗ trợ khách hàng!";
         public string? Note { get; set; }
         public string? PriceRange { get; set; }
     }
-
-    internal class SpecialResponse
-    {
-        public string Message { get; set; } = string.Empty;
-        public object? Data { get; set; }
-    }
 }
-

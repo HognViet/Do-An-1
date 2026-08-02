@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "H:\\Do-An-1\\Do-An-1-main\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\models\\wedquanaodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:models\\wedquanaodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\models\\wedquanaodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:models\\wedquanaodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\views\\cart\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -74,36 +78,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "OrdersController.cs",
-              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Areas\\Employees\\Controllers\\OrdersController.cs",
-              "RelativeDocumentMoniker": "Areas\\Employees\\Controllers\\OrdersController.cs",
-              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\Areas\\Employees\\Controllers\\OrdersController.cs",
-              "RelativeToolTip": "Areas\\Employees\\Controllers\\OrdersController.cs",
-              "ViewState": "AgIAAEkAAAAAAAAAAAA8wFoAAAAvAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "ChatController.cs",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Controllers\\ChatController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ChatController.cs",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\Controllers\\ChatController.cs",
+              "RelativeToolTip": "Controllers\\ChatController.cs",
+              "ViewState": "AgIAAPEBAAAAAAAAAAAcwBQCAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-30T06:28:36.574Z"
+              "WhenOpened": "2026-08-02T14:12:25.267Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "HomeController.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
               "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\Controllers\\HomeController.cs",
               "RelativeToolTip": "Controllers\\HomeController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAkwBAAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-25T07:29:09.776Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "TbAccount.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Models\\TbAccount.cs",
               "RelativeDocumentMoniker": "Models\\TbAccount.cs",
@@ -115,7 +120,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "TbProductCategory.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Models\\TbProductCategory.cs",
               "RelativeDocumentMoniker": "Models\\TbProductCategory.cs",
@@ -127,20 +132,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "appsettings.json",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
               "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\appsettings.json",
               "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2026-07-25T06:55:25.236Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "CartController.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Controllers\\CartController.cs",
               "RelativeDocumentMoniker": "Controllers\\CartController.cs",
@@ -152,20 +157,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "WedQuanAoDbContext.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Models\\WedQuanAoDbContext.cs",
               "RelativeDocumentMoniker": "Models\\WedQuanAoDbContext.cs",
               "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\Models\\WedQuanAoDbContext.cs",
               "RelativeToolTip": "Models\\WedQuanAoDbContext.cs",
-              "ViewState": "AgIAAJEAAAAAAAAAAAAkwFIAAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAAJQAAAAAAAAAAAAIwGQAAABTAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-25T07:12:31.173Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
+              "Title": "OrdersController.cs",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Areas\\Employees\\Controllers\\OrdersController.cs",
+              "RelativeDocumentMoniker": "Areas\\Employees\\Controllers\\OrdersController.cs",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\Areas\\Employees\\Controllers\\OrdersController.cs",
+              "RelativeToolTip": "Areas\\Employees\\Controllers\\OrdersController.cs",
+              "ViewState": "AgIAAEkAAAAAAAAAAAA8wFoAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-30T06:28:36.574Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Index.cshtml",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Views\\Cart\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Cart\\Index.cshtml",
@@ -177,7 +194,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Program.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -189,7 +206,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "TbProductReview.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Models\\TbProductReview.cs",
               "RelativeDocumentMoniker": "Models\\TbProductReview.cs",
@@ -201,7 +218,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "20260728065000_AddCartAndCustomer.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Migrations\\20260728065000_AddCartAndCustomer.cs",
               "RelativeDocumentMoniker": "Migrations\\20260728065000_AddCartAndCustomer.cs",
@@ -213,7 +230,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "TbProduct.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Models\\TbProduct.cs",
               "RelativeDocumentMoniker": "Models\\TbProduct.cs",
@@ -225,7 +242,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "TbRole.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Models\\TbRole.cs",
               "RelativeDocumentMoniker": "Models\\TbRole.cs",
@@ -237,7 +254,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "TbSize.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Models\\TbSize.cs",
               "RelativeDocumentMoniker": "Models\\TbSize.cs",
@@ -249,7 +266,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "CartItem.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Models\\CartItem.cs",
               "RelativeDocumentMoniker": "Models\\CartItem.cs",
@@ -261,7 +278,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "20260725072156_InitialDb.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Migrations\\20260725072156_InitialDb.cs",
               "RelativeDocumentMoniker": "Migrations\\20260725072156_InitialDb.cs",
