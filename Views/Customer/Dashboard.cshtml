@@ -1,0 +1,155 @@
+@model San_Pham_Do_An1.Models.ViewModels.CustomerDashboardViewModel
+
+@{
+    ViewData["Title"] = "Tài khoản của tôi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="main__content_wrapper">
+    <section class="breadcrumb__section breadcrumb__bg">
+        <div class="container">
+            <div class="row row-cols-1">
+                <div class="col">
+                    <div class="breadcrumb__content text-center">
+                        <h1 class="breadcrumb__content--title text-white mb-25">Tài khoản của tôi</h1>
+                        <ul class="breadcrumb__content--menu d-flex justify-content-center">
+                            <li class="breadcrumb__content--menu__items"><a class="text-white" href="/">Trang chủ</a>
+                            </li>
+                            <li class="breadcrumb__content--menu__items"><span class="text-white">Tài khoản</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="my__account--section section--padding">
+        <div class="container">
+            <p class="account__welcome--text">Xin chào, <strong>@Model.Customer.Name</strong>! Chào mừng bạn quay trở
+                lại.</p>
+
+            <div class="my__account--section__inner border-radius-10 d-flex">
+                <div class="account__left--sidebar">
+                    <h2 class="account__content--title h3 mb-20">Hồ sơ</h2>
+                    <ul class="account__menu">
+                        <li class="account__menu--list"><a href="#profile-info">Thông tin cá nhân</a></li>
+                        <li class="account__menu--list"><a href="#change-password">Đổi mật khẩu</a></li>
+                        <li class="account__menu--list"><a href="#order-history">Đơn hàng</a></li>
+                        <li class="account__menu--list"><a href="/Customer/Logout">Đăng xuất</a></li>
+                    </ul>
+                </div>
+
+                <div class="account__wrapper">
+                    <!-- Form cập nhật thông tin cá nhân -->
+                    <div class="account__content mb-4" id="profile-info">
+                        <h2 class="account__content--title h3 mb-20">Thông tin cá nhân</h2>
+                        <form asp-action="UpdateProfile" enctype="multipart/form-data" method="post">
+                            <div class="mb-3">
+                                <img src="@(string.IsNullOrEmpty(Model.Customer.Avatar) ? "/assets/img/avatar/default.png" : Model.Customer.Avatar)"
+                                    alt="Avatar" style="width:100px;height:100px;border-radius:50%;object-fit:cover;">
+                                <input type="file" name="AvatarFile" class="form-control mt-2" />
+                            </div>
+                            <div class="mb-2">
+                                <label>Họ tên</label>
+                                <input name="Name" class="account__login--input" value="@Model.Customer.Name" />
+                            </div>
+                            <div class="mb-2">
+                                <label>Email</label>
+                                <input name="Email" class="account__login--input" value="@Model.Customer.Email"
+                                    readonly />
+                            </div>
+                            <div class="mb-2">
+                                <label>Số điện thoại</label>
+                                <input name="Phone" class="account__login--input" value="@Model.Customer.Phone" />
+                            </div>
+                            <div class="mb-2">
+                                <label>Ngày sinh</label>
+                                <input name="Birthday" class="account__login--input" type="date"
+                                    value="@Model.Customer.Birthday?.ToString("yyyy-MM-dd")" />
+                            </div>
+                            <div class="mb-2">
+                                <label>Địa chỉ</label>
+                                <input name="Location" class="account__login--input" value="@Model.Customer.Location" />
+                            </div>
+                            <button type="submit" class="contact__form--btn primary__btn">Cập nhật</button>
+                        </form>
+                    </div>
+                    <!-- /end form thông tin cá nhân -->
+
+                    <!-- Form đổi mật khẩu -->
+                    <div class="account__content mb-4" id="change-password">
+                        <h2 class="account__content--title h3 mb-20">Đổi mật khẩu</h2>
+                        @if (TempData["PasswordErrorMessage"] != null)
+                        {
+                            <div class="alert alert-danger mb-3">@TempData["PasswordErrorMessage"]</div>
+                        }
+                        @if (TempData["PasswordSuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success mb-3">@TempData["PasswordSuccessMessage"]</div>
+                        }
+                        <form asp-action="UpdatePassword" method="post">
+                            <div class="mb-2">
+                                <label>Mật khẩu hiện tại</label>
+                                <input name="CurrentPassword" type="password" class="account__login--input" required />
+                            </div>
+                            <div class="mb-2">
+                                <label>Mật khẩu mới</label>
+                                <input name="NewPassword" type="password" class="account__login--input" required
+                                    minlength="6" />
+                            </div>
+                            <div class="mb-2">
+                                <label>Xác nhận mật khẩu mới</label>
+                                <input name="ConfirmPassword" type="password" class="account__login--input" required
+                                    minlength="6" />
+                            </div>
+                            <button type="submit" class="contact__form--btn primary__btn">Đổi mật khẩu</button>
+                        </form>
+                    </div>
+                    <!-- /end form đổi mật khẩu -->
+
+                    <div class="account__content" id="order-history">
+                        <h2 class="account__content--title h3 mb-20">Lịch sử đơn hàng</h2>
+                        <div class="account__table--area">
+                            <table class="account__table">
+                                <thead class="account__table--header">
+                                    <tr class="account__table--header__child">
+                                        <th class="account__table--header__child--items">Mã đơn</th>
+                                        <th class="account__table--header__child--items">Ngày đặt</th>
+                                        <th class="account__table--header__child--items">Thanh toán</th>
+                                        <th class="account__table--header__child--items">Trạng thái</th>
+                                        <th class="account__table--header__child--items">Tổng tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="account__table--body mobile__none">
+                                    @if (Model.Orders != null && Model.Orders.Any())
+                                    {
+                                        foreach (var order in Model.Orders)
+                                        {
+                                            <tr class="account__table--body__child">
+                                                <td class="account__table--body__child--items">@order.Code</td>
+                                                <td class="account__table--body__child--items">
+                                                    @order.CreatedDate?.ToString("dd/MM/yyyy")</td>
+                                                <td class="account__table--body__child--items">@(order.PaymentMethod=="VNPAY" ?
+                                                                                                "Đã thanh toán" : "Chưa thanh toán")</td>
+                                        <td class="account__table--body__child--items">@(order.OrderStatus.Description
+                                                                                        ?? "Chưa cập nhật")</td>
+                                        <td class="account__table--body__child--items">
+                                            @order.TotalAmount?.ToString("N0") VNĐ</td>
+                                    </tr>
+                                                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="5">Bạn chưa có đơn hàng nào.</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

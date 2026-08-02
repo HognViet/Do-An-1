@@ -1,0 +1,99 @@
+@model San_Pham_Do_An1.Models.TbBlog
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Table</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Datatable</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="col-md">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Sửa Sản phẩm </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form asp-action="Edit">
+                            <input type="hidden" asp-for="BlogId" />
+                            <div class="card-body">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="Title" class="control-label">Tiêu đề</label>
+                                    <input asp-for="Title" class="form-control">
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="BlogCategoryId" class="control-label">Danh mục</label>
+                                    <select asp-for="BlogCategoryId" class="form-control"
+                                        asp-items="ViewBag.BlogCategoryId">
+                                        <option value="">-- Chọn danh mục --</option>
+                                    </select>
+                                    <span asp-validation-for="BlogCategoryId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Description" class="control-label">Mô tả</label>
+                                    <input asp-for="Description" class="form-control">
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Detail" class="control-label">Chi tiết</label>
+                                    <textarea asp-for="Detail" class="form-control"></textarea>
+                                    <span asp-validation-for="Detail" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Image" class="control-label">Ảnh</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <button type="button" class="btn btn-success" onclick="openDialog()">
+                                                Chosse a picture
+                                            </button>
+                                        </div>
+                                        <input type="text" class="form-control" id="file_input" asp-for="Image"
+                                                aria-describedby="button-addon2">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="CreatedDate" class="control-label">Ngày tạo</label>
+                                    <input asp-for="CreatedDate" class="form-control">
+                                    <span asp-validation-for="CreatedDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="AccountId" class="control-label">Người tạo</label>
+                                    <select asp-for="AccountId" class="form-control"
+                                        asp-items="ViewBag.AccountId">
+                                        <option value="">-- Chọn người tạo --</option>
+                                    </select>
+                                    <span asp-validation-for="AccountId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="IsActive" class="control-label">Trạng thái</label>
+                                    <input asp-for="IsActive" type="checkbox">
+                                    <span asp-validation-for="IsActive" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Sửa" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@{
+    var summerNote = new San_Pham_Do_An1.Areas.Admin.Models.SummerNote("#Detail");
+    <partial name="_SummerNote" model="summerNote" />
+}

@@ -1,0 +1,58 @@
+@model IEnumerable<San_Pham_Do_An1.Models.TbContact>
+@{
+    ViewData["Title"] = "Hỗ trợ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Hỗ trợ</a></li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">HỖ TRỢ KHÁCH HÀNG</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example3" class="display" style="min-width: 845px">
+                                <thead>
+                                    <tr>
+                                        <th>Số TT</th>
+                                        <th>Tên</th>
+                                        <th>Email</th>
+                                        <th>Điện thoại</th>
+                                        <th>Nội dung</th>
+                                        <th>Ngày gửi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int i = 1;
+                                    }
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@(i++)</td>
+                                            <td>@item.Name</td>
+                                            <td>@item.Email</td>
+                                            <td>@item.Phone</td>
+                                            <td>@(item.Message != null && item.Message.Length > 50 ? item.Message.Substring(0, 50) + "..." : item.Message)</td>
+                                            <td>@(item.CreatedDate?.ToString("dd/MM/yyyy HH:mm") ?? "")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,353 @@
+@model IEnumerable<San_Pham_Do_An1.Models.TbProduct>
+@{
+    List<TbProductCategory> ProductCategories = ViewBag.ProductCategories;
+}
+<style>
+    .widget__categories--menu__label.active {
+        color: var(--secondary-color);
+        font-weight: 600;
+    }
+    .widget__categories--menu__label {
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+    }
+    .widget__categories--menu__label:hover {
+        color: var(--secondary-color);
+    }
+</style>
+<main class="main__content_wrapper">
+
+    <!-- Start breadcrumb section -->
+    <section class="breadcrumb__section breadcrumb__bg">
+        <div class="container">
+            <div class="row row-cols-1">
+                <div class="col">
+                    <div class="breadcrumb__content text-center">
+                        <h1 class="breadcrumb__content--title text-white mb-25">Cửa hàng</h1>
+                        <ul class="breadcrumb__content--menu d-flex justify-content-center">
+                            <li class="breadcrumb__content--menu__items"><a class="text-white" href="/">Trang chủ</a></li>
+                            <li class="breadcrumb__content--menu__items"><span class="text-white">Cửa hàng</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End breadcrumb section -->
+    <!-- Start shop section -->
+    <section class="shop__section section--padding">
+        <div class="container-fluid">
+            <div class="shop__header bg__gray--color d-flex align-items-center justify-content-between mb-30">
+                <button class="widget__filter--btn d-flex d-lg-none align-items-center" data-offcanvas>
+                    <svg class="widget__filter--btn__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="28" d="M368 128h80M64 128h240M368 384h80M64 384h240M208 256h240M64 256h80" /><circle cx="336" cy="128" r="28" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="28" /><circle cx="176" cy="256" r="28" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="28" /><circle cx="336" cy="384" r="28" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="28" /></svg>
+                    <span class="widget__filter--btn__text">Lọc</span>
+                </button>
+                <div class="product__view--mode d-flex align-items-center">
+                    <div class="product__view--mode__list product__short--by align-items-center d-none d-lg-flex">
+                        <label class="product__view--label">Sắp xếp :</label>
+                        <div class="select shop__header--select">
+                            <select class="product__view--select" id="sortSelect" onchange="applySort()">
+                                @{
+                                    var currentSort = ViewBag.SortBy?.ToString() ?? "latest";
+                                }
+                                @if (currentSort == "latest" || currentSort == null)
+                                {
+                                    <option value="latest" selected>Mới nhất</option>
+                                }
+                                else
+                                {
+                                    <option value="latest">Mới nhất</option>
+                                }
+                                @if (currentSort == "popularity")
+                                {
+                                    <option value="popularity" selected>Phổ biến</option>
+                                }
+                                else
+                                {
+                                    <option value="popularity">Phổ biến</option>
+                                }
+                                @if (currentSort == "newness")
+                                {
+                                    <option value="newness" selected>Mới về</option>
+                                }
+                                else
+                                {
+                                    <option value="newness">Mới về</option>
+                                }
+                                @if (currentSort == "rating")
+                                {
+                                    <option value="rating" selected>Đánh giá cao</option>
+                                }
+                                else
+                                {
+                                    <option value="rating">Đánh giá cao</option>
+                                }
+                                @if (currentSort == "price_asc")
+                                {
+                                    <option value="price_asc" selected>Giá tăng dần</option>
+                                }
+                                else
+                                {
+                                    <option value="price_asc">Giá tăng dần</option>
+                                }
+                                @if (currentSort == "price_desc")
+                                {
+                                    <option value="price_desc" selected>Giá giảm dần</option>
+                                }
+                                else
+                                {
+                                    <option value="price_desc">Giá giảm dần</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="product__view--mode__list">
+                        <div class="product__grid--column__buttons d-flex justify-content-center">
+                        </div>
+                    </div>
+                    <div class="product__view--mode__list product__view--search d-none d-lg-block">
+                        <form class="product__view--search__form" method="get" action="@Url.Action("Index", "Product")">
+                            <input type="hidden" name="categoryId" value="@ViewBag.SelectedCategoryId" />
+                            <input type="hidden" name="sortBy" value="@ViewBag.SortBy" />
+                            <input type="hidden" name="priceMin" value="@ViewBag.PriceMin" />
+                            <input type="hidden" name="priceMax" value="@ViewBag.PriceMax" />
+                            <label>
+                                <input class="product__view--search__input border-0" name="search" placeholder="Tìm kiếm..." type="text" value="@ViewBag.Search">
+                            </label>
+                            <button class="product__view--search__btn" aria-label="shop button" type="submit">
+                                <svg class="product__view--search__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="20.443" viewBox="0 0 512 512"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" /><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448" /></svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <p class="product__showing--count">Hiển thị @Model.Count() kết quả</p>
+            </div>
+            <div class="row">
+                <div class="col-xl-3 col-lg-4">
+                    <div class="shop__sidebar--widget widget__area d-none d-lg-block">
+                        <div class="single__widget widget__bg">
+                            <h2 class="widget__title h3">Danh mục</h2>
+                            <ul class="widget__categories--menu">
+                                <li class="widget__categories--menu__list">
+                                    <a href="@Url.Action("Index", "Product", new { sortBy = ViewBag.SortBy, search = ViewBag.Search, priceMin = ViewBag.PriceMin, priceMax = ViewBag.PriceMax })" 
+                                       class="widget__categories--menu__label d-flex align-items-center @(ViewBag.SelectedCategoryId == null ? "active" : "")">
+                                        <span class="widget__categories--menu__text">Tất cả</span>
+                                    </a>
+                                </li>
+                                @foreach (var item in ProductCategories)
+                                {
+                                    <li class="widget__categories--menu__list">
+                                        <a href="@Url.Action("Index", "Product", new { categoryId = item.CategoryProductId, sortBy = ViewBag.SortBy, search = ViewBag.Search, priceMin = ViewBag.PriceMin, priceMax = ViewBag.PriceMax })" 
+                                           class="widget__categories--menu__label d-flex align-items-center @(ViewBag.SelectedCategoryId == item.CategoryProductId ? "active" : "")">
+                                            <img class="widget__categories--menu__img" src="@item.Icon" alt="categories-img">
+                                            <span class="widget__categories--menu__text">@item.Title</span>
+                                            <svg class="widget__categories--menu__arrowdown--icon" xmlns="http://www.w3.org/2000/svg" width="12.355" height="8.394">
+                                                <path d="M15.138,8.59l-3.961,3.952L7.217,8.59,6,9.807l5.178,5.178,5.178-5.178Z" transform="translate(-6 -8.59)" fill="currentColor"></path>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                }
+                                
+                            </ul>
+                        </div>
+                        <div class="single__widget price__filter widget__bg">
+                            <h2 class="widget__title h3">Lọc theo giá</h2>
+                            <form class="price__filter--form" method="get" action="@Url.Action("Index", "Product")">
+                                <input type="hidden" name="categoryId" value="@ViewBag.SelectedCategoryId" />
+                                <input type="hidden" name="sortBy" value="@ViewBag.SortBy" />
+                                <input type="hidden" name="search" value="@ViewBag.Search" />
+                                <div class="price__filter--form__inner mb-15 d-flex align-items-center">
+                                    <div class="price__filter--group">
+                                        <label class="price__filter--label" for="Filter-Price-GTE2">Từ</label>
+                                        <div class="price__filter--input border-radius-5 d-flex align-items-center">
+                                            <span class="price__filter--currency">₫</span>
+                                            <label>
+                                                <input class="price__filter--input__field border-0" name="priceMin" type="number" placeholder="0" min="0" value="@ViewBag.PriceMin">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="price__divider">
+                                        <span>-</span>
+                                    </div>
+                                    <div class="price__filter--group">
+                                        <label class="price__filter--label" for="Filter-Price-LTE2">Đến</label>
+                                        <div class="price__filter--input border-radius-5 d-flex align-items-center">
+                                            <span class="price__filter--currency">₫</span>
+                                            <label>
+                                                <input class="price__filter--input__field border-0" name="priceMax" type="number" min="0" placeholder="1000000" value="@ViewBag.PriceMax">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="price__filter--btn primary__btn" type="submit">Lọc</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-8">
+                    <div class="shop__product--wrapper">
+                        <div class="tab_content">
+                            <div id="product_grid" class="tab_pane active show">
+                                <div class="product__section--inner product__grid--inner">
+                                    <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-3 row-cols-2 mb--n30">
+                                        @foreach(var item in Model)
+                                        {
+                                            string sUrl = $"/product/{item.Alias}-{item.ProductId}.html";
+                                            <div class="col mb-30">
+                                                <div class="product__items ">
+                                                    <div class="product__items--thumbnail">
+                                                        <a class="product__items--link" href="@sUrl">
+                                                            <img class="product__items--img product__primary--img" src="@item.Image" alt="product-img">
+                                                            @* <img class="product__items--img product__secondary--img" src="assets/img/product/product2.png" alt="product-img"> *@
+                                                        </a>
+                                                        <div class="product__badge">
+                                                            <span class="product__badge--items sale">Sale</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product__items--content">
+                                                        <span class="product__items--content__subtitle">@item.CategoryProduct?.Title</span>
+                                                        <h3 class="product__items--content__title h4"><a href="@sUrl">@item.Title</a></h3>
+                                                        <div class="product__items--price">
+                                                            <span class="current__price">@item.PriceSale</span>
+                                                            <span class="price__divided"></span>
+                                                            <span class="old__price">@item.Price</span>
+                                                        </div>
+                                                        <ul class="rating product__rating d-flex">
+                                                            @for (int i = 0; i < item.Star; i++)
+                                                            {
+                                                                <li class="rating__list">
+                                                                    <span class="rating__list--icon">
+                                                                        <svg class="rating__list--icon__svg" xmlns="http://www.w3.org/2000/svg" width="14.105"
+                                                                             height="14.732" viewBox="0 0 10.105 9.732">
+                                                                            <path data-name="star - Copy"
+                                                                                  d="M9.837,3.5,6.73,3.039,5.338.179a.335.335,0,0,0-.571,0L3.375,3.039.268,3.5a.3.3,0,0,0-.178.514L2.347,6.242,1.813,9.4a.314.314,0,0,0,.464.316L5.052,8.232,7.827,9.712A.314.314,0,0,0,8.292,9.4L7.758,6.242l2.257-2.231A.3.3,0,0,0,9.837,3.5Z"
+                                                                                  transform="translate(0 -0.018)" fill="currentColor"></path>
+                                                                        </svg>
+                                                                    </span>
+                                                                </li>
+                                                            }
+                                                        </ul>
+                                                        <ul class="product__items--action d-flex">
+                                                            <li class="product__items--action__list">
+                                                                <a class="product__items--action__btn add__to--cart" data-open="modal1"
+                                                                   data-id="@item.ProductId">
+                                                                    <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="20.443" viewBox="0 0 14.706 13.534">
+                                                                        <g transform="translate(0 0)">
+                                                                            <g>
+                                                                                <path data-name="Path 16787" d="M4.738,472.271h7.814a.434.434,0,0,0,.414-.328l1.723-6.316a.466.466,0,0,0-.071-.4.424.424,0,0,0-.344-.179H3.745L3.437,463.6a.435.435,0,0,0-.421-.353H.431a.451.451,0,0,0,0,.9h2.24c.054.257,1.474,6.946,1.555,7.33a1.36,1.36,0,0,0-.779,1.242,1.326,1.326,0,0,0,1.293,1.354h7.812a.452.452,0,0,0,0-.9H4.74a.451.451,0,0,1,0-.9Zm8.966-6.317-1.477,5.414H5.085l-1.149-5.414Z" transform="translate(0 -463.248)" fill="currentColor"></path>
+                                                                                <path data-name="Path 16788" d="M5.5,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,5.5,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,6.793,478.352Z" transform="translate(-1.191 -466.622)" fill="currentColor"></path>
+                                                                                <path data-name="Path 16789" d="M13.273,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,13.273,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,14.566,478.352Z" transform="translate(-2.875 -466.622)" fill="currentColor"></path>
+                                                                            </g>
+                                                                        </g>
+                                                                    </svg>
+                                                                    <span class="add__to--cart__text"> + Thêm vào giỏ</span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="product__items--action__list">
+                                                                <a class="product__items--action__btn" href="wishlist.html">
+                                                                    <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="25.51" height="23.443" viewBox="0 0 512 512"><path d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></path></svg>
+                                                                    <span class="visually-hidden">Wishlist</span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="product__items--action__list">
+                                                                <a class="product__items--action__btn" href="@sUrl">
+                                                                    <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="25.51" height="23.443" viewBox="0 0 512 512"><path d="M255.66 112c-77.94 0-157.89 45.11-220.83 135.33a16 16 0 00-.27 17.77C82.92 340.8 161.8 400 255.66 400c92.84 0 173.34-59.38 221.79-135.25a16.14 16.14 0 000-17.47C428.89 172.28 347.8 112 255.66 112z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" /><circle cx="256" cy="256" r="80" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" /></svg>
+                                                                    <span class="visually-hidden">Quick View</span>
+                                                                </a>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pagination__area bg__gray--color">
+                            <nav class="pagination justify-content-center">
+                                <ul class="pagination__wrapper d-flex align-items-center justify-content-center">
+                                    <li class="pagination__list">
+                                        <a href="shop.html" class="pagination__item--arrow  link ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="22.51" height="20.443" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M244 400L100 256l144-144M120 256h292" /></svg>
+                                            <span class="visually-hidden">pagination arrow</span>
+                                        </a>
+                                    <li>
+                                    <li class="pagination__list"><span class="pagination__item pagination__item--current">1</span></li>
+                                    <li class="pagination__list"><a href="shop.html" class="pagination__item link">2</a></li>
+                                    <li class="pagination__list"><a href="shop.html" class="pagination__item link">3</a></li>
+                                    <li class="pagination__list"><a href="shop.html" class="pagination__item link">4</a></li>
+                                    <li class="pagination__list">
+                                        <a href="shop.html" class="pagination__item--arrow  link ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="22.51" height="20.443" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M268 112l144 144-144 144M392 256H100" /></svg>
+                                            <span class="visually-hidden">pagination arrow</span>
+                                        </a>
+                                    <li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End shop section -->
+    <!-- Start shipping section -->
+    <section class="shipping__section2 shipping__style3 section--padding pt-0">
+        <div class="container">
+            <div class="shipping__section2--inner shipping__style3--inner d-flex justify-content-between">
+                <div class="shipping__items2 d-flex align-items-center">
+                    <div class="shipping__items2--icon">
+                        <img src="assets/img/other/shipping1.png" alt="">
+                    </div>
+                    <div class="shipping__items2--content">
+                        <h2 class="shipping__items2--content__title h3">Vận chuyển</h2>
+                        <p class="shipping__items2--content__desc">Giao hàng nhanh chóng</p>
+                    </div>
+                </div>
+                <div class="shipping__items2 d-flex align-items-center">
+                    <div class="shipping__items2--icon">
+                        <img src="assets/img/other/shipping2.png" alt="">
+                    </div>
+                    <div class="shipping__items2--content">
+                        <h2 class="shipping__items2--content__title h3">Thanh toán</h2>
+                        <p class="shipping__items2--content__desc">An toàn và bảo mật</p>
+                    </div>
+                </div>
+                <div class="shipping__items2 d-flex align-items-center">
+                    <div class="shipping__items2--icon">
+                        <img src="assets/img/other/shipping3.png" alt="">
+                    </div>
+                    <div class="shipping__items2--content">
+                        <h2 class="shipping__items2--content__title h3">Đổi trả</h2>
+                        <p class="shipping__items2--content__desc">Dễ dàng và nhanh chóng</p>
+                    </div>
+                </div>
+                <div class="shipping__items2 d-flex align-items-center">
+                    <div class="shipping__items2--icon">
+                        <img src="assets/img/other/shipping4.png" alt="">
+                    </div>
+                    <div class="shipping__items2--content">
+                        <h2 class="shipping__items2--content__title h3">Hỗ trợ</h2>
+                        <p class="shipping__items2--content__desc">24/7 tư vấn khách hàng</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End shipping section -->
+
+</main>
+
+<script>
+    function applySort() {
+        var sortBy = document.getElementById('sortSelect').value;
+        var url = new URL(window.location.href);
+        url.searchParams.set('sortBy', sortBy);
+        window.location.href = url.toString();
+    }
+</script>

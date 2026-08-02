@@ -1,0 +1,68 @@
+@model San_Pham_Do_An1.Models.TbProduct
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Quản lý</a></li>
+                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Products" asp-action="Index">Sản
+                        phẩm</a></li>
+            </ol>
+        </div>
+        <div class="card mt-3">
+            <div class="card-header">
+                <h4 class="card-title">Chi tiết sản phẩm</h4>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-2">Tiêu đề</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Title)</dd>
+                    <dt class="col-sm-2">Mô tả</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Description)</dd>
+                    <dt class="col-sm-2">Chi tiết</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Detail)</dd>
+                    <dt class="col-sm-2">Ảnh</dt>
+                    <dd class="col-sm-10">
+                        @if (!string.IsNullOrWhiteSpace(Model.Image))
+                        {
+                            <img src="@Url.Content(Model.Image)" width="90" height="90" class="img-thumbnail" />
+                        }
+                    </dd>
+                    <dt class="col-sm-2">Giá</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Price)</dd>
+                    <dt class="col-sm-2">Giá sale</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.PriceSale)</dd>
+                    <dt class="col-sm-2">Số lượng</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Quantity)</dd>
+                    <dt class="col-sm-2">Ngày tạo</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.CreatedDate)</dd>
+                    <dt class="col-sm-2">Người tạo</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.CreatedBy)</dd>
+                    <dt class="col-sm-2">Kích hoạt</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.IsActive)</dd>
+                </dl>
+                <div>
+                    <a asp-action="Edit" asp-route-id="@Model?.ProductId" class="btn btn-primary me-2">Sửa</a>
+                    <a asp-action="Index" class="btn btn-secondary">Danh sách</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .card-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-bottom: none;
+    }
+
+    .img-thumbnail {
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>

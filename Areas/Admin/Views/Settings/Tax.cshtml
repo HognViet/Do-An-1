@@ -1,0 +1,51 @@
+@{
+    ViewData["Title"] = "Thuế & Phí vận chuyển";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Cài đặt</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Thuế & Phí</a></li>
+            </ol>
+        </div>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show mb-3">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">CẤU HÌNH THUẾ & PHÍ VẬN CHUYỂN</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form asp-action="SaveTax" asp-controller="Settings" asp-area="Admin" method="post">
+                                @Html.AntiForgeryToken()
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">Thuế giá trị gia tăng (VAT %)</label>
+                                        <input type="number" step="0.1" name="vatRate" class="form-control" value="10" required>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">Phí vận chuyển mặc định (VNĐ)</label>
+                                        <input type="number" step="1000" name="defaultShippingFee" class="form-control" value="30000" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

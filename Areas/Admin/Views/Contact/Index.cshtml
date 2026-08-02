@@ -1,0 +1,111 @@
+@model IEnumerable<San_Pham_Do_An1.Models.TbContact>
+
+@{
+    ViewData["Title"] = "Danh sách liên hệ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml"; // Kiểm tra lại tên layout admin của bạn
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Quản lý Liên hệ</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Danh sách tin nhắn từ khách hàng</h3>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-striped projects">
+                    <thead>
+                        <tr>
+                            <th style="width: 1%">#</th>
+                            <th style="width: 20%">Tên khách hàng</th>
+                            <th style="width: 15%">Số điện thoại</th>
+                            <th style="width: 20%">Email</th>
+                            <th>Ngày gửi</th>
+                            <th style="width: 10%">Trạng thái</th>
+                            <th style="width: 10%">Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            var i = 1;
+                            foreach (var item in Model)
+                            {
+                                <tr id="trow_@item.ContactId">
+                                    <td>@i</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Phone</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.CreatedDate?.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>
+                                        @if (item.IsRead==true)
+                                        {
+                                            <span class="badge badge-success">Đã xem</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger">Chưa xem</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a href="/Admin/Contact/Detail/@item.ContactId" class="btn btn-sm btn-primary">Xem</a>
+                                        <a href="#" data-id="@item.ContactId" class="btn btn-danger shadow btn-xs sharp btnDelete"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center">Không có tin nhắn liên hệ nào!</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+
+        @section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Bắt sự kiện khi bấm nút có class .btnDelete
+            $('body').on('click', '.btnDelete', function (e) {
+                e.preventDefault(); // Chặn link nhảy linh tinh
+                var id = $(this).data("id");
+                var conf = confirm('Bạn có chắc chắn muốn xóa tin nhắn này không?');
+                
+                if (conf === true) {
+                    $.ajax({
+                        url: '/Admin/Contact/Delete', // Gọi đến hàm Delete trong Controller
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                // Nếu xóa thành công, xóa dòng đó khỏi bảng ngay lập tức
+                                $('#trow_' + id).remove(); 
+                                // Hoặc reload lại trang nếu không dùng id dòng
+                                // location.reload(); 
+                            } else {
+                                alert("Xóa thất bại!");
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
+    </script>
+}

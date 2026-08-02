@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - Nhân viên</title>
+
+    <!-- FAVICONS ICON -->
+    <link rel="shortcut icon" type="image/png" href="~/Admin/images/favicon.png">
+    
+    <!-- Datatable -->
+    <link href="~/Admin/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="~/Admin/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    
+    <!-- Style css -->
+    <link href="~/Admin/css/style.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        /* Custom spacing because we don't have the admin layout's wrappers */
+        .content-body {
+            margin-left: 0 !important;
+            padding-top: 0px !important;
+            min-height: auto !important;
+        }
+        .employee-navbar {
+            background-color: #2c3e50;
+            color: #ffffff;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .employee-navbar h3 {
+            color: #ffffff;
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        /* Fix page wrapper styles since we're outside of admin-sidebar wrapper */
+        #main-wrapper {
+            opacity: 1 !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="main-wrapper" class="show">
+        <div class="container-fluid mt-4">
+            <div class="employee-navbar">
+                <h3>HỆ THỐNG QUẢN LÝ ĐƠN HÀNG (NHÂN VIÊN)</h3>
+                <div class="d-flex align-items-center" style="gap: 15px;">
+                    @using Microsoft.AspNetCore.Http
+                    @inject IHttpContextAccessor HttpContextAccessor
+                    @{
+                        var adminName = HttpContextAccessor.HttpContext?.Session.GetString("AdminName");
+                    }
+                    @if (!string.IsNullOrEmpty(adminName))
+                    {
+                        <span class="badge badge-success" style="font-size: 0.9rem; padding: 8px 12px;">Xin chào, @adminName</span>
+                    }
+                    <a href="/Admin/Accounts/Logout" class="btn btn-danger btn-sm" style="padding: 8px 15px; border-radius: 4px; font-weight: 600;">Đăng xuất</a>
+                </div>
+            </div>
+            
+            @RenderBody()
+        </div>
+    </div>
+
+    <!-- Required vendors -->
+    <script src="~/Admin/vendor/global/global.min.js"></script>
+    <script src="~/Admin/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    
+    <!-- Datatable -->
+    <script src="~/Admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/Admin/js/plugins-init/datatables.init.js"></script>
+    
+    <script src="~/Admin/js/custom.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

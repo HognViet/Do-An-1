@@ -1,0 +1,210 @@
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using San_Pham_Do_An1.Models;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+
+namespace San_Pham_Do_An1.Areas.Employees.Controllers
+{
+    [Area("Employees")]
+    public class OrdersController : Controller
+    {
+        private readonly WedQuanAoDbContext _context;
+
+        public OrdersController(WedQuanAoDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: Employees/Orders
+        [Route("Employees")]
+        public async Task<IActionResult> Index(string status = "all")
+        {
+            if (HttpContext.Session.GetString("AdminId") == null)
+            {
+                return RedirectToAction("Login", "Accounts", new { area = "Admin" });
+            }
+            var roleId = HttpContext.Session.GetString("RoleId");
+            if (roleId != "2" && roleId != "1")
+            {
+                return RedirectToAction("Login", "Accounts", new { area = "Admin" });
+            }
+
+            var query = _context.TbOrders
+                .Include(o => o.Customer)
+                .Include(o => o.OrderStatus)
+                .Include(o => o.TbOrderDetails)
+                    .ThenInclude(od => od.Product)
+                .AsQueryable();
+
+            // Lọc theo trạng thái
+            if (status != "all" && !string.IsNullOrEmpty(status))
+            {
+                var statusId = GetStatusId(status);
+                if (statusId.HasValue)
+                {
+                    int filterStatusId = statusId.Value;
+                    query = query.Where(o => o.OrderStatusId.HasValue && o.OrderStatusId.Value == filterStatusId);
+                }
+            }
+
+            ViewBag.Status = status;
+
+            // Lấy danh sách trạng thái từ database và chỉ lấy các trạng thái cần thiết
+            var allStatuses = await _context.TbOrderStatuses.ToListAsync();
+            var statusList = new List<object> { new { Value = "all", Text = "Tất cả đơn hàng" } };
+
+            // Chỉ lấy các trạng thái theo yêu cầu: 1, 3, 4, 5, 6, 7, 9, 10
+            var allowedStatusIds = new[] { 1, 3, 4, 5, 6, 7, 9, 10 };
+            foreach (var statusItem in allStatuses.Where(s => allowedStatusIds.Contains(s.OrderStatusId)))
+            {
+                statusList.Add(new { Value = statusItem.OrderStatusId.ToString(), Text = statusItem.Description ?? statusItem.Name ?? $"Trạng thái {statusItem.OrderStatusId}" });
+            }
+
+            ViewBag.StatusList = new SelectList(statusList, "Value", "Text", status);
+
+            return View(await query.OrderByDescending(o => o.CreatedDate).ToListAsync());
+        }
+
+        // GET: Employees/Orders/Details/5
+        public async Task<IActionResult> Details(int? id, string status = "all")
+        {
+            if (HttpContext.Session.GetString("AdminId") == null)
+            {
+                return RedirectToAction("Login", "Accounts", new { area = "Admin" });
+            }
+            var roleId = HttpContext.Session.GetString("RoleId");
+            if (roleId != "2" && roleId != "1")
+            {
+                return RedirectToAction("Login", "Accounts", new { area = "Admin" });
+            }
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var order = await _context.TbOrders
+                .Include(o => o.Customer)
+                .Include(o => o.OrderStatus)
+                .Include(o => o.TbOrderDetails)
+                    .ThenInclude(od => od.Product)
+                .FirstOrDefaultAsync(m => m.OrderId == id);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.OrderStatuses = new SelectList(_context.TbOrderStatuses, "OrderStatusId", "Description", order.OrderStatusId);
+            ViewBag.Status = status; // Lưu status để quay lại
+            return View(order);
+        }
+
+        // POST: Employees/Orders/UpdateStatus/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateStatus(int id, int orderStatusId, string status = "all")
+        {
+            if (HttpContext.Session.GetString("AdminId") == null)
+            {
+                return RedirectToAction("Login", "Accounts", new { area = "Admin" });
+            }
+            var roleId = HttpContext.Session.GetString("RoleId");
+            if (roleId != "2" && roleId != "1")
+            {
+                return RedirectToAction("Login", "Accounts", new { area = "Admin" });
+            }
+
+            var order = await _context.TbOrders.FindAsync(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            order.OrderStatusId = orderStatusId;
+            order.ModifiedDate = DateTime.Now;
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Details), new { id, status });
+        }
+
+        // GET: Employees/Orders/Delete/5
+        public async Task<IActionResult> Delete(int? id, string status = "all")
+        {
+            if (HttpContext.Session.GetString("AdminId") == null)
+            {
+                return RedirectToAction("Login", "Accounts", new { area = "Admin" });
+            }
+            var roleId = HttpContext.Session.GetString("RoleId");
+            if (roleId != "2" && roleId != "1")
+            {
+                return RedirectToAction("Login", "Accounts", new { area = "Admin" });
+            }
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var order = await _context.TbOrders
+                .Include(o => o.Customer)
+                .Include(o => o.OrderStatus)
+                .FirstOrDefaultAsync(m => m.OrderId == id);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Status = status; // Lưu status để quay lại
+            return View(order);
+        }
+
+        // POST: Employees/Orders/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id, string status = "all")
+        {
+            if (HttpContext.Session.GetString("AdminId") == null)
+            {
+                return RedirectToAction("Login", "Accounts", new { area = "Admin" });
+            }
+            var roleId = HttpContext.Session.GetString("RoleId");
+            if (roleId != "2" && roleId != "1")
+            {
+                return RedirectToAction("Login", "Accounts", new { area = "Admin" });
+            }
+
+            var order = await _context.TbOrders
+                .Include(o => o.TbOrderDetails)
+                .FirstOrDefaultAsync(o => o.OrderId == id);
+
+            if (order != null)
+            {
+                _context.TbOrderDetails.RemoveRange(order.TbOrderDetails);
+                _context.TbOrders.Remove(order);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index), new { status });
+        }
+
+        private int? GetStatusId(string status)
+        {
+            if (string.IsNullOrEmpty(status) || status == "all")
+                return null;
+
+            if (int.TryParse(status, out int statusId))
+            {
+                return statusId;
+            }
+
+            return null;
+        }
+    }
+}

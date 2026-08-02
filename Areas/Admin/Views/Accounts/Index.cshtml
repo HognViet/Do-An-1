@@ -1,0 +1,87 @@
+@model IEnumerable<San_Pham_Do_An1.Models.TbAccount>
+@{
+    ViewData["Title"] = "Danh sách tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Tài khoản</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Danh sách</a></li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">QUẢN LÝ TÀI KHOẢN</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <a asp-action="Create" class="btn btn-success mb-3">
+                                <i class="fa fa-plus"> Thêm tài khoản</i>
+                            </a>
+                            <table id="example3" class="display" style="min-width: 845px">
+                                <thead>
+                                    <tr>
+                                        <th>Số TT</th>
+                                        <th>Tên đăng nhập</th>
+                                        <th>Họ và tên</th>
+                                        <th>Email</th>
+                                        <th>Điện thoại</th>
+                                        <th>Vai trò</th>
+                                        <th>Đăng nhập cuối</th>
+                                        <th>Trạng thái</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int i = 1;
+                                    }
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@(i++)</td>
+                                            <td>@Html.DisplayFor(m => item.Username)</td>
+                                            <td>@Html.DisplayFor(m => item.FullName)</td>
+                                            <td>@Html.DisplayFor(m => item.Email)</td>
+                                            <td>@Html.DisplayFor(m => item.Phone)</td>
+                                            <td>@(item.Role?.RoleName ?? "Chưa phân quyền")</td>
+                                            <td>@(item.LastLogin?.ToString("dd/MM/yyyy HH:mm") ?? "Chưa đăng nhập")</td>
+                                            <td>
+                                                <span class="badge badge-@(item.IsActive == true ? "success" : "danger")">
+                                                    @(item.IsActive == true ? "Hoạt động" : "Khóa")
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex">
+                                                    <a asp-action="Details" asp-route-id="@item.AccountId"
+                                                        class="btn btn-primary btn-xs me-1">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    <a asp-action="Edit" asp-route-id="@item.AccountId"
+                                                        class="btn btn-warning btn-xs me-1">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </a>
+                                                    <a asp-action="Delete" asp-route-id="@item.AccountId"
+                                                        class="btn btn-danger btn-xs">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

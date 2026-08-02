@@ -1,0 +1,49 @@
+@model San_Pham_Do_An1.Models.TbOrder
+@{
+    ViewData["Title"] = "Nhân viên - Xóa đơn hàng";
+    Layout = "~/Areas/Employees/Views/Shared/_Layout.cshtml";
+    var status = ViewBag.Status as string ?? "all";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" asp-area="Employees" asp-controller="Orders" asp-route-status="@status">Đơn hàng</a></li>
+                <li class="breadcrumb-item active">Xóa</li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">XÓA ĐƠN HÀNG</h4>
+                    </div>
+                    <div class="card-body">
+                        <h3>Bạn có chắc chắn muốn xóa đơn hàng này?</h3>
+                        <div>
+                            <dl class="row">
+                                <dt class="col-sm-2">Mã đơn:</dt>
+                                <dd class="col-sm-10">@Model.Code</dd>
+                                <dt class="col-sm-2">Khách hàng:</dt>
+                                <dd class="col-sm-10">@(Model.Customer?.Name ?? "N/A")</dd>
+                                <dt class="col-sm-2">Tổng tiền:</dt>
+                                <dd class="col-sm-10">@string.Format("{0:n0}", Model.TotalAmount) đ</dd>
+                                <dt class="col-sm-2">Trạng thái:</dt>
+                                <dd class="col-sm-10">@(Model.OrderStatus?.Name ?? "N/A")</dd>
+                            </dl>
+
+                            <form asp-action="Delete" asp-area="Employees" asp-controller="Orders" method="post">
+                                <input type="hidden" asp-for="OrderId" />
+                                <input type="hidden" name="status" value="@status" />
+                                <input type="submit" value="Xóa" class="btn btn-danger" />
+                                <a asp-action="Index" asp-area="Employees" asp-controller="Orders" asp-route-status="@status" class="btn btn-secondary">Hủy</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

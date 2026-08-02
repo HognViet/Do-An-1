@@ -1,0 +1,167 @@
+@model IEnumerable<San_Pham_Do_An1.Models.TbProduct>
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="content-body">
+    <div class="container-fluid">
+
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Table</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Datatable</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title"> QUẢN LÝ Sản phẩm</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <a asp-action="Create" class="btn btn-success mb-3">
+                                <i class="fa fa-plus"> Tạo mới</i>
+                            </a>
+                            <table id="example3" class="display" style="min-width: 845px">
+                                <thead>
+                                <tr>
+                                    <th>Số TT</th>
+                                    <th>Tiêu đề</th>
+                                    <th>Mô tả</th>
+                                    <th>Ảnh</th>
+                                    <th>Giá</th>
+                                    <th>Giá sale</th>
+                                    <th>Số lượng</th>
+                                    <th>Sao</th>
+                                    <th>Kích hoạt</th>
+                                    <th>Hành động</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int i = 1;
+                                    }
+                                    @foreach (var item in Model)
+                                    {
+                                        var collapseId = $"variants-{item.ProductId}";
+                                        <tr>
+                                            <td>@(i++)</td>
+                                            <td>
+                                                <a href="#@collapseId" data-bs-toggle="collapse" role="button"
+                                                   aria-expanded="false" aria-controls="@collapseId"
+                                                   class="fw-bold text-primary">
+                                                    @Html.DisplayFor(m => item.Title)
+                                                </a>
+                                            </td>
+                                            <td>@Html.DisplayFor(m => item.Description)</td>
+                                            <td>
+                                                @if (!string.IsNullOrWhiteSpace(item.Image))
+                                                {
+                                                    <img src="@Url.Content(item.Image)" width="50" height="50" />
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (item.TbProductVariants != null && item.TbProductVariants.Any())
+                                                {
+                                                    var minPrice = item.TbProductVariants.Where(v => v.Price.HasValue).Select(v
+                                                    => v.Price.Value).DefaultIfEmpty().Min();
+                                                    @minPrice.ToString("n0")
+                                                }
+                                                else
+                                                {
+                                                    @string.Format("{0:n0}", item.Price)
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (item.TbProductVariants != null && item.TbProductVariants.Any())
+                                                {
+                                                    var minSale = item.TbProductVariants.Where(v =>
+                                                    v.PriceSale.HasValue).Select(v => v.PriceSale.Value).DefaultIfEmpty().Min();
+                                                    @minSale.ToString("n0")
+                                                }
+                                                else
+                                                {
+                                                    @string.Format("{0:n0}", item.PriceSale)
+                                                }
+                                            </td>
+                                            <td>
+                                                @(item.TbProductVariants != null && item.TbProductVariants.Any()
+                                                    ? item.TbProductVariants.Sum(v => v.Quantity) : item.Quantity)
+                                            </td>
+                                            <td>@Html.DisplayFor(m => item.Star)</td>
+                                            <td>@Html.DisplayFor(m => item.IsActive)</td>
+                                            <td>
+                                                <div class="d-flex">
+                                                    <a asp-action="Edit" asp-route-id="@item.ProductId"
+                                                       class="btn btn-primary btn-xs me-1">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </a>
+                                                    <a asp-action="Delete" asp-route-id="@item.ProductId"
+                                                       class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="collapse" id="@collapseId">
+                                            <td colspan="9">
+                                                @if (item.TbProductVariants != null && item.TbProductVariants.Any())
+                                                {
+                                                    <div class="card-body">
+                                                        <h5>Biến thể sản phẩm (@item.Title)</h5>
+                                                        <div class="table-responsive">
+                                                            <table class="display" style="min-width: 845px; width: 100%;">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>Màu</th>
+                                                                        <th>Size</th>
+                                                                        <th>SKU</th>
+                                                                        <th>Giá</th>
+                                                                        <th>Giá sale</th>
+                                                                        <th>Số lượng</th>
+                                                                        <th>Trạng thái</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @{
+                                                                        int j = 1;
+                                                                        foreach (var pv in item.TbProductVariants)
+                                                                        {
+                                                                            <tr>
+                                                                                <td>@(j++)</td>
+                                                                                <td>@pv.Color?.ColorName</td>
+                                                                                <td>@pv.Size?.SizeName</td>
+                                                                                <td>@pv.Sku</td>
+                                                                                <td>@string.Format("{0:n0}", pv.Price)</td>
+                                                                                <td>@string.Format("{0:n0}", pv.PriceSale)</td>
+                                                                                <td>@pv.Quantity</td>
+                                                                                <td>@(pv.IsActive == true ? "Kích hoạt" : "Ẩn")</td>
+                                                                            </tr>
+                                                                        }
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="alert alert-info m-0">Sản phẩm này chưa có biến thể.</div>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

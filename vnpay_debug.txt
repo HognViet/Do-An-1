@@ -1,0 +1,46 @@
+=== VNPAY CREATE PAYMENT URL DEBUG ===
+Time: 8/2/2026 8:23:29 PM
+TmnCode: API-KEY
+HashSecret: SECRRT-KEY
+PaymentUrl base: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+Generated URL: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=49900000&vnp_Command=pay&vnp_CreateDate=20260802202329&vnp_CurrCode=VND&vnp_ExpireDate=20260802203829&vnp_IpAddr=127.0.0.1&vnp_Locale=vn&vnp_OrderInfo=Thanh+toan+don+hang+639212738094293240&vnp_OrderType=other&vnp_ReturnUrl=http%3A%2F%2Flocalhost%3A5140%2FCheckout%2FPaymentCallback&vnp_TmnCode=API-KEY&vnp_TxnRef=639212738094293240&vnp_Version=2.1.0&vnp_SecureHash=8DF7E1880682C8DDA28BF77AC6BB1A846C6CE87F4729764EF592F64D4E7D168D5AE41CCB57955011DCFA7FFEC0DA953703360E0734FE5BCB110E6AB5010B6FE6
+Sign Data: vnp_Amount=49900000&vnp_Command=pay&vnp_CreateDate=20260802202329&vnp_CurrCode=VND&vnp_ExpireDate=20260802203829&vnp_IpAddr=127.0.0.1&vnp_Locale=vn&vnp_OrderInfo=Thanh+toan+don+hang+639212738094293240&vnp_OrderType=other&vnp_ReturnUrl=http%3A%2F%2Flocalhost%3A5140%2FCheckout%2FPaymentCallback&vnp_TmnCode=API-KEY&vnp_TxnRef=639212738094293240&vnp_Version=2.1.0
+vnp_SecureHash: 8DF7E1880682C8DDA28BF77AC6BB1A846C6CE87F4729764EF592F64D4E7D168D5AE41CCB57955011DCFA7FFEC0DA953703360E0734FE5BCB110E6AB5010B6FE6
+Parameters:
+  vnp_Amount = 49900000
+  vnp_Command = pay
+  vnp_CreateDate = 20260802202329
+  vnp_CurrCode = VND
+  vnp_ExpireDate = 20260802203829
+  vnp_IpAddr = 127.0.0.1
+  vnp_Locale = vn
+  vnp_OrderInfo = Thanh toan don hang 639212738094293240
+  vnp_OrderType = other
+  vnp_ReturnUrl = http://localhost:5140/Checkout/PaymentCallback
+  vnp_TmnCode = API-KEY
+  vnp_TxnRef = 639212738094293240
+  vnp_Version = 2.1.0
+======================================
+=== VNPAY CREATE PAYMENT URL DEBUG ===
+Time: 8/2/2026 8:23:42 PM
+TmnCode: API-KEY
+HashSecret: SECRRT-KEY
+PaymentUrl base: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+Generated URL: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=49900000&vnp_Command=pay&vnp_CreateDate=20260802202342&vnp_CurrCode=VND&vnp_ExpireDate=20260802203842&vnp_IpAddr=127.0.0.1&vnp_Locale=vn&vnp_OrderInfo=Thanh+toan+don+hang+639212738220546917&vnp_OrderType=other&vnp_ReturnUrl=http%3A%2F%2Flocalhost%3A5140%2FCheckout%2FPaymentCallback&vnp_TmnCode=API-KEY&vnp_TxnRef=639212738220546917&vnp_Version=2.1.0&vnp_SecureHash=74F3E870FD58F37805E395E5575327514C114DCC2678F951F7CA55365FF87D926A7F6098EA4DC9CC878435CB9483B934C2225D83D19E008E3F237B230A5B5283
+Sign Data: vnp_Amount=49900000&vnp_Command=pay&vnp_CreateDate=20260802202342&vnp_CurrCode=VND&vnp_ExpireDate=20260802203842&vnp_IpAddr=127.0.0.1&vnp_Locale=vn&vnp_OrderInfo=Thanh+toan+don+hang+639212738220546917&vnp_OrderType=other&vnp_ReturnUrl=http%3A%2F%2Flocalhost%3A5140%2FCheckout%2FPaymentCallback&vnp_TmnCode=API-KEY&vnp_TxnRef=639212738220546917&vnp_Version=2.1.0
+vnp_SecureHash: 74F3E870FD58F37805E395E5575327514C114DCC2678F951F7CA55365FF87D926A7F6098EA4DC9CC878435CB9483B934C2225D83D19E008E3F237B230A5B5283
+Parameters:
+  vnp_Amount = 49900000
+  vnp_Command = pay
+  vnp_CreateDate = 20260802202342
+  vnp_CurrCode = VND
+  vnp_ExpireDate = 20260802203842
+  vnp_IpAddr = 127.0.0.1
+  vnp_Locale = vn
+  vnp_OrderInfo = Thanh toan don hang 639212738220546917
+  vnp_OrderType = other
+  vnp_ReturnUrl = http://localhost:5140/Checkout/PaymentCallback
+  vnp_TmnCode = API-KEY
+  vnp_TxnRef = 639212738220546917
+  vnp_Version = 2.1.0
+======================================

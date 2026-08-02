@@ -1,0 +1,55 @@
+@{
+    ViewData["Title"] = "Tích hợp API & Cấu hình thanh toán";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Cài đặt</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Tích hợp API</a></li>
+            </ol>
+        </div>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show mb-3">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">CẤU HÌNH TÍCH HỢP CỔNG THANH TOÁN & API</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form asp-action="SaveApiIntegration" asp-controller="Settings" asp-area="Admin" method="post">
+                                @Html.AntiForgeryToken()
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">VNPAY Terminal Code (TMN Code)</label>
+                                        <input type="text" name="vnpayTmnCode" class="form-control" value="API-KEY" placeholder="Nhập TMN Code VNPAY">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">VNPAY Hash Secret Key</label>
+                                        <input type="password" name="vnpayHashSecret" class="form-control" value="SECRRT-KEY" placeholder="Nhập Hash Secret VNPAY">
+                                    </div>
+                                    <div class="mb-3 col-md-12">
+                                        <label class="form-label">Google / Gemini AI API Key (Hỗ trợ Chatbot)</label>
+                                        <input type="password" name="geminiApiKey" class="form-control" placeholder="Nhập API Key Gemini AI">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Lưu cấu hình API</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

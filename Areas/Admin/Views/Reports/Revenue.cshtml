@@ -1,0 +1,147 @@
+@model IEnumerable<San_Pham_Do_An1.Models.TbOrder>
+@{
+    ViewData["Title"] = "Báo cáo doanh thu";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Báo cáo</a></li>
+                <li class="breadcrumb-item">Doanh thu</li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">BÁO CÁO DOANH THU</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="get" class="mb-4">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Từ ngày:</label>
+                                    <input type="date" name="startDate" value="@(ViewBag.StartDate != null ? ((DateTime)ViewBag.StartDate).ToString("yyyy-MM-dd") : string.Empty)" class="form-control" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Đến ngày:</label>
+                                    <input type="date" name="endDate" value="@(ViewBag.EndDate != null ? ((DateTime)ViewBag.EndDate).ToString("yyyy-MM-dd") : string.Empty)" class="form-control" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>&nbsp;</label>
+                                    <button type="submit" class="btn btn-primary d-block">Lọc</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <div class="card bg-primary text-white">
+                                    <div class="card-body">
+                                        <h5>Tổng doanh thu</h5>
+                                        <h3>@{
+                                            var totalRevenue = ViewBag.TotalRevenue ?? 0;
+                                        }@string.Format("{0:n0}", totalRevenue) đ</h3>
+                                        <small>Từ @(ViewBag.AllOrdersWithAmount ?? 0) đơn hàng có giá trị</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-info text-white">
+                                    <div class="card-body">
+                                        <h5>Tổng đơn hàng</h5>
+                                        <h3>@(ViewBag.TotalOrders ?? 0)</h3>
+                                        <small>Trong khoảng thời gian</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-success text-white">
+                                    <div class="card-body">
+                                        <h5>Đơn hoàn thành</h5>
+                                        <h3>@(ViewBag.CompletedOrders ?? 0)</h3>
+                                        <small>Đã giao/Đã thanh toán</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-warning text-white">
+                                    <div class="card-body">
+                                        <h5>Đơn trung bình</h5>
+                                        <h3>@{
+                                            var totalOrders = ViewBag.AllOrdersWithAmount ?? 0;
+                                            var avgOrder = totalOrders > 0 ? (totalRevenue / totalOrders) : 0;
+                                        }@string.Format("{0:n0}", avgOrder) đ</h3>
+                                        <small>Giá trị trung bình</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Mã đơn</th>
+                                        <th>Ngày</th>
+                                        <th>Khách hàng</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null && Model.Any())
+                                    {
+                                        @foreach (var item in Model.OrderByDescending(o => o.CreatedDate))
+                                        {
+                                            <tr>
+                                                <td><strong>@item.Code</strong></td>
+                                                <td>@(item.CreatedDate?.ToString("dd/MM/yyyy HH:mm") ?? "")</td>
+                                                <td>@(item.Customer?.Name ?? "N/A")</td>
+                                                <td class="text-end">
+                                                    @if (item.TotalAmount.HasValue && item.TotalAmount > 0)
+                                                    {
+                                                        <strong class="text-success">@string.Format("{0:n0}", item.TotalAmount) đ</strong>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-muted">0 đ</span>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if (item.OrderStatus != null)
+                                                    {
+                                                        <span class="badge badge-@(item.OrderStatusId == 5 ? "success" : item.OrderStatusId == 6 ? "danger" : "warning")">
+                                                            @(item.OrderStatus.Description ?? item.OrderStatus.Name ?? "N/A")
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-secondary">N/A</span>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="5" class="text-center text-muted">
+                                                <p>Không có đơn hàng nào trong khoảng thời gian này.</p>
+                                                <p class="small">Vui lòng chọn khoảng thời gian khác hoặc kiểm tra dữ liệu trong database.</p>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
