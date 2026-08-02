@@ -15,6 +15,78 @@
       "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\migrations\\wedquanaodbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:migrations\\wedquanaodbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\controllers\\productreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:controllers\\productreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\wwwroot\\files\\cdg6.1.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:wwwroot\\files\\cdg6.1.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\wwwroot\\files\\big-product1.jpg||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:wwwroot\\files\\big-product1.jpg||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\wwwroot\\files\\product4.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:wwwroot\\files\\product4.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\wwwroot\\files\\product5.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:wwwroot\\files\\product5.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\wwwroot\\files\\product6.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:wwwroot\\files\\product6.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\wwwroot\\files\\product7.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:wwwroot\\files\\product7.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\wwwroot\\files\\product8.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:wwwroot\\files\\product8.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\wwwroot\\files\\product13.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:wwwroot\\files\\product13.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\wwwroot\\files\\product14.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:wwwroot\\files\\product14.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\wwwroot\\files\\product15.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:wwwroot\\files\\product15.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\wwwroot\\files\\product2.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:wwwroot\\files\\product2.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\wwwroot\\files\\product3.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:wwwroot\\files\\product3.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\wwwroot\\files\\big-product4.jpg||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:wwwroot\\files\\big-product4.jpg||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\wwwroot\\files\\big-product3.jpg||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:wwwroot\\files\\big-product3.jpg||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\wwwroot\\files\\big-product2.jpg||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:wwwroot\\files\\big-product2.jpg||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\wwwroot\\files\\product11.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:wwwroot\\files\\product11.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|h:\\do-an-1\\do-an-1-main\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53CD9B8D-2CA9-D2AB-C121-6FFA21CB7AE0}|San-Pham-Do-An1.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -78,8 +150,71 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "WedQuanAoDbContextModelSnapshot.cs",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Migrations\\WedQuanAoDbContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "Migrations\\WedQuanAoDbContextModelSnapshot.cs",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\Migrations\\WedQuanAoDbContextModelSnapshot.cs",
+              "RelativeToolTip": "Migrations\\WedQuanAoDbContextModelSnapshot.cs",
+              "ViewState": "AgIAACgGAAAAAAAAAAAgwMIGAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-02T16:46:17.799Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "product6.png - PNG [282x310, 8 bit, PNG]",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product6.png",
+              "RelativeDocumentMoniker": "wwwroot\\files\\product6.png",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product6.png - PNG [282x310, 8 bit, PNG]",
+              "RelativeToolTip": "wwwroot\\files\\product6.png - PNG [282x310, 8 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-08-02T14:53:14.461Z",
+              "EditorCaption": " - PNG [282x310, 8 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "product5.png - PNG [282x310, 8 bit, PNG]",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product5.png",
+              "RelativeDocumentMoniker": "wwwroot\\files\\product5.png",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product5.png - PNG [282x310, 8 bit, PNG]",
+              "RelativeToolTip": "wwwroot\\files\\product5.png - PNG [282x310, 8 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-08-02T14:53:13.274Z",
+              "EditorCaption": " - PNG [282x310, 8 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-25T06:55:25.236Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WedQuanAoDbContext.cs",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Models\\WedQuanAoDbContext.cs",
+              "RelativeDocumentMoniker": "Models\\WedQuanAoDbContext.cs",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\Models\\WedQuanAoDbContext.cs",
+              "RelativeToolTip": "Models\\WedQuanAoDbContext.cs",
+              "ViewState": "AgIAAJ0AAAAAAAAAAAAIwKsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T07:12:31.173Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -88,14 +223,195 @@
               "RelativeDocumentMoniker": "Controllers\\ChatController.cs",
               "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\Controllers\\ChatController.cs",
               "RelativeToolTip": "Controllers\\ChatController.cs",
-              "ViewState": "AgIAAPEBAAAAAAAAAAAcwBQCAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAALcCAAAAAAAAAAAmwPECAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-02T14:12:25.267Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
+              "Title": "cdg6.1.png - PNG [600x800, 32 bit, PNG]",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\cdg6.1.png",
+              "RelativeDocumentMoniker": "wwwroot\\files\\cdg6.1.png",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\cdg6.1.png - PNG [600x800, 32 bit, PNG]",
+              "RelativeToolTip": "wwwroot\\files\\cdg6.1.png - PNG [600x800, 32 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-08-02T16:42:13.307Z",
+              "EditorCaption": " - PNG [600x800, 32 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ProductReview.cs",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Controllers\\ProductReview.cs",
+              "RelativeDocumentMoniker": "Controllers\\ProductReview.cs",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\Controllers\\ProductReview.cs",
+              "RelativeToolTip": "Controllers\\ProductReview.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-02T16:46:15.623Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "product4.png - PNG [282x310, 8 bit, PNG]",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product4.png",
+              "RelativeDocumentMoniker": "wwwroot\\files\\product4.png",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product4.png - PNG [282x310, 8 bit, PNG]",
+              "RelativeToolTip": "wwwroot\\files\\product4.png - PNG [282x310, 8 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-08-02T14:53:12.464Z",
+              "EditorCaption": " - PNG [282x310, 8 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "big-product1.jpg - Bitmap [580x630, 24 bit, JPG]",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\big-product1.jpg",
+              "RelativeDocumentMoniker": "wwwroot\\files\\big-product1.jpg",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\big-product1.jpg - Bitmap [580x630, 24 bit, JPG]",
+              "RelativeToolTip": "wwwroot\\files\\big-product1.jpg - Bitmap [580x630, 24 bit, JPG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-08-02T14:52:47.652Z",
+              "EditorCaption": " - Bitmap [580x630, 24 bit, JPG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "product7.png - PNG [282x310, 8 bit, PNG]",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product7.png",
+              "RelativeDocumentMoniker": "wwwroot\\files\\product7.png",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product7.png - PNG [282x310, 8 bit, PNG]",
+              "RelativeToolTip": "wwwroot\\files\\product7.png - PNG [282x310, 8 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-08-02T14:53:15.742Z",
+              "EditorCaption": " - PNG [282x310, 8 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "product8.png - PNG [282x310, 8 bit, PNG]",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product8.png",
+              "RelativeDocumentMoniker": "wwwroot\\files\\product8.png",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product8.png - PNG [282x310, 8 bit, PNG]",
+              "RelativeToolTip": "wwwroot\\files\\product8.png - PNG [282x310, 8 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-08-02T14:53:17.159Z",
+              "EditorCaption": " - PNG [282x310, 8 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "product13.png - PNG [282x310, 8 bit, PNG]",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product13.png",
+              "RelativeDocumentMoniker": "wwwroot\\files\\product13.png",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product13.png - PNG [282x310, 8 bit, PNG]",
+              "RelativeToolTip": "wwwroot\\files\\product13.png - PNG [282x310, 8 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-08-02T14:53:10.064Z",
+              "EditorCaption": " - PNG [282x310, 8 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "product14.png - PNG [282x310, 8 bit, PNG]",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product14.png",
+              "RelativeDocumentMoniker": "wwwroot\\files\\product14.png",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product14.png - PNG [282x310, 8 bit, PNG]",
+              "RelativeToolTip": "wwwroot\\files\\product14.png - PNG [282x310, 8 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-08-02T14:53:08.638Z",
+              "EditorCaption": " - PNG [282x310, 8 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "product15.png - PNG [282x310, 8 bit, PNG]",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product15.png",
+              "RelativeDocumentMoniker": "wwwroot\\files\\product15.png",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product15.png - PNG [282x310, 8 bit, PNG]",
+              "RelativeToolTip": "wwwroot\\files\\product15.png - PNG [282x310, 8 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-08-02T14:53:05.406Z",
+              "EditorCaption": " - PNG [282x310, 8 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "product2.png - PNG [282x310, 8 bit, PNG]",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product2.png",
+              "RelativeDocumentMoniker": "wwwroot\\files\\product2.png",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product2.png - PNG [282x310, 8 bit, PNG]",
+              "RelativeToolTip": "wwwroot\\files\\product2.png - PNG [282x310, 8 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-08-02T14:53:04.156Z",
+              "EditorCaption": " - PNG [282x310, 8 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "product3.png - PNG [282x310, 8 bit, PNG]",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product3.png",
+              "RelativeDocumentMoniker": "wwwroot\\files\\product3.png",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product3.png - PNG [282x310, 8 bit, PNG]",
+              "RelativeToolTip": "wwwroot\\files\\product3.png - PNG [282x310, 8 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-08-02T14:53:01.647Z",
+              "EditorCaption": " - PNG [282x310, 8 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "big-product3.jpg - Bitmap [580x630, 24 bit, JPG]",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\big-product3.jpg",
+              "RelativeDocumentMoniker": "wwwroot\\files\\big-product3.jpg",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\big-product3.jpg - Bitmap [580x630, 24 bit, JPG]",
+              "RelativeToolTip": "wwwroot\\files\\big-product3.jpg - Bitmap [580x630, 24 bit, JPG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-08-02T14:52:49.592Z",
+              "EditorCaption": " - Bitmap [580x630, 24 bit, JPG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "big-product2.jpg - Bitmap [580x630, 24 bit, JPG]",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\big-product2.jpg",
+              "RelativeDocumentMoniker": "wwwroot\\files\\big-product2.jpg",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\big-product2.jpg - Bitmap [580x630, 24 bit, JPG]",
+              "RelativeToolTip": "wwwroot\\files\\big-product2.jpg - Bitmap [580x630, 24 bit, JPG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-08-02T14:52:43.153Z",
+              "EditorCaption": " - Bitmap [580x630, 24 bit, JPG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "big-product4.jpg - Bitmap [580x630, 24 bit, JPG]",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\big-product4.jpg",
+              "RelativeDocumentMoniker": "wwwroot\\files\\big-product4.jpg",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\big-product4.jpg - Bitmap [580x630, 24 bit, JPG]",
+              "RelativeToolTip": "wwwroot\\files\\big-product4.jpg - Bitmap [580x630, 24 bit, JPG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-08-02T14:52:41.252Z",
+              "EditorCaption": " - Bitmap [580x630, 24 bit, JPG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "product11.png - PNG [282x310, 8 bit, PNG]",
+              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product11.png",
+              "RelativeDocumentMoniker": "wwwroot\\files\\product11.png",
+              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\wwwroot\\files\\product11.png - PNG [282x310, 8 bit, PNG]",
+              "RelativeToolTip": "wwwroot\\files\\product11.png - PNG [282x310, 8 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-08-02T14:52:39.537Z",
+              "EditorCaption": " - PNG [282x310, 8 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
               "Title": "HomeController.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
@@ -103,12 +419,11 @@
               "RelativeToolTip": "Controllers\\HomeController.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAkwBAAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-25T07:29:09.776Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-25T07:29:09.776Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 27,
               "Title": "TbAccount.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Models\\TbAccount.cs",
               "RelativeDocumentMoniker": "Models\\TbAccount.cs",
@@ -120,7 +435,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 28,
               "Title": "TbProductCategory.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Models\\TbProductCategory.cs",
               "RelativeDocumentMoniker": "Models\\TbProductCategory.cs",
@@ -132,20 +447,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-07-25T06:55:25.236Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 23,
               "Title": "CartController.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Controllers\\CartController.cs",
               "RelativeDocumentMoniker": "Controllers\\CartController.cs",
@@ -157,20 +459,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "WedQuanAoDbContext.cs",
-              "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Models\\WedQuanAoDbContext.cs",
-              "RelativeDocumentMoniker": "Models\\WedQuanAoDbContext.cs",
-              "ToolTip": "H:\\Do-An-1\\Do-An-1-main\\Models\\WedQuanAoDbContext.cs",
-              "RelativeToolTip": "Models\\WedQuanAoDbContext.cs",
-              "ViewState": "AgIAAJQAAAAAAAAAAAAIwGQAAABTAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-25T07:12:31.173Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 24,
               "Title": "OrdersController.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Areas\\Employees\\Controllers\\OrdersController.cs",
               "RelativeDocumentMoniker": "Areas\\Employees\\Controllers\\OrdersController.cs",
@@ -182,7 +471,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 22,
               "Title": "Index.cshtml",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Views\\Cart\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Cart\\Index.cshtml",
@@ -194,7 +483,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 25,
               "Title": "Program.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -206,7 +495,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 29,
               "Title": "TbProductReview.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Models\\TbProductReview.cs",
               "RelativeDocumentMoniker": "Models\\TbProductReview.cs",
@@ -218,7 +507,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 34,
               "Title": "20260728065000_AddCartAndCustomer.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Migrations\\20260728065000_AddCartAndCustomer.cs",
               "RelativeDocumentMoniker": "Migrations\\20260728065000_AddCartAndCustomer.cs",
@@ -230,7 +519,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 26,
               "Title": "TbProduct.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Models\\TbProduct.cs",
               "RelativeDocumentMoniker": "Models\\TbProduct.cs",
@@ -242,7 +531,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 30,
               "Title": "TbRole.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Models\\TbRole.cs",
               "RelativeDocumentMoniker": "Models\\TbRole.cs",
@@ -254,7 +543,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 31,
               "Title": "TbSize.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Models\\TbSize.cs",
               "RelativeDocumentMoniker": "Models\\TbSize.cs",
@@ -266,7 +555,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 32,
               "Title": "CartItem.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Models\\CartItem.cs",
               "RelativeDocumentMoniker": "Models\\CartItem.cs",
@@ -278,7 +567,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 33,
               "Title": "20260725072156_InitialDb.cs",
               "DocumentMoniker": "H:\\Do-An-1\\Do-An-1-main\\Migrations\\20260725072156_InitialDb.cs",
               "RelativeDocumentMoniker": "Migrations\\20260725072156_InitialDb.cs",

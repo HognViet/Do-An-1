@@ -18,12 +18,6 @@ namespace San_Pham_Do_An1.Controllers
         private readonly IConfiguration _configuration;
         private readonly HttpClient _httpClient;
 
-        // Groq API Configuration - Model có thể được config trong appsettings.json
-        // appsettings.json cần có:
-        // "GroqAI": {
-        //   "ApiKey": "gsk_xxxxxxxxxxxxxxxxxxxxxxxx",
-        //   "ModelName": "llama-3.3-70b-versatile"
-        // }
         private const string GroqApiEndpoint = "https://api.groq.com/openai/v1/chat/completions";
 
         private string GetGroqModelName()
@@ -43,8 +37,6 @@ namespace San_Pham_Do_An1.Controllers
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.Timeout = TimeSpan.FromSeconds(30);
         }
-
-        // Get chat history (guest or user)
         [HttpGet("messages")]
         public async Task<IActionResult> GetMessages()
         {
@@ -91,8 +83,6 @@ namespace San_Pham_Do_An1.Controllers
                 return StatusCode(500, new { error = "Lỗi server khi lấy lịch sử chat" });
             }
         }
-
-        // Send message - AI trả lời tự nhiên, dựa trên dữ liệu thật từ database
         [HttpPost("send")]
         public async Task<IActionResult> SendMessage([FromBody] SendMessageRequest request)
         {
@@ -105,14 +95,8 @@ namespace San_Pham_Do_An1.Controllers
 
                 var userId = GetUserId();
                 var guestToken = GetOrCreateGuestToken();
-
-                // Save user message
                 var userMsg = await SaveUserMessage(userId, guestToken, request.Message);
-
-                // Get AI response with full database context
                 var aiResponse = await GetAIResponse(userId, guestToken, request.Message);
-
-                // Save bot message
                 var botMsg = await SaveBotMessage(userId, guestToken, aiResponse);
 
                 return Ok(BuildResponse(userMsg, botMsg, null));
@@ -121,8 +105,6 @@ namespace San_Pham_Do_An1.Controllers
             {
                 _logger.LogError(ex, "Lỗi khi gửi tin nhắn: {Message}", ex.Message);
                 _logger.LogError(ex, "Stack trace: {StackTrace}", ex.StackTrace);
-
-                // Đảm bảo luôn trả về JSON
                 return StatusCode(500, new
                 {
                     error = "Lỗi server khi xử lý tin nhắn. Vui lòng thử lại sau.",
@@ -130,19 +112,14 @@ namespace San_Pham_Do_An1.Controllers
                 });
             }
         }
-
-        // Real Groq AI Integration (OpenAI-compatible Chat Completions API)
         private async Task<string> GetAIResponse(int? userId, string guestToken, string userMessage)
         {
             try
             {
-                // Lấy toàn bộ dữ liệu cửa hàng từ database, đưa cho AI tự đọc và ứng biến
                 var storeContext = await BuildStoreContext(userMessage);
 
-                // Get chat history
                 var chatHistory = await GetChatHistory(userId, guestToken, 10);
 
-                // Get API Key from configuration
                 var apiKey = _configuration["GroqAI:ApiKey"];
                 if (string.IsNullOrEmpty(apiKey))
                 {
@@ -150,7 +127,7 @@ namespace San_Pham_Do_An1.Controllers
                     return GetFallbackResponse(userMessage);
                 }
 
-                // Build Groq API request (OpenAI chat/completions format)
+            
                 var groqRequest = new
                 {
                     model = GetGroqModelName(),
@@ -181,14 +158,12 @@ namespace San_Pham_Do_An1.Controllers
                 var responseBody = await response.Content.ReadAsStringAsync();
                 var groqResponse = JsonSerializer.Deserialize<JsonElement>(responseBody);
 
-                // Extract AI text: choices[0].message.content
                 var aiText = groqResponse
                     .GetProperty("choices")[0]
                     .GetProperty("message")
                     .GetProperty("content")
                     .GetString() ?? GetFallbackResponse(userMessage);
 
-                // Clean up response
                 return CleanAIResponse(aiText);
             }
             catch (Exception ex)
@@ -198,19 +173,17 @@ namespace San_Pham_Do_An1.Controllers
             }
         }
 
-        // Build Groq (OpenAI-style) chat messages with history
         private List<object> BuildGroqMessages(string systemContext, List<TbChatMessage> history, string currentMessage)
         {
             var messages = new List<object>();
 
-            // System context as the "system" role
+        
             messages.Add(new
             {
                 role = "system",
                 content = systemContext
             });
 
-            // Add chat history
             foreach (var msg in history)
             {
                 messages.Add(new
@@ -220,7 +193,7 @@ namespace San_Pham_Do_An1.Controllers
                 });
             }
 
-            // Add current message
+    
             messages.Add(new
             {
                 role = "user",
@@ -230,8 +203,6 @@ namespace San_Pham_Do_An1.Controllers
             return messages;
         }
 
-        // Đưa toàn bộ dữ liệu liên quan từ database cho AI, để AI tự đọc và tự quyết định cách trả lời.
-        // Không có rule cứng nào ép định dạng câu trả lời — AI tự nhiên, tự ứng biến theo ngữ cảnh.
         private async Task<string> BuildStoreContext(string userMessage)
         {
             var sb = new StringBuilder();
@@ -241,7 +212,6 @@ namespace San_Pham_Do_An1.Controllers
                           "Dưới đây là dữ liệu thật lấy từ hệ thống cửa hàng — chỉ dùng những thông tin này để trả lời, không tự bịa sản phẩm/giá không có trong dữ liệu.");
             sb.AppendLine();
 
-            // 1. Toàn bộ danh mục sản phẩm
             var categories = await _context.TbProductCategories
                 .Include(c => c.TbProducts.Where(p => p.IsActive == true))
                 .Where(c => c.TbProducts.Any(p => p.IsActive == true))
@@ -259,7 +229,6 @@ namespace San_Pham_Do_An1.Controllers
             }
             sb.AppendLine();
 
-            // 2. Sản phẩm liên quan trực tiếp tới câu hỏi hiện tại (tìm theo từ khóa trong DB)
             var keywords = ExtractProductKeywords(userMessage.ToLower());
             var validKeywords = keywords.Where(kw => kw.Length >= 2).ToList();
 
@@ -285,7 +254,6 @@ namespace San_Pham_Do_An1.Controllers
                 relevantProducts = new List<TbProduct>();
             }
 
-            // Nếu không tìm thấy sản phẩm khớp từ khóa, đưa luôn sản phẩm nổi bật để AI có gì đó tham khảo
             if (!relevantProducts.Any())
             {
                 relevantProducts = activeProducts
@@ -319,7 +287,7 @@ namespace San_Pham_Do_An1.Controllers
             return sb.ToString();
         }
 
-        // Get chat history
+  
         private async Task<List<TbChatMessage>> GetChatHistory(int? userId, string guestToken, int limit)
         {
             var query = _context.TbChatMessages
@@ -331,7 +299,7 @@ namespace San_Pham_Do_An1.Controllers
             return await query.ToListAsync();
         }
 
-        // Track order
+    
         [HttpPost("track-order")]
         public async Task<IActionResult> TrackOrder([FromBody] TrackOrderRequest request)
         {
@@ -367,11 +335,10 @@ namespace San_Pham_Do_An1.Controllers
                     return Ok(new { bot = botMsg });
                 }
 
-                // Build order message
                 var orderMessage = BuildOrderMessage(order);
                 var botMsg2 = await SaveBotMessage(userId, guestToken, orderMessage);
 
-                // Build order data
+        
                 var orderData = BuildOrderData(order);
 
                 return Ok(new { bot = botMsg2, order = orderData });
@@ -383,7 +350,6 @@ namespace San_Pham_Do_An1.Controllers
             }
         }
 
-        // Build order message
         private string BuildOrderMessage(TbOrder order)
         {
             var statusLabel = order.OrderStatus?.Name ?? "Chưa xác định";
@@ -413,7 +379,6 @@ namespace San_Pham_Do_An1.Controllers
             return message;
         }
 
-        // Build order data
         private object BuildOrderData(TbOrder order)
         {
             var statusLabel = order.OrderStatus?.Name ?? "Chưa xác định";
@@ -445,7 +410,7 @@ namespace San_Pham_Do_An1.Controllers
             };
         }
 
-        // Perfume Advisor
+   
         [HttpPost("perfume-advisor")]
         public async Task<IActionResult> PerfumeAdvisor([FromBody] PerfumeAdvisorRequest request)
         {
@@ -462,7 +427,7 @@ namespace San_Pham_Do_An1.Controllers
 
                 var searchKeywords = new List<string>();
 
-                // Gender filter
+           
                 if (!string.IsNullOrEmpty(request.Gender))
                 {
                     var genderMap = new Dictionary<string, string[]>
@@ -481,7 +446,7 @@ namespace San_Pham_Do_An1.Controllers
                 if (!string.IsNullOrEmpty(request.Style)) searchKeywords.Add(request.Style);
                 if (!string.IsNullOrEmpty(request.Note)) searchKeywords.Add(request.Note);
 
-                // Apply keyword search
+            
                 if (searchKeywords.Any())
                 {
                     query = query.Where(p =>
@@ -492,7 +457,7 @@ namespace San_Pham_Do_An1.Controllers
                     );
                 }
 
-                // Price range filter
+         
                 if (!string.IsNullOrEmpty(request.PriceRange))
                 {
                     var range = request.PriceRange.Split('-');
@@ -522,7 +487,7 @@ namespace San_Pham_Do_An1.Controllers
                     })
                     .ToList();
 
-                // Build criteria text
+         
                 var criteria = new List<string>();
                 if (!string.IsNullOrEmpty(request.Gender)) criteria.Add($"giới tính: {request.Gender}");
                 if (!string.IsNullOrEmpty(request.Style)) criteria.Add($"phong cách: {request.Style}");
@@ -564,7 +529,7 @@ namespace San_Pham_Do_An1.Controllers
             }
         }
 
-        // ========== Helper Methods ==========
+
 
         private async Task<TbChatMessage> SaveUserMessage(int? userId, string guestToken, string message)
         {
@@ -636,7 +601,7 @@ namespace San_Pham_Do_An1.Controllers
 
             if (additionalData != null)
             {
-                // Merge additional data with response
+       
                 var dict = new Dictionary<string, object?>
                 {
                     ["user"] = response.user,
@@ -656,11 +621,11 @@ namespace San_Pham_Do_An1.Controllers
 
         private string CleanAIResponse(string text)
         {
-            // Remove markdown bold markers
+   
             text = Regex.Replace(text, @"\*\*(.*?)\*\*", "$1");
-            // Remove bullet points at start of lines
+       
             text = Regex.Replace(text, @"^\s*[-*•]\s+", "", RegexOptions.Multiline);
-            // Remove excessive newlines
+        
             text = Regex.Replace(text, @"\n{3,}", "\n\n");
             return text.Trim();
         }
@@ -683,7 +648,7 @@ namespace San_Pham_Do_An1.Controllers
 
         private int? GetUserId()
         {
-            // TODO: Implement authentication and get user ID from claims
+      
             return null;
         }
 
@@ -776,7 +741,7 @@ namespace San_Pham_Do_An1.Controllers
         }
     }
 
-    // Request/Response Models
+   
     public class SendMessageRequest
     {
         public string Message { get; set; } = string.Empty;
