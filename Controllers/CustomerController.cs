@@ -187,7 +187,15 @@ namespace San_Pham_Do_An1.Controllers
 
             _context.Update(customer);
             _context.SaveChanges();
+<<<<<<< HEAD
             HttpContext.Session.SetString("Avatar", customer.Avatar ?? "");
+=======
+
+            // Update session if needed
+            HttpContext.Session.SetString("UserName", customer.Name ?? customer.Username ?? "");
+            HttpContext.Session.SetString("Avatar", customer.Avatar ?? "");
+
+>>>>>>> son
             TempData["SuccessMessage"] = "Cập nhật thông tin thành công!";
             return RedirectToAction("Dashboard");
         }

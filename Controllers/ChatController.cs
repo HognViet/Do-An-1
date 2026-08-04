@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using System.Text.Json;
 using System.Text;
+<<<<<<< HEAD
+=======
+using System.Net.Http.Headers;
+>>>>>>> son
 
 namespace San_Pham_Do_An1.Controllers
 {
@@ -17,11 +21,19 @@ namespace San_Pham_Do_An1.Controllers
         private readonly IConfiguration _configuration;
         private readonly HttpClient _httpClient;
 
+<<<<<<< HEAD
         // Gemini API Configuration - Model có thể được config trong appsettings.json
         private string GetGeminiApiEndpoint()
         {
             var modelName = _configuration["GeminiAI:ModelName"] ?? "gemini-1.5-flash";
             return $"https://generativelanguage.googleapis.com/v1beta/models/{modelName}:generateContent";
+=======
+        private const string GroqApiEndpoint = "https://api.groq.com/openai/v1/chat/completions";
+
+        private string GetGroqModelName()
+        {
+            return _configuration["GroqAI:ModelName"] ?? "llama-3.3-70b-versatile";
+>>>>>>> son
         }
 
         public ChatController(
@@ -36,8 +48,11 @@ namespace San_Pham_Do_An1.Controllers
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.Timeout = TimeSpan.FromSeconds(30);
         }
+<<<<<<< HEAD
 
         // Get chat history (guest or user)
+=======
+>>>>>>> son
         [HttpGet("messages")]
         public async Task<IActionResult> GetMessages()
         {
@@ -84,8 +99,11 @@ namespace San_Pham_Do_An1.Controllers
                 return StatusCode(500, new { error = "Lỗi server khi lấy lịch sử chat" });
             }
         }
+<<<<<<< HEAD
 
         // Send message with real Gemini AI integration
+=======
+>>>>>>> son
         [HttpPost("send")]
         public async Task<IActionResult> SendMessage([FromBody] SendMessageRequest request)
         {
@@ -98,6 +116,7 @@ namespace San_Pham_Do_An1.Controllers
 
                 var userId = GetUserId();
                 var guestToken = GetOrCreateGuestToken();
+<<<<<<< HEAD
 
                 // Save user message
                 var userMsg = await SaveUserMessage(userId, guestToken, request.Message);
@@ -120,11 +139,19 @@ namespace San_Pham_Do_An1.Controllers
                 var structuredData = await DetectAndFetchStructuredData(request.Message.ToLower());
 
                 return Ok(BuildResponse(userMsg, botMsg, structuredData));
+=======
+                var userMsg = await SaveUserMessage(userId, guestToken, request.Message);
+                var aiResponse = await GetAIResponse(userId, guestToken, request.Message);
+                var botMsg = await SaveBotMessage(userId, guestToken, aiResponse);
+
+                return Ok(BuildResponse(userMsg, botMsg, null));
+>>>>>>> son
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Lỗi khi gửi tin nhắn: {Message}", ex.Message);
                 _logger.LogError(ex, "Stack trace: {StackTrace}", ex.StackTrace);
+<<<<<<< HEAD
                 
                 // Đảm bảo luôn trả về JSON
                 return StatusCode(500, new { 
@@ -135,10 +162,20 @@ namespace San_Pham_Do_An1.Controllers
         }
 
         // Real Gemini AI Integration
+=======
+                return StatusCode(500, new
+                {
+                    error = "Lỗi server khi xử lý tin nhắn. Vui lòng thử lại sau.",
+                    details = ex.Message
+                });
+            }
+        }
+>>>>>>> son
         private async Task<string> GetAIResponse(int? userId, string guestToken, string userMessage)
         {
             try
             {
+<<<<<<< HEAD
                 // Get system context
                 var systemContext = await BuildSystemContext();
 
@@ -183,10 +220,49 @@ namespace San_Pham_Do_An1.Controllers
                 if (!response.IsSuccessStatusCode)
                 {
                     _logger.LogWarning("Gemini API returned {StatusCode}", response.StatusCode);
+=======
+                var storeContext = await BuildStoreContext(userMessage);
+
+                var chatHistory = await GetChatHistory(userId, guestToken, 10);
+
+                var apiKey = _configuration["GroqAI:ApiKey"];
+                if (string.IsNullOrEmpty(apiKey))
+                {
+                    _logger.LogError("GroqAI:ApiKey không được cấu hình trong appsettings.json");
+                    return GetFallbackResponse(userMessage);
+                }
+
+            
+                var groqRequest = new
+                {
+                    model = GetGroqModelName(),
+                    messages = BuildGroqMessages(storeContext, chatHistory, userMessage),
+                    temperature = 0.8,
+                    max_tokens = 500,
+                    top_p = 0.9
+                };
+
+                var jsonRequest = JsonSerializer.Serialize(groqRequest);
+                var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+                using var httpRequest = new HttpRequestMessage(HttpMethod.Post, GroqApiEndpoint)
+                {
+                    Content = content
+                };
+                httpRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+
+                var response = await _httpClient.SendAsync(httpRequest);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorBody = await response.Content.ReadAsStringAsync();
+                    _logger.LogWarning("Groq API returned {StatusCode}: {Body}", response.StatusCode, errorBody);
+>>>>>>> son
                     return GetFallbackResponse(userMessage);
                 }
 
                 var responseBody = await response.Content.ReadAsStringAsync();
+<<<<<<< HEAD
                 var geminiResponse = JsonSerializer.Deserialize<JsonElement>(responseBody);
 
                 // Extract AI text
@@ -198,15 +274,30 @@ namespace San_Pham_Do_An1.Controllers
                     .GetString() ?? GetFallbackResponse(userMessage);
 
                 // Clean up response
+=======
+                var groqResponse = JsonSerializer.Deserialize<JsonElement>(responseBody);
+
+                var aiText = groqResponse
+                    .GetProperty("choices")[0]
+                    .GetProperty("message")
+                    .GetProperty("content")
+                    .GetString() ?? GetFallbackResponse(userMessage);
+
+>>>>>>> son
                 return CleanAIResponse(aiText);
             }
             catch (Exception ex)
             {
+<<<<<<< HEAD
                 _logger.LogError(ex, "Lỗi khi gọi Gemini API");
+=======
+                _logger.LogError(ex, "Lỗi khi gọi Groq API");
+>>>>>>> son
                 return GetFallbackResponse(userMessage);
             }
         }
 
+<<<<<<< HEAD
         // Build Gemini API contents with history
         private List<object> BuildGeminiContents(string systemContext, List<TbChatMessage> history, string currentMessage)
         {
@@ -248,6 +339,47 @@ namespace San_Pham_Do_An1.Controllers
         // Build system context from database
         private async Task<string> BuildSystemContext()
         {
+=======
+        private List<object> BuildGroqMessages(string systemContext, List<TbChatMessage> history, string currentMessage)
+        {
+            var messages = new List<object>();
+
+        
+            messages.Add(new
+            {
+                role = "system",
+                content = systemContext
+            });
+
+            foreach (var msg in history)
+            {
+                messages.Add(new
+                {
+                    role = msg.Sender == "user" ? "user" : "assistant",
+                    content = msg.Message ?? ""
+                });
+            }
+
+    
+            messages.Add(new
+            {
+                role = "user",
+                content = currentMessage
+            });
+
+            return messages;
+        }
+
+        private async Task<string> BuildStoreContext(string userMessage)
+        {
+            var sb = new StringBuilder();
+
+            sb.AppendLine("Bạn là trợ lý bán hàng của cửa hàng thời trang NETMARK, đang trò chuyện trực tiếp với khách trên website. " +
+                          "Nói chuyện tự nhiên, thân thiện như một nhân viên tư vấn thực thụ, không máy móc, không rập khuôn. " +
+                          "Dưới đây là dữ liệu thật lấy từ hệ thống cửa hàng — chỉ dùng những thông tin này để trả lời, không tự bịa sản phẩm/giá không có trong dữ liệu.");
+            sb.AppendLine();
+
+>>>>>>> son
             var categories = await _context.TbProductCategories
                 .Include(c => c.TbProducts.Where(p => p.IsActive == true))
                 .Where(c => c.TbProducts.Any(p => p.IsActive == true))
@@ -256,6 +388,7 @@ namespace San_Pham_Do_An1.Controllers
                     c.Title,
                     ProductCount = c.TbProducts.Count(p => p.IsActive == true)
                 })
+<<<<<<< HEAD
                 .Take(10)
                 .ToListAsync();
 
@@ -300,6 +433,76 @@ Hãy bắt đầu hỗ trợ khách hàng!";
         }
 
         // Get chat history
+=======
+                .ToListAsync();
+
+            sb.AppendLine("=== DANH MỤC SẢN PHẨM ===");
+            foreach (var c in categories)
+            {
+                sb.AppendLine($"- {c.Title} ({c.ProductCount} sản phẩm)");
+            }
+            sb.AppendLine();
+
+            var keywords = ExtractProductKeywords(userMessage.ToLower());
+            var validKeywords = keywords.Where(kw => kw.Length >= 2).ToList();
+
+            var activeProducts = await _context.TbProducts
+                .Include(p => p.CategoryProduct)
+                .Where(p => p.IsActive == true && p.Title != null)
+                .ToListAsync();
+
+            List<TbProduct> relevantProducts;
+            if (validKeywords.Any())
+            {
+                relevantProducts = activeProducts
+                    .Where(p => validKeywords.Any(kw =>
+                        p.Title.ToLower().Contains(kw) ||
+                        (p.Description != null && p.Description.ToLower().Contains(kw))))
+                    .OrderByDescending(p => p.IsBestSeller)
+                    .ThenByDescending(p => p.Star)
+                    .Take(10)
+                    .ToList();
+            }
+            else
+            {
+                relevantProducts = new List<TbProduct>();
+            }
+
+            if (!relevantProducts.Any())
+            {
+                relevantProducts = activeProducts
+                    .Where(p => p.IsBestSeller == true)
+                    .OrderByDescending(p => p.Star)
+                    .Take(8)
+                    .ToList();
+            }
+
+            sb.AppendLine("=== SẢN PHẨM LIÊN QUAN (dùng để trả lời câu hỏi hiện tại của khách) ===");
+            if (relevantProducts.Any())
+            {
+                foreach (var p in relevantProducts)
+                {
+                    var price = FormatPrice(p.PriceSale ?? p.Price);
+                    var cat = p.CategoryProduct?.Title ?? "Khác";
+                    var desc = TruncateDescription(p.Description, 100);
+                    sb.AppendLine($"- {p.Title} | Danh mục: {cat} | Giá: {price} | Mô tả: {desc}");
+                }
+            }
+            else
+            {
+                sb.AppendLine("(Không có sản phẩm nào khớp — nếu khách hỏi về sản phẩm cụ thể, hãy nói thật là chưa tìm thấy và gợi ý họ xem thêm trên website hoặc mô tả rõ hơn nhu cầu.)");
+            }
+            sb.AppendLine();
+
+            sb.AppendLine("=== CÁC TÍNH NĂNG HỖ TRỢ KHÁC ===");
+            sb.AppendLine("- Khách có thể tra cứu đơn hàng bằng mã đơn (ví dụ: #123)");
+            sb.AppendLine("- Khách có thể yêu cầu tư vấn theo tiêu chí (giới tính, phong cách, mức giá)");
+
+            return sb.ToString();
+        }
+
+  
+>>>>>>> son
         private async Task<List<TbChatMessage>> GetChatHistory(int? userId, string guestToken, int limit)
         {
             var query = _context.TbChatMessages
@@ -311,6 +514,7 @@ Hãy bắt đầu hỗ trợ khách hàng!";
             return await query.ToListAsync();
         }
 
+<<<<<<< HEAD
         // Handle special queries (categories, product search)
         private async Task<SpecialResponse?> HandleSpecialQueries(string messageLower)
         {
@@ -498,6 +702,9 @@ Hãy bắt đầu hỗ trợ khách hàng!";
         }
 
         // Track order
+=======
+    
+>>>>>>> son
         [HttpPost("track-order")]
         public async Task<IActionResult> TrackOrder([FromBody] TrackOrderRequest request)
         {
@@ -533,11 +740,18 @@ Hãy bắt đầu hỗ trợ khách hàng!";
                     return Ok(new { bot = botMsg });
                 }
 
+<<<<<<< HEAD
                 // Build order message
                 var orderMessage = BuildOrderMessage(order);
                 var botMsg2 = await SaveBotMessage(userId, guestToken, orderMessage);
 
                 // Build order data
+=======
+                var orderMessage = BuildOrderMessage(order);
+                var botMsg2 = await SaveBotMessage(userId, guestToken, orderMessage);
+
+        
+>>>>>>> son
                 var orderData = BuildOrderData(order);
 
                 return Ok(new { bot = botMsg2, order = orderData });
@@ -549,7 +763,10 @@ Hãy bắt đầu hỗ trợ khách hàng!";
             }
         }
 
+<<<<<<< HEAD
         // Build order message
+=======
+>>>>>>> son
         private string BuildOrderMessage(TbOrder order)
         {
             var statusLabel = order.OrderStatus?.Name ?? "Chưa xác định";
@@ -579,7 +796,10 @@ Hãy bắt đầu hỗ trợ khách hàng!";
             return message;
         }
 
+<<<<<<< HEAD
         // Build order data
+=======
+>>>>>>> son
         private object BuildOrderData(TbOrder order)
         {
             var statusLabel = order.OrderStatus?.Name ?? "Chưa xác định";
@@ -611,7 +831,11 @@ Hãy bắt đầu hỗ trợ khách hàng!";
             };
         }
 
+<<<<<<< HEAD
         // Perfume Advisor
+=======
+   
+>>>>>>> son
         [HttpPost("perfume-advisor")]
         public async Task<IActionResult> PerfumeAdvisor([FromBody] PerfumeAdvisorRequest request)
         {
@@ -628,7 +852,11 @@ Hãy bắt đầu hỗ trợ khách hàng!";
 
                 var searchKeywords = new List<string>();
 
+<<<<<<< HEAD
                 // Gender filter
+=======
+           
+>>>>>>> son
                 if (!string.IsNullOrEmpty(request.Gender))
                 {
                     var genderMap = new Dictionary<string, string[]>
@@ -647,7 +875,11 @@ Hãy bắt đầu hỗ trợ khách hàng!";
                 if (!string.IsNullOrEmpty(request.Style)) searchKeywords.Add(request.Style);
                 if (!string.IsNullOrEmpty(request.Note)) searchKeywords.Add(request.Note);
 
+<<<<<<< HEAD
                 // Apply keyword search
+=======
+            
+>>>>>>> son
                 if (searchKeywords.Any())
                 {
                     query = query.Where(p =>
@@ -658,7 +890,11 @@ Hãy bắt đầu hỗ trợ khách hàng!";
                     );
                 }
 
+<<<<<<< HEAD
                 // Price range filter
+=======
+         
+>>>>>>> son
                 if (!string.IsNullOrEmpty(request.PriceRange))
                 {
                     var range = request.PriceRange.Split('-');
@@ -688,7 +924,11 @@ Hãy bắt đầu hỗ trợ khách hàng!";
                     })
                     .ToList();
 
+<<<<<<< HEAD
                 // Build criteria text
+=======
+         
+>>>>>>> son
                 var criteria = new List<string>();
                 if (!string.IsNullOrEmpty(request.Gender)) criteria.Add($"giới tính: {request.Gender}");
                 if (!string.IsNullOrEmpty(request.Style)) criteria.Add($"phong cách: {request.Style}");
@@ -730,7 +970,11 @@ Hãy bắt đầu hỗ trợ khách hàng!";
             }
         }
 
+<<<<<<< HEAD
         // ========== Helper Methods ==========
+=======
+
+>>>>>>> son
 
         private async Task<TbChatMessage> SaveUserMessage(int? userId, string guestToken, string message)
         {
@@ -802,7 +1046,11 @@ Hãy bắt đầu hỗ trợ khách hàng!";
 
             if (additionalData != null)
             {
+<<<<<<< HEAD
                 // Merge additional data with response
+=======
+       
+>>>>>>> son
                 var dict = new Dictionary<string, object?>
                 {
                     ["user"] = response.user,
@@ -822,11 +1070,19 @@ Hãy bắt đầu hỗ trợ khách hàng!";
 
         private string CleanAIResponse(string text)
         {
+<<<<<<< HEAD
             // Remove markdown bold markers
             text = Regex.Replace(text, @"\*\*(.*?)\*\*", "$1");
             // Remove bullet points at start of lines
             text = Regex.Replace(text, @"^\s*[-*•]\s+", "", RegexOptions.Multiline);
             // Remove excessive newlines
+=======
+   
+            text = Regex.Replace(text, @"\*\*(.*?)\*\*", "$1");
+       
+            text = Regex.Replace(text, @"^\s*[-*•]\s+", "", RegexOptions.Multiline);
+        
+>>>>>>> son
             text = Regex.Replace(text, @"\n{3,}", "\n\n");
             return text.Trim();
         }
@@ -849,7 +1105,11 @@ Hãy bắt đầu hỗ trợ khách hàng!";
 
         private int? GetUserId()
         {
+<<<<<<< HEAD
             // TODO: Implement authentication and get user ID from claims
+=======
+      
+>>>>>>> son
             return null;
         }
 
@@ -942,7 +1202,11 @@ Hãy bắt đầu hỗ trợ khách hàng!";
         }
     }
 
+<<<<<<< HEAD
     // Request/Response Models
+=======
+   
+>>>>>>> son
     public class SendMessageRequest
     {
         public string Message { get; set; } = string.Empty;
@@ -960,6 +1224,7 @@ Hãy bắt đầu hỗ trợ khách hàng!";
         public string? Note { get; set; }
         public string? PriceRange { get; set; }
     }
+<<<<<<< HEAD
 
     internal class SpecialResponse
     {
@@ -968,3 +1233,6 @@ Hãy bắt đầu hỗ trợ khách hàng!";
     }
 }
 
+=======
+}
+>>>>>>> son

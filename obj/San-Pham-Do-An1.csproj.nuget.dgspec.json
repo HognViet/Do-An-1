@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "D:\\BAOCAODOAN1\\Do-An-1\\San-Pham-Do-An1.csproj": {}
   },
   "projects": {
@@ -12,6 +13,19 @@
         "projectPath": "D:\\BAOCAODOAN1\\Do-An-1\\San-Pham-Do-An1.csproj",
         "packagesPath": "C:\\Users\\WINDOWS 11\\.nuget\\packages\\",
         "outputPath": "D:\\BAOCAODOAN1\\Do-An-1\\obj\\",
+=======
+    "D:\\DOAN1\\Do-An-1\\San-Pham-Do-An1.csproj": {}
+  },
+  "projects": {
+    "D:\\DOAN1\\Do-An-1\\San-Pham-Do-An1.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\DOAN1\\Do-An-1\\San-Pham-Do-An1.csproj",
+        "projectName": "San-Pham-Do-An1",
+        "projectPath": "D:\\DOAN1\\Do-An-1\\San-Pham-Do-An1.csproj",
+        "packagesPath": "C:\\Users\\WINDOWS 11\\.nuget\\packages\\",
+        "outputPath": "D:\\DOAN1\\Do-An-1\\obj\\",
+>>>>>>> son
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -34,10 +34,18 @@ namespace San_Pham_Do_An1.Controllers
                 query = query.Where(p => (p.PriceSale ?? p.Price ?? 0) <= priceMax.Value);
             }
 
+<<<<<<< HEAD
             // Tìm kiếm theo tên sản phẩm
             if (!string.IsNullOrEmpty(search))
             {
                 query = query.Where(p => p.Title != null && p.Title.Contains(search));
+=======
+            // Tìm kiếm theo tên hoặc mô tả sản phẩm
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                var keyword = search.Trim();
+                query = query.Where(p => (p.Title != null && p.Title.Contains(keyword)) || (p.Description != null && p.Description.Contains(keyword)));
+>>>>>>> son
             }
 
             // Sắp xếp

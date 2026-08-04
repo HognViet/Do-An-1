@@ -66,6 +66,13 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
         // GET: Admin/Orders/Details/5
         public async Task<IActionResult> Details(int? id, string status = "all")
         {
+<<<<<<< HEAD
+=======
+            if (HttpContext.Session.GetString("AdminId") == null)
+            {
+                return RedirectToAction("Login", "Accounts", new { area = "Admin" });
+            }
+>>>>>>> son
             if (id == null)
             {
                 return NotFound();
@@ -93,6 +100,13 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateStatus(int id, int orderStatusId, string status = "all")
         {
+<<<<<<< HEAD
+=======
+            if (HttpContext.Session.GetString("AdminId") == null)
+            {
+                return RedirectToAction("Login", "Accounts", new { area = "Admin" });
+            }
+>>>>>>> son
             var order = await _context.TbOrders.FindAsync(id);
             if (order == null)
             {
@@ -109,6 +123,13 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
         // GET: Admin/Orders/Delete/5
         public async Task<IActionResult> Delete(int? id, string status = "all")
         {
+<<<<<<< HEAD
+=======
+            if (HttpContext.Session.GetString("AdminId") == null)
+            {
+                return RedirectToAction("Login", "Accounts", new { area = "Admin" });
+            }
+>>>>>>> son
             if (id == null)
             {
                 return NotFound();

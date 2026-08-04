@@ -24,8 +24,11 @@
     <PackageReference Include="X.PagedList.Mvc.Core" Version="10.5.9" />
   </ItemGroup>
 
+<<<<<<< HEAD
   <ItemGroup>
     <Folder Include="wwwroot\files\" />
   </ItemGroup>
 
+=======
+>>>>>>> son
 </Project>

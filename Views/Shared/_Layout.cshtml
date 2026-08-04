@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="~/assets/css/style.css">
     <link rel="stylesheet" href="~/assets/css/chat.css">
 
+<<<<<<< HEAD
     <style>
         @@keyframes bounceCart {
             0% { transform: scale(1); }
@@ -51,6 +52,8 @@
             border: 2px solid #fff;
         }
     </style>
+=======
+>>>>>>> son
 </head>
 
 <body>
@@ -109,8 +112,12 @@
                             <li class="header__shipping--text text-white d-sm-2-none"><img
                                     class="header__shipping--text__icon" src="~/assets/img/icon/email.png"
                                     alt="email-icon"> <a class="header__shipping--text__link"
+<<<<<<< HEAD
                                                           href="mailto:ntpthao.dhti17a5hn@sv.uneti.edu.vn">ntpthao.dhti17a5hn@sv.uneti.edu.vn</a>
                             </li>
+=======
+                                    href="mailto:ntpthao.dhti17a5hn@sv.uneti.edu.vn">ntpthao.dhti17a5hn@sv.uneti.edu.vn</a></li>
+>>>>>>> son
                         </ul>
                     </div>
                     <div class="language__currency d-none d-lg-block">
@@ -119,6 +126,7 @@
                                 <a class="language__switcher text-white" href="#">
                                     <img class="language__switcher--icon__img" src="~/assets/img/icon/covn.png"
                                         alt="currency">
+<<<<<<< HEAD
                                     <span>Tiếng Việt</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="11.797" height="9.05"
                                         viewBox="0 0 9.797 6.05">
@@ -136,6 +144,13 @@
                                 </div>
                             </li>
                             
+=======
+                                    
+                                </a>
+                                
+                            </li>
+                           
+>>>>>>> son
                         </ul>
                     </div>
                 </div>
@@ -162,11 +177,19 @@
                         </h1>
                     </div>
                     <div class="header__search--widget header__sticky--none d-none d-lg-block">
+<<<<<<< HEAD
                         <form class="d-flex header__search--form" action="#">
                             
                             <div class="header__search--box">
                                 <label>
                                     <input class="header__search--input" placeholder="Nhập từ khóa..." type="text">
+=======
+                        <form class="d-flex header__search--form" action="@Url.Action("Index", "Product")" method="get">
+                            
+                            <div class="header__search--box">
+                                <label>
+                                    <input class="header__search--input" name="search" value="@ViewBag.Search" placeholder="Nhập từ khóa..." type="text">
+>>>>>>> son
                                 </label>
                                 <button class="header__search--button bg__secondary text-white" type="submit"
                                     aria-label="search button">
@@ -183,11 +206,16 @@
                         </form>
                     </div>
                     <div class="header__account header__sticky--none">
+<<<<<<< HEAD
                         <ul class="d-flex align-items-center">
+=======
+                        <ul class="d-flex">
+>>>>>>> son
                             <li class="header__account--items">
                                 <a class="header__account--btn" href="/Customer/Dashboard">
                                     @if (Context.Session.GetString("CustomerId") != null)
                                     {
+<<<<<<< HEAD
                                         var avatarUrl = Context.Session.GetString("Avatar");
                                         if (string.IsNullOrEmpty(avatarUrl))
                                         {
@@ -199,6 +227,32 @@
                                     else
                                     {
                                         <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" style="width: 28px; height: 28px; display: block; margin: 0 auto;"
+=======
+                                        <!-- Icon người dùng dạng hình tròn -->
+                                        @if (string.IsNullOrEmpty(Context.Session.GetString("Avatar")))
+                                        {
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443"
+                                                 viewBox="0 0 512 512">
+                                                <path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48z"
+                                                      fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                                                <path d="M256 128a80 80 0 1080 80 80 80 0 00-80-80z"
+                                                      fill="none" stroke="currentColor" stroke-linecap="round"
+                                                      stroke-linejoin="round" stroke-width="32" />
+                                                <path d="M91.68 400a145.15 145.15 0 01164.32-172 145 145 0 01164.32 172"
+                                                      fill="none" stroke="currentColor" stroke-linecap="round"
+                                                      stroke-linejoin="round" stroke-width="32" />
+                                            </svg>
+                                        }
+                                        else
+                                        {
+                                            <img src="@Context.Session.GetString("Avatar")" style="width: 26.51px; height: 26.51px; border-radius: 50%; object-fit: cover;" alt="Avatar" />
+                                        }
+                                        <div class="mt-2">@Context.Session.GetString("UserName")</div>
+                                    }
+                                    else
+                                    {
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443"
+>>>>>>> son
                                              viewBox="0 0 512 512">
                                             <path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z"
                                                   fill="none" stroke="currentColor" stroke-linecap="round"
@@ -227,7 +281,11 @@
                             <li class="header__account--items">
                                 <a class="header__account--btn minicart__open--btn" href="javascript:void(0)"
                                     data-offcanvas>
+<<<<<<< HEAD
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" style="width: 24px; height: 24px; display: inline-block; vertical-align: middle;"
+=======
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443"
+>>>>>>> son
                                         viewBox="0 0 14.706 13.534">
                                         <g transform="translate(0 0)">
                                             <g>
@@ -265,7 +323,11 @@
                         </nav>
                     </div>
                     <div class="header__account header__account2 header__sticky--block">
+<<<<<<< HEAD
                         <ul class="d-flex align-items-center">
+=======
+                        <ul class="d-flex">
+>>>>>>> son
                             <li
                                 class="header__account--items header__account2--items  header__account--search__items d-none d-lg-block">
                                 <a class="header__account--btn search__open--btn" href="javascript:void(0)"
@@ -283,6 +345,7 @@
                             </li>
                             <li class="header__account--items header__account2--items">
                                 <a class="header__account--btn" href="/Customer/Dashboard">
+<<<<<<< HEAD
                                     @if (Context.Session.GetString("CustomerId") != null)
                                     {
                                         var avatarUrl = Context.Session.GetString("Avatar");
@@ -306,6 +369,19 @@
                                                 stroke-width="32" />
                                         </svg>
                                     }
+=======
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443"
+                                        viewBox="0 0 512 512">
+                                        <path
+                                            d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z"
+                                            fill="none" stroke="currentColor" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-width="32" />
+                                        <path
+                                            d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z"
+                                            fill="none" stroke="currentColor" stroke-miterlimit="10"
+                                            stroke-width="32" />
+                                    </svg>
+>>>>>>> son
                                 </a>
                             </li>
                             @* <li class="header__account--items header__account2--items d-none d-lg-block"> 
@@ -323,7 +399,11 @@
                             <li class="header__account--items header__account2--items">
                                 <a class="header__account--btn minicart__open--btn" href="javascript:void(0)"
                                     data-offcanvas>
+<<<<<<< HEAD
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" style="width: 24px; height: 24px; display: inline-block; vertical-align: middle;"
+=======
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443"
+>>>>>>> son
                                         viewBox="0 0 14.706 13.534">
                                         <g transform="translate(0 0)">
                                             <g>
@@ -499,6 +579,7 @@
                         </li>
                     </ul>
                     <div class="offcanvas__account--items">
+<<<<<<< HEAD
                         @if (Context.Session.GetString("CustomerId") != null)
                         {
                             <a class="offcanvas__account--items__btn d-flex align-items-center" href="/Customer/Dashboard">
@@ -533,6 +614,23 @@
                                 <span class="offcanvas__account--items__label">Đăng nhập / Đăng ký</span>
                             </a>
                         }
+=======
+                        <a class="offcanvas__account--items__btn d-flex align-items-center" href="login.html">
+                            <span class="offcanvas__account--items__icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20.51" height="19.443"
+                                    viewBox="0 0 512 512">
+                                    <path
+                                        d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z"
+                                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="32" />
+                                    <path
+                                        d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z"
+                                        fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                                </svg>
+                            </span>
+                            <span class="offcanvas__account--items__label">Đăng nhập / Đăng ký</span>
+                        </a>
+>>>>>>> son
                     </div>
                     <div class="language__currency">
                         <ul class="d-flex align-items-center">
@@ -667,9 +765,15 @@
         <div class="predictive__search--box ">
             <div class="predictive__search--box__inner">
                 <h2 class="predictive__search--title">Tìm kiếm sản phẩm</h2>
+<<<<<<< HEAD
                 <form class="predictive__search--form" action="#">
                     <label>
                         <input class="predictive__search--input" placeholder="Tìm kiếm tại đây" type="text">
+=======
+                <form class="predictive__search--form" action="@Url.Action("Index", "Product")" method="get">
+                    <label>
+                        <input class="predictive__search--input" name="search" value="@ViewBag.Search" placeholder="Tìm kiếm tại đây" type="text">
+>>>>>>> son
                     </label>
                     <button class="predictive__search--button" aria-label="search button" type="submit"><svg
                             class="header__search--button__svg" xmlns="http://www.w3.org/2000/svg" width="30.51"
@@ -1000,8 +1104,13 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
 
     <!-- Customscript js -->
+<<<<<<< HEAD
     <script src="~/js/site.js"></script>
     <script src="~/assets/js/script.js"></script>
+=======
+    <script src="~/js/site.js?v=1.2"></script>
+    <script src="~/assets/js/script.js?v=1.2"></script>
+>>>>>>> son
     <script src="~/assets/toastr/js/toastr.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
@@ -1058,6 +1167,7 @@
             }
         })();
 
+<<<<<<< HEAD
         function flyToCart(clickedEl) {
             if (!clickedEl) return;
             
@@ -1148,6 +1258,9 @@
                 }
             }
 
+=======
+        function addToCart(productId, size, color, quantity) {
+>>>>>>> son
             fetch('/Cart/AddToCart', {
                 method: 'POST',
                 headers: {

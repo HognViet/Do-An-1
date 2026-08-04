@@ -225,6 +225,13 @@ var swiper = new Swiper(".hero__slider--activation", {
   }),
   swiper2 = new Swiper(".product__media--preview", {
     loop: !0,
+<<<<<<< HEAD
+=======
+    autoplay: {
+      delay: 2000,
+      disableOnInteraction: !1,
+    },
+>>>>>>> son
     spaceBetween: 10,
     thumbs: { swiper: swiper },
   });
@@ -492,6 +499,13 @@ $(document).on("click", ".add__to--cart", function () {
             container.html(data);
             new Swiper(".product__media--preview", {
                 loop: true,
+<<<<<<< HEAD
+=======
+                autoplay: {
+                    delay: 2000,
+                    disableOnInteraction: false,
+                },
+>>>>>>> son
                 slidesPerView: 1,
                 navigation: {
                     nextEl: ".swiper-button-next",

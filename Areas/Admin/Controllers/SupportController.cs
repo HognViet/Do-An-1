@@ -5,6 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using San_Pham_Do_An1.Models;
 
+<<<<<<< HEAD
+=======
+using Microsoft.AspNetCore.Http;
+
+>>>>>>> son
 namespace San_Pham_Do_An1.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -20,6 +25,13 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
         // GET: Admin/Support
         public async Task<IActionResult> Index()
         {
+<<<<<<< HEAD
+=======
+            if (HttpContext.Session.GetString("AdminId") == null)
+            {
+                return RedirectToAction("Login", "Accounts", new { area = "Admin" });
+            }
+>>>>>>> son
             var contacts = await _context.TbContacts
                 .OrderByDescending(c => c.CreatedDate)
                 .ToListAsync();

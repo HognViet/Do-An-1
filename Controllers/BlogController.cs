@@ -17,7 +17,11 @@ namespace San_Pham_Do_An1.Controllers
             // Lấy tất cả blog đang active
             var query = _context.TbBlogs
                 .Include(b => b.BlogCategory)
+<<<<<<< HEAD
                 .Where(b => b.IsActive == true)
+=======
+                .Where(b => b.IsActive == true && b.BlogId != 1 && !string.IsNullOrEmpty(b.Alias))
+>>>>>>> son
                 .AsQueryable();
 
             // Lọc theo danh mục nếu có
@@ -40,7 +44,10 @@ namespace San_Pham_Do_An1.Controllers
             return View(blog);
         }
         [Route("/blog/{alias}-{id}.html")]
+<<<<<<< HEAD
         [Route("/blog/{id:int}.html")]
+=======
+>>>>>>> son
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.TbBlogs == null)

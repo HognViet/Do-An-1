@@ -157,7 +157,10 @@ namespace San_Pham_Do_An1.Models
 
             // Seed Data for tb_Blog
             modelBuilder.Entity<TbBlog>().HasData(
+<<<<<<< HEAD
                 new TbBlog { BlogId = 1, Title = "Xu hướng thời trang 2025", Alias = null, BlogCategoryId = 1, Description = "Nhưng xu hướng nổi bật 2025", Image = "/assets/img/blog/blog1.png", AccountId = 2, IsActive = true, CreatedDate = DateTime.Parse("2026-07-04 08:36:19.421"), CreatedBy = "admin" },
+=======
+>>>>>>> son
                 new TbBlog { BlogId = 2, Title = "Cách phối đồ cơ bản", Alias = "cach-phoi-do", BlogCategoryId = 2, Description = "Mẹo phối đồ", Image = "/assets/img/blog/blog2.png", AccountId = 2, IsActive = true, CreatedDate = DateTime.Parse("2026-07-15 14:28:42.765"), CreatedBy = "admin" },
                 new TbBlog { BlogId = 3, Title = "Hướng dẫn chưng cất nước hoa", Alias = "huong-dan-nuoc-hoa", BlogCategoryId = 4, Description = "Nước hoa tự chế", Image = "/assets/img/blog/blog3.png", AccountId = 2, IsActive = true, CreatedDate = DateTime.Parse("2026-07-25 22:49:08.233"), CreatedBy = "admin" }
             );

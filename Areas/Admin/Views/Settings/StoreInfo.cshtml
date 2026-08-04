@@ -12,18 +12,65 @@
             </ol>
         </div>
 
+<<<<<<< HEAD
         <div class="row">
             <div class="col-12">
+=======
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show mb-3">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+>>>>>>> son
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">THÔNG TIN CỬA HÀNG</h4>
                     </div>
                     <div class="card-body">
+<<<<<<< HEAD
                         <p class="text-muted">Tính năng đang được phát triển.</p>
+=======
+                        <div class="basic-form">
+                            <form asp-action="SaveStoreInfo" asp-controller="Settings" asp-area="Admin" method="post">
+                                @Html.AntiForgeryToken()
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">Tên cửa hàng</label>
+                                        <input type="text" name="storeName" class="form-control" value="Shop Thời Trang Váy Áo" required>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">Số điện thoại / Hotline</label>
+                                        <input type="text" name="storePhone" class="form-control" value="0988 123 456" required>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">Email hỗ trợ</label>
+                                        <input type="email" name="storeEmail" class="form-control" value="contact@shopthoitrang.com" required>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">Giờ mở cửa</label>
+                                        <input type="text" name="storeHours" class="form-control" value="08:00 - 22:00 (Hàng ngày)">
+                                    </div>
+                                    <div class="mb-3 col-md-12">
+                                        <label class="form-label">Địa chỉ trụ sở</label>
+                                        <textarea name="storeAddress" class="form-control" rows="3">Số 123 Đường Xuân Thủy, Quận Cầu Giấy, Hà Nội</textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Lưu cấu hình</button>
+                            </form>
+                        </div>
+>>>>>>> son
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> son

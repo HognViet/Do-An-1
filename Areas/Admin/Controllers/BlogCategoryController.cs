@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using San_Pham_Do_An1.Models;
 
+<<<<<<< HEAD
+=======
+using Microsoft.AspNetCore.Http;
+
+>>>>>>> son
 namespace San_Pham_Do_An1.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -21,12 +26,26 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
         // GET: Admin/BlogCategory
         public async Task<IActionResult> Index()
         {
+<<<<<<< HEAD
+=======
+            if (HttpContext.Session.GetString("AdminId") == null)
+            {
+                return RedirectToAction("Login", "Accounts", new { area = "Admin" });
+            }
+>>>>>>> son
             return View(await _context.TbBlogCategories.ToListAsync());
         }
 
         // GET: Admin/BlogCategory/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+<<<<<<< HEAD
+=======
+            if (HttpContext.Session.GetString("AdminId") == null)
+            {
+                return RedirectToAction("Login", "Accounts", new { area = "Admin" });
+            }
+>>>>>>> son
             if (id == null)
             {
                 return NotFound();
@@ -45,6 +64,13 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
         // GET: Admin/BlogCategory/Create
         public IActionResult Create()
         {
+<<<<<<< HEAD
+=======
+            if (HttpContext.Session.GetString("AdminId") == null)
+            {
+                return RedirectToAction("Login", "Accounts", new { area = "Admin" });
+            }
+>>>>>>> son
             return View();
         }
 

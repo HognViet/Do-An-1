@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "Ff2lN/Nj8lI=",
   "success": true,
   "projectFilePath": "D:\\BAOCAODOAN1\\Do-An-1\\San-Pham-Do-An1.csproj",
+=======
+  "dgSpecHash": "eBF0119XI3M=",
+  "success": true,
+  "projectFilePath": "D:\\DOAN1\\Do-An-1\\San-Pham-Do-An1.csproj",
+>>>>>>> son
   "expectedPackageFiles": [
     "C:\\Users\\WINDOWS 11\\.nuget\\packages\\elfinder.netcore\\1.3.6\\elfinder.netcore.1.3.6.nupkg.sha512",
     "C:\\Users\\WINDOWS 11\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",

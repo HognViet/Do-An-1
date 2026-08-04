@@ -18,9 +18,15 @@ namespace San_Pham_Do_An1.Controllers
 
         public IActionResult Index()
         {
+<<<<<<< HEAD
             // 1. Lấy tin tức Blog hiển thị ở trang chủ
             ViewBag.Blog = _context.TbBlogs
                 .Where(m => m.IsActive == true)
+=======
+            // 1. Lấy tin tức Blog hiển thị ở trang chủ 
+            ViewBag.Blog = _context.TbBlogs
+                .Where(m => m.IsActive == true && m.BlogId != 1 && !string.IsNullOrEmpty(m.Alias))
+>>>>>>> son
                 .OrderByDescending(m => m.CreatedDate)
                 .ToList();
 
