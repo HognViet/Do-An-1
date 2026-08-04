@@ -248,17 +248,24 @@ function validateBeforeAdd(container) {
     const size = sizeInputs.length ? sizeInputs.filter(":checked").val() : null;
     const color = colorInputs.length ? colorInputs.filter(":checked").val() : null;
 
+    container.find(".validation-error").remove();
+    let isValid = true;
+
     if (sizeInputs.length && !size) {
-        alert("Bạn phải chọn size");
-        return false;
+        sizeInputs.closest(".product__variant--list").append("<div class='validation-error' style='color:red; margin-top: 5px; font-size: 13px;'>Bạn phải chọn size</div>");
+        isValid = false;
     }
     if (colorInputs.length && !color) {
-        alert("Bạn phải chọn màu");
-        return false;
+        colorInputs.closest(".product__variant--list").append("<div class='validation-error' style='color:red; margin-top: 5px; font-size: 13px;'>Bạn phải chọn màu</div>");
+        isValid = false;
     }
 
-    return true;
+    return isValid;
 }
+
+$(document).on("change", "input[name='size'], input[name='color']", function() {
+    $(this).closest(".product__variant--list").find(".validation-error").remove();
+});
 $(document).off("click", ".quickview__value--quantity").on("click", ".quickview__value--quantity", function () {
 
     const qtyBox = $(this).closest(".quantity__box");
@@ -287,6 +294,52 @@ $(document).off("click", ".quickview__cart--btn").on("click", ".quickview__cart-
     let color = container.find("input[name='color']:checked").val() || null;
     let size = container.find("input[name='size']:checked").val() || null;
     
+    // Animation fly to cart
+    var cartBtn = $(this);
+    var imgtodrag = cartBtn.closest('.row').find('.product__media--preview__items--img:visible').eq(0);
+    if (imgtodrag.length === 0) {
+        imgtodrag = cartBtn.closest('.product__items').find('.product__items--img:visible').eq(0);
+    }
+    
+    if (imgtodrag.length) {
+        var cart = $('.minicart__open--btn:visible').eq(0);
+        if (cart.length) {
+            var imgclone = imgtodrag.clone()
+                .offset({
+                    top: imgtodrag.offset().top,
+                    left: imgtodrag.offset().left
+                })
+                .css({
+                    position: "absolute",
+                    width: imgtodrag.width(),
+                    height: imgtodrag.height(),
+                    opacity: 0.9,
+                    zIndex: 99999,
+                    borderRadius: "10px",
+                    pointerEvents: "none"
+                })
+                .appendTo("body");
+
+            imgclone.animate({
+                top: cart.offset().top + 10,
+                left: cart.offset().left + 10,
+                width: 30,
+                height: 30,
+                opacity: 0.2
+            }, 700, "swing", function () {
+
+                // Rung icon giỏ hàng
+                cart.addClass("cart-shake");
+
+                setTimeout(function () {
+                    cart.removeClass("cart-shake");
+                }, 400);
+
+                imgclone.remove
+            });
+        }
+    }
+
     addToCart(productId, size, color, quantity);
 });
 
@@ -375,7 +428,9 @@ $(document).on("click", ".continue__shopping--clear", function (e) {
 });
 
 // Wishlist heart icon color toggle
-$(document).on("click", "a[href*='wishlist.html'], .product__items--action__btn, .variant__wishlist--icon", function (e) {
+
+$(document).on("click",
+    "a[href*='wishlist.html'], .variant__wishlist--icon", function (e) {
   e.preventDefault();
   e.stopPropagation();
   var $btn = $(this);

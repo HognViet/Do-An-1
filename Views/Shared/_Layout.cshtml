@@ -86,7 +86,7 @@
                             <li class="header__shipping--text text-white d-sm-2-none"><img
                                     class="header__shipping--text__icon" src="~/assets/img/icon/email.png"
                                     alt="email-icon"> <a class="header__shipping--text__link"
-                                    href="mailto:demo@gmail.com">demo@gmail.com</a></li>
+                                    href="mailto:ntpthao.dhti17a5hn@sv.uneti.edu.vn">ntpthao.dhti17a5hn@sv.uneti.edu.vn</a></li>
                         </ul>
                     </div>
                     <div class="language__currency d-none d-lg-block">
@@ -95,41 +95,11 @@
                                 <a class="language__switcher text-white" href="#">
                                     <img class="language__switcher--icon__img" src="~/assets/img/icon/covn.png"
                                         alt="currency">
-                                    <span>Tiếng Việt</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="11.797" height="9.05"
-                                        viewBox="0 0 9.797 6.05">
-                                        <path d="M14.646,8.59,10.9,12.329,7.151,8.59,6,9.741l4.9,4.9,4.9-4.9Z"
-                                            transform="translate(-6 -8.59)" fill="currentColor" opacity="0.7" />
-                                    </svg>
+                                    
                                 </a>
-                                <div class="dropdown__language">
-                                    <ul>
-                                        <li class="language__items"><a class="language__text" href="#">Pháp</a></li>
-                                        <li class="language__items"><a class="language__text" href="#">Nga</a></li>
-                                        <li class="language__items"><a class="language__text" href="#">Tây Ban Nha</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                
                             </li>
-                            <li class="language__currency--list">
-                                <a class="account__currency--link text-white" href="#">
-                                    <img src="~/assets/img/icon/usd-icon.png" alt="currency">
-                                    <span>$ Đô la Mỹ</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="11.797" height="9.05"
-                                        viewBox="0 0 9.797 6.05">
-                                        <path d="M14.646,8.59,10.9,12.329,7.151,8.59,6,9.741l4.9,4.9,4.9-4.9Z"
-                                            transform="translate(-6 -8.59)" fill="currentColor" opacity="0.7" />
-                                    </svg>
-                                </a>
-                                <div class="dropdown__currency">
-                                    <ul>
-                                        <li class="currency__items"><a class="currency__text" href="#">CAD</a></li>
-                                        <li class="currency__items"><a class="currency__text" href="#">CNY</a></li>
-                                        <li class="currency__items"><a class="currency__text" href="#">EUR</a></li>
-                                        <li class="currency__items"><a class="currency__text" href="#">GBP</a></li>
-                                    </ul>
-                                </div>
-                            </li>
+                           
                         </ul>
                     </div>
                 </div>
@@ -183,17 +153,24 @@
                                     @if (Context.Session.GetString("CustomerId") != null)
                                     {
                                         <!-- Icon người dùng dạng hình tròn -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443"
-                                             viewBox="0 0 512 512">
-                                            <path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48z"
-                                                  fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
-                                            <path d="M256 128a80 80 0 1080 80 80 80 0 00-80-80z"
-                                                  fill="none" stroke="currentColor" stroke-linecap="round"
-                                                  stroke-linejoin="round" stroke-width="32" />
-                                            <path d="M91.68 400a145.15 145.15 0 01164.32-172 145 145 0 01164.32 172"
-                                                  fill="none" stroke="currentColor" stroke-linecap="round"
-                                                  stroke-linejoin="round" stroke-width="32" />
-                                        </svg>
+                                        @if (string.IsNullOrEmpty(Context.Session.GetString("Avatar")))
+                                        {
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443"
+                                                 viewBox="0 0 512 512">
+                                                <path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48z"
+                                                      fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                                                <path d="M256 128a80 80 0 1080 80 80 80 0 00-80-80z"
+                                                      fill="none" stroke="currentColor" stroke-linecap="round"
+                                                      stroke-linejoin="round" stroke-width="32" />
+                                                <path d="M91.68 400a145.15 145.15 0 01164.32-172 145 145 0 01164.32 172"
+                                                      fill="none" stroke="currentColor" stroke-linecap="round"
+                                                      stroke-linejoin="round" stroke-width="32" />
+                                            </svg>
+                                        }
+                                        else
+                                        {
+                                            <img src="@Context.Session.GetString("Avatar")" style="width: 26.51px; height: 26.51px; border-radius: 50%; object-fit: cover;" alt="Avatar" />
+                                        }
                                         <div class="mt-2">@Context.Session.GetString("UserName")</div>
                                     }
                                     else
@@ -969,8 +946,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
 
     <!-- Customscript js -->
-    <script src="~/js/site.js"></script>
-    <script src="~/assets/js/script.js"></script>
+    <script src="~/js/site.js?v=1.2"></script>
+    <script src="~/assets/js/script.js?v=1.2"></script>
     <script src="~/assets/toastr/js/toastr.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>

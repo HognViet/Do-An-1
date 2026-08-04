@@ -16,3 +16,57 @@ html {
 body {
   margin-bottom: 60px;
 }
+@keyframes cartShake {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    20% {
+        transform: scale(1.15) rotate(-8deg);
+    }
+
+    40% {
+        transform: scale(1.15) rotate(8deg);
+    }
+
+    60% {
+        transform: scale(1.1) rotate(-5deg);
+    }
+
+    80% {
+        transform: scale(1.05) rotate(5deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.cart-shake {
+    animation: cartShake .45s ease;
+}
+@keyframes cartShake {
+    0% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.2);
+    }
+
+    50% {
+        transform: scale(0.9);
+    }
+
+    75% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.cart-shake {
+    animation: cartShake .35s;
+}

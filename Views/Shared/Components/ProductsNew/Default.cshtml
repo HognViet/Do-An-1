@@ -1,4 +1,4 @@
-@model IEnumerable<San_Pham_Do_An1.Models.TbProduct>
+﻿@model IEnumerable<San_Pham_Do_An1.Models.TbProduct>
 @foreach (var item in Model.Take(5))
 {
     string sUrl = $"/product/{item.Alias}-{item.ProductId}.html";
@@ -90,3 +90,5 @@
         </div>
     </div>
 }
+
+
