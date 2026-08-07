@@ -248,19 +248,6 @@ function validateBeforeAdd(container) {
     const size = sizeInputs.length ? sizeInputs.filter(":checked").val() : null;
     const color = colorInputs.length ? colorInputs.filter(":checked").val() : null;
 
-<<<<<<< HEAD
-    if (sizeInputs.length && !size) {
-        alert("Bạn phải chọn size");
-        return false;
-    }
-    if (colorInputs.length && !color) {
-        alert("Bạn phải chọn màu");
-        return false;
-    }
-
-    return true;
-}
-=======
     container.find(".validation-error").remove();
     let isValid = true;
 
@@ -279,7 +266,6 @@ function validateBeforeAdd(container) {
 $(document).on("change", "input[name='size'], input[name='color']", function() {
     $(this).closest(".product__variant--list").find(".validation-error").remove();
 });
->>>>>>> son
 $(document).off("click", ".quickview__value--quantity").on("click", ".quickview__value--quantity", function () {
 
     const qtyBox = $(this).closest(".quantity__box");
@@ -308,8 +294,6 @@ $(document).off("click", ".quickview__cart--btn").on("click", ".quickview__cart-
     let color = container.find("input[name='color']:checked").val() || null;
     let size = container.find("input[name='size']:checked").val() || null;
     
-<<<<<<< HEAD
-=======
     // Animation fly to cart
     var cartBtn = $(this);
     var imgtodrag = cartBtn.closest('.row').find('.product__media--preview__items--img:visible').eq(0);
@@ -356,7 +340,6 @@ $(document).off("click", ".quickview__cart--btn").on("click", ".quickview__cart-
         }
     }
 
->>>>>>> son
     addToCart(productId, size, color, quantity);
 });
 
@@ -445,13 +428,9 @@ $(document).on("click", ".continue__shopping--clear", function (e) {
 });
 
 // Wishlist heart icon color toggle
-<<<<<<< HEAD
-$(document).on("click", "a[href*='wishlist.html'], .variant__wishlist--icon", function (e) {
-=======
 
 $(document).on("click",
     "a[href*='wishlist.html'], .variant__wishlist--icon", function (e) {
->>>>>>> son
   e.preventDefault();
   e.stopPropagation();
   var $btn = $(this);

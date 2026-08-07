@@ -70,11 +70,7 @@
                                 </svg>
                             </div>
                             <div class="contact__info--content">
-<<<<<<< HEAD
-                                <p class="contact__info--content__desc text-white">Hotline hỗ trợ <br> <a href="tel:+01234-567890">+01234-567890</a></p>
-=======
                                 <p class="contact__info--content__desc text-white">Hotline hỗ trợ <br> <a href="tel:+84385085334">+84385085334</a></p>
->>>>>>> son
                             </div>
                         </div>
                     </div>
@@ -87,11 +83,7 @@
                                 </svg>
                             </div>
                             <div class="contact__info--content">
-<<<<<<< HEAD
-                                <p class="contact__info--content__desc text-white"> <a href="mailto:info@example.com">ntpt251105@gmail.com</a></p>
-=======
                                 <p class="contact__info--content__desc text-white"> <a href="mailto:info@example.com">ntpthao.dhti17a5hn@sv.uneti.edu.vn</a></p>
->>>>>>> son
                             </div>
                         </div>
                     </div>
@@ -115,30 +107,30 @@
         </div>
     </section>
     <div class="contact__map--area section--padding pt-0">
-        <iframe class="contact__map--iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3780.273646679365!2d105.6936336749662!3d18.651739582467475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3139ce6e20173e6b%3A0x6777274093f2f84b!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBWaW5o!5e0!3m2!1svi!2s!4v1709653896500!5m2!1svi!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe class="contact__map--iframe" src="https://maps.google.com/maps?q=Đại%20học%20Kinh%20tế%20-%20Kỹ%20thuật%20Công%20nghiệp,%20218%20Lĩnh%20Nam,%20Hoàng%20Mai,%20Hà%20Nội&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 </main>
 
 @section Scripts {
     <script>
         $(document).ready(function () {
-            // Khi bấm nút Gửi
-            $('#btnSend').click(function (e) {
-                e.preventDefault(); // Chặn load lại trang
 
-                // Lấy dữ liệu từ các ô input thông qua ID
+            $('#btnSend').click(function (e) {
+                e.preventDefault();
+
+
                 var name = $('#txtName').val();
                 var phone = $('#txtPhone').val();
                 var email = $('#txtEmail').val();
                 var message = $('#txtMessage').val();
 
-                // Kiểm tra dữ liệu trống
+
                 if (name == '' || phone == '' || email == '') {
                     toastr.warning('Vui lòng nhập đầy đủ Họ tên, Số điện thoại và Email!');
                     return;
                 }
 
-                // Gửi Ajax
+
                 $.ajax({
                     url: '/Contact/Send',
                     type: 'POST',
@@ -151,7 +143,7 @@
                     success: function (rs) {
                         if (rs.success) {
                             toastr.success('Gửi liên hệ thành công!');
-                            // Xóa trắng form sau khi gửi
+
                             $('#txtName').val('');
                             $('#txtPhone').val('');
                             $('#txtEmail').val('');

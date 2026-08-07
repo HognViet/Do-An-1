@@ -6,11 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using San_Pham_Do_An1.Models;
 
-<<<<<<< HEAD
-=======
 using Microsoft.AspNetCore.Http;
 
->>>>>>> son
 namespace San_Pham_Do_An1.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -23,20 +20,17 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             _context = context;
         }
 
-        // GET: Admin/ProductCategory
+
         public async Task<IActionResult> Index()
         {
-<<<<<<< HEAD
-=======
             if (HttpContext.Session.GetString("AdminId") == null)
             {
                 return RedirectToAction("Login", "Accounts", new { area = "Admin" });
             }
->>>>>>> son
             return View(await _context.TbProductCategories.ToListAsync());
         }
 
-        // GET: Admin/ProductCategory/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -54,13 +48,13 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(category);
         }
 
-        // GET: Admin/ProductCategory/Create
+
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/ProductCategory/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,Alias,Description,Icon,Position,CreatedDate")] TbProductCategory category)
@@ -74,7 +68,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(category);
         }
 
-        // GET: Admin/ProductCategory/Edit/5
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -89,7 +83,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(category);
         }
 
-        // POST: Admin/ProductCategory/Edit/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CategoryProductId,Title,Alias,Description,Icon,Position,CreatedDate")] TbProductCategory category)
@@ -121,7 +115,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(category);
         }
 
-        // GET: Admin/ProductCategory/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -139,7 +133,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(category);
         }
 
-        // POST: Admin/ProductCategory/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

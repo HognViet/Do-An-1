@@ -1,6 +1,6 @@
 @model San_Pham_Do_An1.Models.TbOrder
 @{
-    ViewData["Title"] = "Nhân viên - Chi tiết đơn hàng";
+    ViewData["Title"] = "Chi tiết đơn hàng";
     Layout = "~/Areas/Employees/Views/Shared/_Layout.cshtml";
     var status = ViewBag.Status as string ?? "all";
 }
@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-action="Index" asp-area="Employees" asp-controller="Orders" asp-route-status="@status">Đơn hàng</a></li>
+                <li class="breadcrumb-item"><a asp-action="Index" asp-route-status="@status">Đơn hàng</a></li>
                 <li class="breadcrumb-item active">Chi tiết</li>
             </ol>
         </div>
@@ -47,7 +47,7 @@
                                 <input type="hidden" name="status" value="@status" />
                                 <div class="form-group">
                                     <select name="orderStatusId" class="form-select"
-                                            asp-items="ViewBag.OrderStatuses"></select>
+                                        asp-items="ViewBag.OrderStatuses"></select>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Cập nhật</button>
                             </form>
@@ -85,7 +85,7 @@
                         </div>
 
                         <div class="mt-3">
-                            <a asp-action="Index" asp-area="Employees" asp-controller="Orders" asp-route-status="@status" class="btn btn-secondary">Quay lại</a>
+                            <a asp-action="Index" asp-route-status="@status" class="btn btn-secondary">Quay lại</a>
                         </div>
                     </div>
                 </div>
@@ -93,3 +93,4 @@
         </div>
     </div>
 </div>
+

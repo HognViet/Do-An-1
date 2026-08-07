@@ -29,14 +29,14 @@ namespace San_Pham_Do_An1.Controllers
 
             var cart = HttpContext.Session.GetObjectFromJson<List<CartItem>>("Cart") ?? new List<CartItem>();
 
-            // Kiểm tra số lượng tồn kho
+
             int availableQuantity = 0;
             bool hasVariants = product.TbProductVariants != null &&
                               product.TbProductVariants.Any(v => v.IsActive == true);
 
             if (hasVariants)
             {
-                // Sản phẩm có biến thể - kiểm tra số lượng của biến thể cụ thể
+
                 if (string.IsNullOrEmpty(req.Size) || string.IsNullOrEmpty(req.Color))
                 {
                     return Json(new { success = false, message = "Vui lòng chọn kích thước và màu sắc" });
@@ -56,20 +56,20 @@ namespace San_Pham_Do_An1.Controllers
             }
             else
             {
-                // Sản phẩm không có biến thể - kiểm tra số lượng tổng
+
                 availableQuantity = product.Quantity ?? 0;
             }
 
-            // Tìm sản phẩm trùng (cùng ProductId, Size và Color)
+
             var existing = cart.FirstOrDefault(x =>
                 x.ProductId == req.Id &&
                 x.Size == req.Size &&
                 x.Color == req.Color);
 
-            // Tính số lượng mới sau khi thêm
+
             int newQuantity = existing != null ? existing.Quantity + req.Quantity : req.Quantity;
 
-            // Kiểm tra số lượng có vượt quá tồn kho không
+
             if (newQuantity > availableQuantity)
             {
                 return Json(new
@@ -82,12 +82,12 @@ namespace San_Pham_Do_An1.Controllers
 
             if (existing != null)
             {
-                // Cộng dồn số lượng
+
                 existing.Quantity = newQuantity;
             }
             else
             {
-                // Thêm sản phẩm mới
+
                 cart.Add(new CartItem
                 {
                     ProductId = product.ProductId,
@@ -126,7 +126,7 @@ namespace San_Pham_Do_An1.Controllers
             var item = cart.FirstOrDefault(x => x.ProductId == req.Id);
             if (item == null) return Json(new { success = false, message = "Sản phẩm không tồn tại trong giỏ hàng" });
 
-            // Kiểm tra số lượng tồn kho
+
             var product = _context.TbProducts
                 .Include(p => p.TbProductVariants)
                     .ThenInclude(v => v.Color)
@@ -145,7 +145,7 @@ namespace San_Pham_Do_An1.Controllers
 
             if (hasVariants)
             {
-                // Sản phẩm có biến thể - kiểm tra số lượng của biến thể cụ thể
+
                 if (string.IsNullOrEmpty(item.Size) || string.IsNullOrEmpty(item.Color))
                 {
                     return Json(new { success = false, message = "Sản phẩm có biến thể nhưng thiếu thông tin Size hoặc Color" });
@@ -165,11 +165,11 @@ namespace San_Pham_Do_An1.Controllers
             }
             else
             {
-                // Sản phẩm không có biến thể - kiểm tra số lượng tổng
+
                 availableQuantity = product.Quantity ?? 0;
             }
 
-            // Kiểm tra số lượng yêu cầu có vượt quá tồn kho không
+
             if (req.Quantity > availableQuantity)
             {
                 return Json(new
@@ -180,7 +180,7 @@ namespace San_Pham_Do_An1.Controllers
                 });
             }
 
-            // Cập nhật số lượng nếu hợp lệ
+
             item.Quantity = req.Quantity > 0 ? req.Quantity : 1;
             HttpContext.Session.SetObjectAsJson("Cart", cart);
 

@@ -163,11 +163,7 @@
                                 {
                                     foreach (var related in relatedBlogs)
                                     {
-<<<<<<< HEAD
-                                        var sUrl = $"/blog/{(!string.IsNullOrEmpty(related.Alias) ? related.Alias : (string.IsNullOrEmpty(related.Title) ? "post" : San_Pham_Do_An1.Utilities.Function.TitleSlugGenerationAlias(related.Title)))}-{related.BlogId}.html";
-=======
                                         var sUrl = $"/blog/{related.Alias}-{related.BlogId}.html";
->>>>>>> son
                                         <div class="col mb-28">
                                             <div class="related__post--items">
                                                 <div class="related__post--thumb border-radius-10 mb-15">

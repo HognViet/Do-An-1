@@ -8,7 +8,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
     {
         public IActionResult Index()
         {
-            // Kiểm tra nếu chưa đăng nhập thì chuyển về trang Login
+
             if (HttpContext.Session.GetString("AdminId") == null)
             {
                 return RedirectToAction("Login", "Accounts", new { area = "Admin" });

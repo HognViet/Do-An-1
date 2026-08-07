@@ -27,6 +27,9 @@ namespace San_Pham_Do_An1.Models.ViewModels
         public List<CartItem> Items { get; set; } = new();
         public CheckoutFormModel Form { get; set; } = new();
         public decimal TotalAmount { get; set; }
+        public string? DiscountCode { get; set; }
+        public decimal DiscountAmount { get; set; }
+        public decimal FinalAmount => TotalAmount - DiscountAmount;
     }
 
     public class CheckoutResultViewModel

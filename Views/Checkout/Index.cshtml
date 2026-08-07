@@ -10,12 +10,8 @@
             <div class="main checkout__mian">
                 <header class="main__header checkout__mian--header mb-30">
                     <h1 class="main__logo--title">
-<<<<<<< HEAD
-                        
-=======
                         <a class="logo logo__left mb-20" href="index.html"><img src="assets/img/logo/nav-log.png"
                                 alt="logo" /></a>
->>>>>>> son
                     </h1>
                     <details class="order__summary--mobile__version">
                         <summary class="order__summary--toggle border-radius-5">
@@ -36,7 +32,7 @@
                                         </path>
                                     </svg>
                                 </span>
-                                <span class="order__summary--final__price">@String.Format("{0:N0}", totalAmount)đ</span>
+                                <span class="order__summary--final__price">@String.Format("{0:N0}", Model.FinalAmount)đ</span>
                             </span>
                         </summary>
                         <div class="order__summary--section">
@@ -75,6 +71,13 @@
                                             <td class="checkout__total--amount text-right">@String.Format("{0:N0}",
                                                                                                 totalAmount)đ</td>
                                         </tr>
+                                        @if (Model.DiscountAmount > 0)
+                                        {
+                                            <tr class="checkout__total--items">
+                                                <td class="checkout__total--title text-left">Giảm giá (@Model.DiscountCode)</td>
+                                                <td class="checkout__total--amount text-right">-@String.Format("{0:N0}", Model.DiscountAmount)đ</td>
+                                            </tr>
+                                        }
                                         <tr class="checkout__total--items">
                                             <td class="checkout__total--title text-left">Phí vận chuyển</td>
                                             <td class="checkout__total--calculated__text text-right">
@@ -90,7 +93,7 @@
                                             </td>
                                             <td
                                                 class="checkout__total--footer__amount checkout__total--footer__list text-right">
-                                                @String.Format("{0:N0}", totalAmount)đ</td>
+                                                @String.Format("{0:N0}", Model.FinalAmount)đ</td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -255,35 +258,50 @@
                     </table>
                 </div>
                 <div class="checkout__discount--code">
-                    <form class="d-flex" action="#">
+                    <form class="d-flex" asp-controller="Checkout" asp-action="ApplyDiscount" method="post">
                         <label>
-                            <input class="checkout__discount--code__input--field border-radius-5"
-                                placeholder="Gift card or discount code" type="text" />
+                            <input name="discountCode" class="checkout__discount--code__input--field border-radius-5"
+                                placeholder="Nhập mã giảm giá (M10TSV, M20TSV)" type="text" value="@Model.DiscountCode" />
                         </label>
                         <button class="checkout__discount--code__btn primary__btn border-radius-5" type="submit">
-                            Apply
+                            Áp dụng
                         </button>
                     </form>
+                    @if (TempData["DiscountMessage"] != null)
+                    {
+                        <div class="text-danger mt-2">@TempData["DiscountMessage"]</div>
+                    }
+                    @if (TempData["DiscountSuccess"] != null)
+                    {
+                        <div class="text-success mt-2">@TempData["DiscountSuccess"]</div>
+                    }
                 </div>
                 <div class="checkout__total">
                     <table class="checkout__total--table">
                         <tbody class="checkout__total--body">
                             <tr class="checkout__total--items">
-                                <td class="checkout__total--title text-left">Subtotal</td>
+                                <td class="checkout__total--title text-left">Tạm tính</td>
                                 <td class="checkout__total--amount text-right">@String.Format("{0:N0}", totalAmount)đ
                                 </td>
                             </tr>
+                            @if (Model.DiscountAmount > 0)
+                            {
+                                <tr class="checkout__total--items">
+                                    <td class="checkout__total--title text-left">Giảm giá (@Model.DiscountCode)</td>
+                                    <td class="checkout__total--amount text-right">-@String.Format("{0:N0}", Model.DiscountAmount)đ</td>
+                                </tr>
+                            }
                             <tr class="checkout__total--items">
-                                <td class="checkout__total--title text-left">Shipping</td>
-                                <td class="checkout__total--calculated__text text-right">Calculated at next step</td>
+                                <td class="checkout__total--title text-left">Phí vận chuyển</td>
+                                <td class="checkout__total--calculated__text text-right">Sẽ được tính ở bước tiếp theo</td>
                             </tr>
                         </tbody>
                         <tfoot class="checkout__total--footer">
                             <tr class="checkout__total--footer__items">
-                                <td class="checkout__total--footer__title checkout__total--footer__list text-left">Total
+                                <td class="checkout__total--footer__title checkout__total--footer__list text-left">Tổng cộng
                                 </td>
                                 <td class="checkout__total--footer__amount checkout__total--footer__list text-right">
-                                    @String.Format("{0:N0}", totalAmount)đ
+                                    @String.Format("{0:N0}", Model.FinalAmount)đ
                                 </td>
                             </tr>
                         </tfoot>

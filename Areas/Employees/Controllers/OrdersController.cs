@@ -54,17 +54,27 @@ namespace San_Pham_Do_An1.Areas.Employees.Controllers
 
             ViewBag.Status = status;
 
-            // Lấy danh sách trạng thái từ database và chỉ lấy các trạng thái cần thiết
-            var allStatuses = await _context.TbOrderStatuses.ToListAsync();
             var statusList = new List<object> { new { Value = "all", Text = "Tất cả đơn hàng" } };
 
-            // Chỉ lấy các trạng thái theo yêu cầu: 1, 3, 4, 5, 6, 7, 9, 10
             var allowedStatusIds = new[] { 1, 3, 4, 5, 6, 7, 9, 10 };
-            foreach (var statusItem in allStatuses.Where(s => allowedStatusIds.Contains(s.OrderStatusId)))
+            var statusDict = new Dictionary<int, string>
             {
-                statusList.Add(new { Value = statusItem.OrderStatusId.ToString(), Text = statusItem.Description ?? statusItem.Name ?? $"Trạng thái {statusItem.OrderStatusId}" });
+                { 1, "Chờ xử lý" },
+                { 3, "Đang xử lý" },
+                { 4, "Đã gửi hàng" },
+                { 5, "Đã giao" },
+                { 6, "Đã hủy" },
+                { 7, "Đã hoàn tiền" },
+                { 9, "Trả hàng" },
+                { 10, "Giao dịch thất bại" }
+            };
+
+            foreach (var id in allowedStatusIds)
+            {
+                statusList.Add(new { Value = id.ToString(), Text = statusDict.ContainsKey(id) ? statusDict[id] : $"Trạng thái {id}" });
             }
 
+            ViewBag.StatusDict = statusDict;
             ViewBag.StatusList = new SelectList(statusList, "Value", "Text", status);
 
             return View(await query.OrderByDescending(o => o.CreatedDate).ToListAsync());
@@ -100,7 +110,26 @@ namespace San_Pham_Do_An1.Areas.Employees.Controllers
                 return NotFound();
             }
 
-            ViewBag.OrderStatuses = new SelectList(_context.TbOrderStatuses, "OrderStatusId", "Description", order.OrderStatusId);
+            var allowedStatusIds = new[] { 1, 3, 4, 5, 6, 7, 9, 10 };
+            var statusDict = new Dictionary<int, string>
+            {
+                { 1, "Chờ xử lý" },
+                { 3, "Đang xử lý" },
+                { 4, "Đã gửi hàng" },
+                { 5, "Đã giao" },
+                { 6, "Đã hủy" },
+                { 7, "Đã hoàn tiền" },
+                { 9, "Trả hàng" },
+                { 10, "Giao dịch thất bại" }
+            };
+            
+            var statusListItems = allowedStatusIds.Select(id => new SelectListItem
+            {
+                Value = id.ToString(),
+                Text = statusDict.ContainsKey(id) ? statusDict[id] : $"Trạng thái {id}"
+            }).ToList();
+
+            ViewBag.OrderStatuses = new SelectList(statusListItems, "Value", "Text", order.OrderStatusId?.ToString());
             ViewBag.Status = status; // Lưu status để quay lại
             return View(order);
         }

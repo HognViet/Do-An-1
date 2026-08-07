@@ -3005,19 +3005,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "D:\\BAOCAODOAN1\\Do-An-1\\San-Pham-Do-An1.csproj",
-      "projectName": "San-Pham-Do-An1",
-      "projectPath": "D:\\BAOCAODOAN1\\Do-An-1\\San-Pham-Do-An1.csproj",
-      "packagesPath": "C:\\Users\\WINDOWS 11\\.nuget\\packages\\",
-      "outputPath": "D:\\BAOCAODOAN1\\Do-An-1\\obj\\",
-=======
       "projectUniqueName": "D:\\DOAN1\\Do-An-1\\San-Pham-Do-An1.csproj",
       "projectName": "San-Pham-Do-An1",
       "projectPath": "D:\\DOAN1\\Do-An-1\\San-Pham-Do-An1.csproj",
       "packagesPath": "C:\\Users\\WINDOWS 11\\.nuget\\packages\\",
       "outputPath": "D:\\DOAN1\\Do-An-1\\obj\\",
->>>>>>> son
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3049,7 +3041,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net6.0": {
@@ -3111,7 +3104,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.428\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.314\\RuntimeIdentifierGraph.json"
       }
     }
   }

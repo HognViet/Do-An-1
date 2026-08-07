@@ -55,11 +55,18 @@ namespace San_Pham_Do_An1.Controllers
                     }
                 }
             }
+            var subTotal = items.Sum(item => (item.Price ?? 0) * item.Quantity);
+            var discountCode = HttpContext.Session.GetString("DiscountCode");
+            var discountPercent = HttpContext.Session.GetInt32("DiscountPercent") ?? 0;
+            var discountAmount = subTotal * discountPercent / 100;
+
             var model = new CheckoutViewModel
             {
                 Items = items,
                 Form = checkoutSession?.Form ?? autoForm ?? new CheckoutFormModel(),
-                TotalAmount = items.Sum(item => (item.Price ?? 0) * item.Quantity)
+                TotalAmount = subTotal,
+                DiscountCode = discountCode,
+                DiscountAmount = discountAmount
             };
             return View(model);
         }
@@ -79,16 +86,22 @@ namespace San_Pham_Do_An1.Controllers
             }
             if (!ModelState.IsValid)
             {
+                var subTotalForInvalid = items.Sum(item => (item.Price ?? 0) * item.Quantity);
                 var invalidModel = new CheckoutViewModel
                 {
                     Items = items,
                     Form = form,
-                    TotalAmount = items.Sum(item => (item.Price ?? 0) * item.Quantity)
+                    TotalAmount = subTotalForInvalid,
+                    DiscountCode = HttpContext.Session.GetString("DiscountCode"),
+                    DiscountAmount = subTotalForInvalid * (HttpContext.Session.GetInt32("DiscountPercent") ?? 0) / 100
                 };
                 return View("Index", invalidModel);
             }
             var orderCode = DateTime.UtcNow.Ticks.ToString();
-            var totalAmount = items.Sum(item => (item.Price ?? 0) * item.Quantity);
+            var subTotal = items.Sum(item => (item.Price ?? 0) * item.Quantity);
+            var discountPercent = HttpContext.Session.GetInt32("DiscountPercent") ?? 0;
+            var discountAmount = subTotal * discountPercent / 100;
+            var totalAmount = subTotal - discountAmount;
             if (PaymentMethod == "VNPAY")
             {
                 var request = new VnPayRequest
@@ -107,9 +120,9 @@ namespace San_Pham_Do_An1.Controllers
                 var paymentUrl = _vnPayService.CreatePaymentUrl(HttpContext, request);
                 return Redirect(paymentUrl);
             }
-            else // Thanh toán khi nhận hàng
+            else
             {
-                // Lấy CustomerId từ session nếu có
+
                 int? customerId = null;
                 if (HttpContext.Session.GetString("CustomerId") != null)
                 {
@@ -119,16 +132,25 @@ namespace San_Pham_Do_An1.Controllers
                     }
                 }
 
+                var discountCode = HttpContext.Session.GetString("DiscountCode");
+                var orderNote = form.Note;
+                if (!string.IsNullOrEmpty(discountCode))
+                {
+                    orderNote = string.IsNullOrEmpty(orderNote)
+                        ? $"Áp dụng mã giảm giá: {discountCode}"
+                        : $"{orderNote} (Áp dụng mã giảm giá: {discountCode})";
+                }
+
                 var order = new TbOrder
                 {
                     Code = orderCode,
                     CustomerId = customerId,
                     ShippingAddress = $"{form.FullName} - {form.PhoneNumber} - {form.Address}",
                     TotalAmount = totalAmount,
-                    OrderStatusId = 1, // COD: trạng thái 1
+                    OrderStatusId = 1,
                     CreatedDate = DateTime.Now,
                     PaymentMethod = "cod",
-                    Note = form.Note // lưu ghi chú vào note
+                    Note = orderNote
                 };
                 _context.TbOrders.Add(order);
                 _context.SaveChanges();
@@ -147,7 +169,7 @@ namespace San_Pham_Do_An1.Controllers
                 HttpContext.Session.Remove(CartSessionKey);
                 HttpContext.Session.Remove(CheckoutSessionKey);
                 HttpContext.Session.Remove(BuyNowSessionKey);
-                // Thay vì return View, chuyển hướng sang action GET để tránh giữ lại route POST
+
                 return RedirectToAction("Result", new CheckoutResultViewModel
                 {
                     IsSuccess = true,
@@ -201,7 +223,7 @@ namespace San_Pham_Do_An1.Controllers
                 });
             }
 
-            // Lấy CustomerId từ session nếu có
+
             int? customerId = null;
             if (HttpContext.Session.GetString("CustomerId") != null)
             {
@@ -211,16 +233,25 @@ namespace San_Pham_Do_An1.Controllers
                 }
             }
 
+            var discountCode = HttpContext.Session.GetString("DiscountCode");
+            var orderNote = checkoutSession.Form.Note;
+            if (!string.IsNullOrEmpty(discountCode))
+            {
+                orderNote = string.IsNullOrEmpty(orderNote)
+                    ? $"Áp dụng mã giảm giá: {discountCode}"
+                    : $"{orderNote} (Áp dụng mã giảm giá: {discountCode})";
+            }
+
             var order = new TbOrder
             {
                 Code = checkoutSession.TransactionRef,
                 CustomerId = customerId,
                 ShippingAddress = $"{checkoutSession.Form.FullName} - {checkoutSession.Form.PhoneNumber} - {checkoutSession.Form.Address}",
                 TotalAmount = checkoutSession.TotalAmount,
-                OrderStatusId = 2, // VNPAY: trạng thái 2
+                OrderStatusId = 2,
                 CreatedDate = DateTime.Now,
                 PaymentMethod = "VNPAY",
-                Note = checkoutSession.Form.Note // lưu ghi chú vào note cho đơn vnpay
+                Note = orderNote
             };
 
             _context.TbOrders.Add(order);
@@ -251,6 +282,38 @@ namespace San_Pham_Do_An1.Controllers
                 OrderCode = order.Code,
                 TotalAmount = order.TotalAmount ?? 0
             });
+        }
+
+        [HttpPost]
+        public IActionResult ApplyDiscount(string discountCode)
+        {
+            if (string.IsNullOrWhiteSpace(discountCode))
+            {
+                TempData["DiscountMessage"] = "Vui lòng nhập mã giảm giá.";
+                return RedirectToAction("Index");
+            }
+
+            discountCode = discountCode.Trim().ToUpper();
+            if (discountCode == "M10TSV")
+            {
+                HttpContext.Session.SetString("DiscountCode", discountCode);
+                HttpContext.Session.SetInt32("DiscountPercent", 10);
+                TempData["DiscountSuccess"] = "Áp dụng mã giảm giá 10% thành công!";
+            }
+            else if (discountCode == "M20TSV")
+            {
+                HttpContext.Session.SetString("DiscountCode", discountCode);
+                HttpContext.Session.SetInt32("DiscountPercent", 20);
+                TempData["DiscountSuccess"] = "Áp dụng mã giảm giá 20% thành công!";
+            }
+            else
+            {
+                HttpContext.Session.Remove("DiscountCode");
+                HttpContext.Session.Remove("DiscountPercent");
+                TempData["DiscountMessage"] = "Mã giảm giá không hợp lệ.";
+            }
+
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace San_Pham_Do_An1.Controllers
 {
-    // Đổi tên class thành CustomerController
+
     public class CustomerController : Controller
     {
         private readonly WedQuanAoDbContext _context;
@@ -29,7 +29,7 @@ namespace San_Pham_Do_An1.Controllers
             return sbHash.ToString();
         }
 
-        // GET: /Customer/Index
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -39,7 +39,7 @@ namespace San_Pham_Do_An1.Controllers
             return View();
         }
 
-        // POST: /Customer/Login
+
         [HttpPost]
         public IActionResult Login(string email, string password)
         {
@@ -73,13 +73,13 @@ namespace San_Pham_Do_An1.Controllers
             return View("Index");
         }
 
-        // POST: /Customer/Register
+
         [HttpPost]
         public IActionResult Register(string username, string name, string email, string password, string confirmPassword)
         {
             try
             {
-                // 1. Kiểm tra xác nhận mật khẩu
+
                 if (password != confirmPassword)
                 {
                     ViewBag.RegisterError = "Mật khẩu xác nhận không khớp!";
@@ -87,7 +87,7 @@ namespace San_Pham_Do_An1.Controllers
                     return View("Index");
                 }
 
-                // 2. Kiểm tra Email đã tồn tại chưa
+
                 var checkEmail = _context.TbCustomers.FirstOrDefault(x => x.Email == email);
                 if (checkEmail != null)
                 {
@@ -96,7 +96,7 @@ namespace San_Pham_Do_An1.Controllers
                     return View("Index");
                 }
 
-                // 3. Kiểm tra Username đã tồn tại chưa (THÊM MỚI)
+
                 var checkUsername = _context.TbCustomers.FirstOrDefault(x => x.Username == username);
                 if (checkUsername != null)
                 {
@@ -105,12 +105,12 @@ namespace San_Pham_Do_An1.Controllers
                     return View("Index");
                 }
 
-                // 4. Lưu vào Database
+
                 TbCustomer user = new TbCustomer();
-                user.Name = name;          // Họ tên
-                user.Username = username;  // Tên đăng nhập (Mới)
-                user.Email = email;        // Email
-                user.Password = ToMD5(password); // Mã hóa pass
+                user.Name = name;
+                user.Username = username;
+                user.Email = email;
+                user.Password = ToMD5(password);
                 user.IsActive = true;
                 user.LastLogin = DateTime.Now;
 
@@ -130,13 +130,13 @@ namespace San_Pham_Do_An1.Controllers
             }
         }
 
-        // GET: /Customer/Dashboard
+
         public IActionResult Dashboard()
         {
             var customerId = HttpContext.Session.GetString("CustomerId");
             if (string.IsNullOrEmpty(customerId))
             {
-                return RedirectToAction("Index"); // Quay lại trang đăng nhập
+                return RedirectToAction("Index");
             }
 
             var customer = _context.TbCustomers.Find(int.Parse(customerId));
@@ -187,15 +187,11 @@ namespace San_Pham_Do_An1.Controllers
 
             _context.Update(customer);
             _context.SaveChanges();
-<<<<<<< HEAD
-            HttpContext.Session.SetString("Avatar", customer.Avatar ?? "");
-=======
 
-            // Update session if needed
+
             HttpContext.Session.SetString("UserName", customer.Name ?? customer.Username ?? "");
             HttpContext.Session.SetString("Avatar", customer.Avatar ?? "");
 
->>>>>>> son
             TempData["SuccessMessage"] = "Cập nhật thông tin thành công!";
             return RedirectToAction("Dashboard");
         }
@@ -214,7 +210,7 @@ namespace San_Pham_Do_An1.Controllers
                 return RedirectToAction("Dashboard");
             }
 
-            // Kiểm tra mật khẩu hiện tại
+
             string currentPasswordHash = ToMD5(CurrentPassword);
             if (customer.Password != currentPasswordHash)
             {
@@ -222,7 +218,7 @@ namespace San_Pham_Do_An1.Controllers
                 return RedirectToAction("Dashboard");
             }
 
-            // Kiểm tra mật khẩu mới và xác nhận
+
             if (string.IsNullOrEmpty(NewPassword) || NewPassword.Length < 6)
             {
                 TempData["PasswordErrorMessage"] = "Mật khẩu mới phải có ít nhất 6 ký tự.";
@@ -235,7 +231,7 @@ namespace San_Pham_Do_An1.Controllers
                 return RedirectToAction("Dashboard");
             }
 
-            // Kiểm tra mật khẩu mới không được trùng với mật khẩu cũ
+
             string newPasswordHash = ToMD5(NewPassword);
             if (customer.Password == newPasswordHash)
             {
@@ -243,7 +239,7 @@ namespace San_Pham_Do_An1.Controllers
                 return RedirectToAction("Dashboard");
             }
 
-            // Cập nhật mật khẩu mới
+
             customer.Password = newPasswordHash;
             _context.Update(customer);
             _context.SaveChanges();

@@ -15,8 +15,6 @@ html {
 
 body {
   margin-bottom: 60px;
-<<<<<<< HEAD
-=======
 }
 @keyframes cartShake {
     0% {
@@ -71,5 +69,4 @@ body {
 
 .cart-shake {
     animation: cartShake .35s;
->>>>>>> son
 }

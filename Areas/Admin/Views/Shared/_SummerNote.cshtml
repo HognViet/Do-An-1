@@ -29,27 +29,27 @@
         }
     }(function ($) {
         $.extend($.summernote.plugins, {
-            // Tạo plugin tên elfinder
+
             'elfinder': function (context) {
                 var self = this;
-                // ui has renders to build ui elements.
+
                 var ui = $.summernote.ui;
-                // Tạo nút bấm
+
                 context.memo('button.elfinder', function () {
                     var button = ui.button({
                         contents: '<i class="note-icon-picture"/>&nbsp;&nbsp;Images',
                         tooltip: 'Quản lý ảnh',
                         click: function () {
-                            // Bấm vào nút bấm gọi hàm elfinderDialog
+
                             elfinderDialog(context);
                         }
                     });
-                    // create jQuery object from button instance.
+
                     var $elfinder = button.render();
                     return $elfinder;
                 });
-                // This methods will be called when editor is destroyed by $('..').summernote('destroy');
-                // You should remove elements on `initialize`.
+
+
                 this.destroy = function () {
                     this.$panel.remove();
                     this.$panel = null;
@@ -78,7 +78,7 @@
                 }
             },
             uiOptions: {
-                //toolbar configuration
+
                 toolbar: [
                     ['home', 'back', 'forward', 'up', 'reload'],
                     ['mkdir', 'mkfile', 'upload'],
@@ -95,13 +95,13 @@
                 ]
             },
             contextmenu: {
-                //navbarfolder menu
+
                 navbar: ['open', '|', 'copy', 'cut', 'paste', 'duplicate', '|', 'rm', '|', 'info'],
 
-                // current directory menu
+
                 cwd: ['reload', 'back', '|', 'upload', 'mkdir', 'mkfile', 'paste', '|', 'info'],
 
-                //current directory file menu
+
                 files: [
                     'getfile', '|', 'open', 'quicklook', '|', 'download', '|', 'copy', 'cut', 'paste', 'duplicate', '|',
                     'rm', '|', 'edit', 'rename', 'resize', '|', 'archive', 'extract', '|', 'info'
@@ -138,7 +138,7 @@
                 }
             },
             uiOptions: {
-                //toolbar configuration
+
                 toolbar: [
                     ['home', 'back', 'forward', 'up', 'reload'],
                     ['mkdir', 'mkfile', 'upload'],
@@ -155,13 +155,13 @@
                 ]
             },
             contextmenu: {
-                //navbarfolder menu
+
                 navbar: ['open', '|', 'copy', 'cut', 'paste', 'duplicate', '|', 'rm', '|', 'info'],
 
-                // current directory menu
+
                 cwd: ['reload', 'back', '|', 'upload', 'mkdir', 'mkfile', 'paste', '|', 'info'],
 
-                //current directory file menu
+
                 files: [
                     'getfile', '|', 'open', 'quicklook', '|', 'download', '|', 'copy', 'cut', 'paste', 'duplicate', '|',
                     'rm', '|', 'edit', 'rename', 'resize', '|', 'archive', 'extract', '|', 'info'

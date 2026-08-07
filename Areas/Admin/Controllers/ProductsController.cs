@@ -21,7 +21,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             _context = context;
         }
 
-        // GET: Admin/Products
+
         public async Task<IActionResult> Index()
         {
             if (HttpContext.Session.GetString("AdminId") == null)
@@ -39,7 +39,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(await WedQuanAoDbContext);
         }
 
-        // GET: Admin/Products/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -58,7 +58,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(tbProduct);
         }
 
-        // GET: Admin/Products/Create
+
         public IActionResult Create()
         {
             ViewData["CategoryProductId"] = new SelectList(_context.TbProductCategories, "CategoryProductId", "Title");
@@ -67,9 +67,9 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductCreateViewModel model)
@@ -94,7 +94,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                 };
                 _context.Add(product);
                 await _context.SaveChangesAsync();
-                // Lưu các biến thể
+
                 if (model.Variants != null && model.Variants.Count > 0)
                 {
                     foreach (var v in model.Variants)
@@ -115,19 +115,19 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                     }
                     await _context.SaveChangesAsync();
 
-                    // Cập nhật giá sản phẩm từ giá thấp nhất của các biến thể
+
                     var allVariants = await _context.TbProductVariants
                         .Where(v => v.ProductId == product.ProductId && v.IsActive == true)
                         .ToListAsync();
 
                     if (allVariants.Any())
                     {
-                        // Tìm giá thấp nhất (ưu tiên PriceSale, nếu không có thì dùng Price)
+
                         decimal? minPrice = null;
                         decimal? minPriceSale = null;
                         decimal? minFinalPrice = null;
 
-                        // Tính tổng số lượng từ tất cả các biến thể đang active
+
                         int totalQuantity = allVariants
                             .Where(v => v.Quantity.HasValue)
                             .Sum(v => v.Quantity.Value);
@@ -146,14 +146,14 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                             }
                         }
 
-                        // Cập nhật giá và số lượng tổng vào sản phẩm
+
                         product.Price = minPrice;
                         product.PriceSale = minPriceSale;
-                        product.Quantity = totalQuantity; // Lưu tổng số lượng từ các biến thể
+                        product.Quantity = totalQuantity;
                     }
-                    // Nếu không có biến thể, giữ nguyên giá và số lượng từ form
 
-                    // Lưu thay đổi vào database
+
+
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
@@ -165,7 +165,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(model);
         }
 
-        // GET: Admin/Products/Edit/5
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -189,9 +189,9 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(tbProduct);
         }
 
-        // POST: Admin/Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,Title,Alias,CategoryProductId,Description,Detail,Image,Price,PriceSale,CreatedDate,CreatedBy,ModifiedDate,ModifiedBy,IsNew,IsBestSeller,IsActive,Quantity,Star")] TbProduct tbProduct, IFormCollection form)
@@ -205,10 +205,10 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             {
                 try
                 {
-                    // Cập nhật thông tin sản phẩm
+
                     _context.Update(tbProduct);
 
-                    // Xử lý các biến thể
+
                     var deletedVariantIds = new List<int>();
                     var deletedVariants = form["DeletedVariants"].ToList();
                     foreach (var deletedId in deletedVariants)
@@ -219,7 +219,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                         }
                     }
 
-                    // Xóa các biến thể đã được đánh dấu xóa
+
                     if (deletedVariantIds.Any())
                     {
                         var variantsToDelete = await _context.TbProductVariants
@@ -228,12 +228,12 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                         _context.TbProductVariants.RemoveRange(variantsToDelete);
                     }
 
-                    // Lấy danh sách biến thể từ form
+
                     var variantKeys = form.Keys.Where(k => k.StartsWith("Variants[") && k.Contains("].VariantId")).ToList();
 
                     foreach (var key in variantKeys)
                     {
-                        // Lấy index từ key: "Variants[0].VariantId" -> 0
+
                         var match = Regex.Match(key, @"Variants\[(\d+)\]");
                         if (!match.Success) continue;
 
@@ -245,14 +245,14 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                         var colorIdStr = form[$"Variants[{index}].ColorId"].ToString();
                         var sizeIdStr = form[$"Variants[{index}].SizeId"].ToString();
 
-                        // Bỏ qua nếu không có ColorId hoặc SizeId
+
                         if (string.IsNullOrEmpty(colorIdStr) || string.IsNullOrEmpty(sizeIdStr))
                             continue;
 
                         int colorId = int.Parse(colorIdStr);
                         int sizeId = int.Parse(sizeIdStr);
 
-                        // Lấy các giá trị từ form, xử lý cả trường hợp null/empty
+
                         var skuValue = form[$"Variants[{index}].Sku"];
                         var priceValue = form[$"Variants[{index}].Price"];
                         var priceSaleValue = form[$"Variants[{index}].PriceSale"];
@@ -269,7 +269,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
 
                         if (variantId > 0)
                         {
-                            // Cập nhật biến thể hiện có
+
                             var existingVariant = await _context.TbProductVariants
                                 .FirstOrDefaultAsync(v => v.VariantId == variantId);
 
@@ -282,19 +282,19 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                                 existingVariant.PriceSale = !string.IsNullOrWhiteSpace(priceSaleStr) ? decimal.Parse(priceSaleStr) : null;
                                 existingVariant.Quantity = !string.IsNullOrWhiteSpace(quantityStr) ? int.Parse(quantityStr) : null;
 
-                                // Đảm bảo cập nhật Image ngay cả khi giá trị là null hoặc rỗng
+
                                 var newImageValue = !string.IsNullOrWhiteSpace(imageStr) ? imageStr : null;
                                 existingVariant.Image = newImageValue;
 
                                 existingVariant.IsActive = isActive;
 
-                                // Đánh dấu entity là đã modified để đảm bảo cập nhật
+
                                 _context.Entry(existingVariant).State = EntityState.Modified;
                             }
                         }
                         else
                         {
-                            // Thêm biến thể mới
+
                             var newVariant = new TbProductVariant
                             {
                                 ProductId = tbProduct.ProductId,
@@ -313,7 +313,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
 
                     await _context.SaveChangesAsync();
 
-                    // Cập nhật giá sản phẩm từ giá thấp nhất của các biến thể
+
                     var allVariants = await _context.TbProductVariants
                         .Where(v => v.ProductId == tbProduct.ProductId && v.IsActive == true)
                         .ToListAsync();
@@ -325,12 +325,12 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                     {
                         if (allVariants.Any())
                         {
-                            // Tìm giá thấp nhất (ưu tiên PriceSale, nếu không có thì dùng Price)
+
                             decimal? minPrice = null;
                             decimal? minPriceSale = null;
-                            decimal? minFinalPrice = null; // Giá cuối cùng để so sánh (PriceSale ?? Price)
+                            decimal? minFinalPrice = null;
 
-                            // Tính tổng số lượng từ tất cả các biến thể đang active
+
                             int totalQuantity = allVariants
                                 .Where(v => v.Quantity.HasValue)
                                 .Sum(v => v.Quantity.Value);
@@ -349,18 +349,18 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                                 }
                             }
 
-                            // Cập nhật giá và số lượng tổng vào sản phẩm
+
                             productToUpdate.Price = minPrice;
                             productToUpdate.PriceSale = minPriceSale;
-                            productToUpdate.Quantity = totalQuantity; // Lưu tổng số lượng từ các biến thể
+                            productToUpdate.Quantity = totalQuantity;
                         }
                         else
                         {
-                            // Nếu không có biến thể, giữ nguyên giá và số lượng từ form
-                            // Giá và số lượng đã được bind từ tbProduct
+
+
                         }
 
-                        // Lưu thay đổi vào database
+
                         _context.Update(productToUpdate);
                         await _context.SaveChangesAsync();
                     }
@@ -379,7 +379,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            // Reload dữ liệu nếu có lỗi
+
             var tbProductWithVariants = await _context.TbProducts
                 .Include(p => p.TbProductVariants)
                     .ThenInclude(v => v.Color)
@@ -393,7 +393,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(tbProductWithVariants ?? tbProduct);
         }
 
-        // GET: Admin/Products/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -412,7 +412,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(tbProduct);
         }
 
-        // POST: Admin/Products/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -425,26 +425,26 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
 
             if (tbProduct != null)
             {
-                // Kiểm tra xem sản phẩm có trong đơn hàng không
+
                 if (tbProduct.TbOrderDetails.Any())
                 {
                     TempData["ErrorMessage"] = "Không thể xóa sản phẩm này vì đã có trong đơn hàng. Vui lòng xóa các đơn hàng liên quan trước.";
                     return RedirectToAction(nameof(Index));
                 }
 
-                // Xóa tất cả các biến thể sản phẩm trước
+
                 if (tbProduct.TbProductVariants.Any())
                 {
                     _context.TbProductVariants.RemoveRange(tbProduct.TbProductVariants);
                 }
 
-                // Xóa tất cả các đánh giá sản phẩm
+
                 if (tbProduct.TbProductReviews.Any())
                 {
                     _context.TbProductReviews.RemoveRange(tbProduct.TbProductReviews);
                 }
 
-                // Sau đó mới xóa sản phẩm
+
                 _context.TbProducts.Remove(tbProduct);
 
                 await _context.SaveChangesAsync();

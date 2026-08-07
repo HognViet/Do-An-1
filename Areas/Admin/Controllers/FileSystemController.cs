@@ -13,8 +13,8 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
         IWebHostEnvironment _env;
         public FileSystemController(IWebHostEnvironment env) => _env = env;
 
-        // Url để client-side kết nối đến backend
-        // /el-finder-file-system/connector
+
+
         [Route("connector")]
         public async Task<IActionResult> Connector()
         {
@@ -31,8 +31,8 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             }
         }
 
-        // Địa chỉ để truy vấn thumbnail
-        // /el-finder-file-system/thumb
+
+
         [Route("thumb/{hash}")]
         public async Task<IActionResult> Thumbs(string hash)
         {
@@ -42,7 +42,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
 
         private Connector GetConnector()
         {
-            // Thư mục gốc lưu trữ là wwwwroot/files (đảm bảo có tạo thư mục này)
+
             string pathroot = "files";
 
             var driver = new FileSystemDriver();
@@ -50,22 +50,22 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             string absoluteUrl = UriHelper.BuildAbsolute(Request.Scheme, Request.Host);
             var uri = new Uri(absoluteUrl);
 
-            // .. ... wwww/files
+
             string rootDirectory = Path.Combine(_env.WebRootPath, pathroot);
 
-            // https://localhost:5001/files/
+
             string url = $"/{pathroot}/";
             string urlthumb = $"{uri.Scheme}://Admin/el-finder-file-system/thumb/";
 
 
             var root = new RootVolume(rootDirectory, url, urlthumb)
             {
-                //IsReadOnly = !User.IsInRole("Administrators")
-                IsReadOnly = false, // Can be readonly according to user's membership permission
-                IsLocked = false, // If locked, files and directories cannot be deleted, renamed or moved
-                Alias = "Files", // Beautiful name given to the root/home folder
-                //MaxUploadSizeInKb = 2048, // Limit imposed to user uploaded file <= 2048 KB
-                //LockedFolders = new List<string>(new string[] { "Folder1" }
+
+                IsReadOnly = false,
+                IsLocked = false,
+                Alias = "Files",
+
+
                 ThumbnailSize = 100,
             };
 
@@ -74,7 +74,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
 
             return new Connector(driver)
             {
-                // This allows support for the "onlyMimes" option on the client.
+
                 MimeDetect = MimeDetectOption.Internal
             };
         }

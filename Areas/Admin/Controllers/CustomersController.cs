@@ -19,7 +19,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             _context = context;
         }
 
-        // GET: Admin/Customers
+
         public async Task<IActionResult> Index()
         {
             if (HttpContext.Session.GetString("AdminId") == null)
@@ -32,7 +32,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                 .ToListAsync());
         }
 
-        // GET: Admin/Customers/Create
+
         public IActionResult Create()
         {
             if (HttpContext.Session.GetString("AdminId") == null)
@@ -43,7 +43,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/Customers/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Phone,Email,Username,Password,Birthday,Location,IsActive")] TbCustomer customer)
@@ -57,7 +57,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(customer);
         }
 
-        // GET: Admin/Customers/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (HttpContext.Session.GetString("AdminId") == null)
@@ -88,7 +88,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(customer);
         }
 
-        // GET: Admin/Customers/Edit/5
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (HttpContext.Session.GetString("AdminId") == null)
@@ -109,7 +109,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(customer);
         }
 
-        // POST: Admin/Customers/Edit/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CustomerId,Name,Phone,Email,Username,Password,Birthday,Avatar,Location,IsActive")] TbCustomer customer)
@@ -142,7 +142,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(customer);
         }
 
-        // GET: Admin/Customers/Reviews
+
         public async Task<IActionResult> Reviews()
         {
             if (HttpContext.Session.GetString("AdminId") == null)

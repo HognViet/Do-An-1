@@ -4,10 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using System.Text.Json;
 using System.Text;
-<<<<<<< HEAD
-=======
 using System.Net.Http.Headers;
->>>>>>> son
 
 namespace San_Pham_Do_An1.Controllers
 {
@@ -21,19 +18,11 @@ namespace San_Pham_Do_An1.Controllers
         private readonly IConfiguration _configuration;
         private readonly HttpClient _httpClient;
 
-<<<<<<< HEAD
-        // Gemini API Configuration - Model có thể được config trong appsettings.json
-        private string GetGeminiApiEndpoint()
-        {
-            var modelName = _configuration["GeminiAI:ModelName"] ?? "gemini-1.5-flash";
-            return $"https://generativelanguage.googleapis.com/v1beta/models/{modelName}:generateContent";
-=======
         private const string GroqApiEndpoint = "https://api.groq.com/openai/v1/chat/completions";
 
         private string GetGroqModelName()
         {
             return _configuration["GroqAI:ModelName"] ?? "llama-3.3-70b-versatile";
->>>>>>> son
         }
 
         public ChatController(
@@ -48,11 +37,6 @@ namespace San_Pham_Do_An1.Controllers
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.Timeout = TimeSpan.FromSeconds(30);
         }
-<<<<<<< HEAD
-
-        // Get chat history (guest or user)
-=======
->>>>>>> son
         [HttpGet("messages")]
         public async Task<IActionResult> GetMessages()
         {
@@ -99,11 +83,6 @@ namespace San_Pham_Do_An1.Controllers
                 return StatusCode(500, new { error = "Lỗi server khi lấy lịch sử chat" });
             }
         }
-<<<<<<< HEAD
-
-        // Send message with real Gemini AI integration
-=======
->>>>>>> son
         [HttpPost("send")]
         public async Task<IActionResult> SendMessage([FromBody] SendMessageRequest request)
         {
@@ -116,53 +95,16 @@ namespace San_Pham_Do_An1.Controllers
 
                 var userId = GetUserId();
                 var guestToken = GetOrCreateGuestToken();
-<<<<<<< HEAD
-
-                // Save user message
-                var userMsg = await SaveUserMessage(userId, guestToken, request.Message);
-
-                // Check for special queries first
-                var specialResponse = await HandleSpecialQueries(request.Message.ToLower());
-                if (specialResponse != null)
-                {
-                    var botReply = await SaveBotMessage(userId, guestToken, specialResponse.Message);
-                    return Ok(BuildResponse(userMsg, botReply, specialResponse.Data));
-                }
-
-                // Get AI response with context
-                var aiResponse = await GetAIResponse(userId, guestToken, request.Message);
-
-                // Save bot message
-                var botMsg = await SaveBotMessage(userId, guestToken, aiResponse);
-
-                // Detect and attach structured data (categories/products)
-                var structuredData = await DetectAndFetchStructuredData(request.Message.ToLower());
-
-                return Ok(BuildResponse(userMsg, botMsg, structuredData));
-=======
                 var userMsg = await SaveUserMessage(userId, guestToken, request.Message);
                 var aiResponse = await GetAIResponse(userId, guestToken, request.Message);
                 var botMsg = await SaveBotMessage(userId, guestToken, aiResponse);
 
                 return Ok(BuildResponse(userMsg, botMsg, null));
->>>>>>> son
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Lỗi khi gửi tin nhắn: {Message}", ex.Message);
                 _logger.LogError(ex, "Stack trace: {StackTrace}", ex.StackTrace);
-<<<<<<< HEAD
-                
-                // Đảm bảo luôn trả về JSON
-                return StatusCode(500, new { 
-                    error = "Lỗi server khi xử lý tin nhắn. Vui lòng thử lại sau.",
-                    details = ex.Message 
-                });
-            }
-        }
-
-        // Real Gemini AI Integration
-=======
                 return StatusCode(500, new
                 {
                     error = "Lỗi server khi xử lý tin nhắn. Vui lòng thử lại sau.",
@@ -170,57 +112,10 @@ namespace San_Pham_Do_An1.Controllers
                 });
             }
         }
->>>>>>> son
         private async Task<string> GetAIResponse(int? userId, string guestToken, string userMessage)
         {
             try
             {
-<<<<<<< HEAD
-                // Get system context
-                var systemContext = await BuildSystemContext();
-
-                // Get chat history
-                var chatHistory = await GetChatHistory(userId, guestToken, 10);
-
-                // Build Gemini API request
-                var geminiRequest = new
-                {
-                    contents = BuildGeminiContents(systemContext, chatHistory, userMessage),
-                    generationConfig = new
-                    {
-                        temperature = 0.7,
-                        maxOutputTokens = 800,
-                        topP = 0.8,
-                        topK = 40
-                    },
-                    safetySettings = new[]
-                    {
-                        new { category = "HARM_CATEGORY_HARASSMENT", threshold = "BLOCK_MEDIUM_AND_ABOVE" },
-                        new { category = "HARM_CATEGORY_HATE_SPEECH", threshold = "BLOCK_MEDIUM_AND_ABOVE" },
-                        new { category = "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold = "BLOCK_MEDIUM_AND_ABOVE" },
-                        new { category = "HARM_CATEGORY_DANGEROUS_CONTENT", threshold = "BLOCK_MEDIUM_AND_ABOVE" }
-                    }
-                };
-
-                // Get API Key from configuration
-                var apiKey = _configuration["GeminiAI:ApiKey"];
-                if (string.IsNullOrEmpty(apiKey))
-                {
-                    _logger.LogError("GeminiAI:ApiKey không được cấu hình trong appsettings.json");
-                    return GetFallbackResponse(userMessage);
-                }
-                var requestUrl = $"{GetGeminiApiEndpoint()}?key={apiKey}";
-
-                // Call Gemini API
-                var jsonRequest = JsonSerializer.Serialize(geminiRequest);
-                var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-
-                var response = await _httpClient.PostAsync(requestUrl, content);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    _logger.LogWarning("Gemini API returned {StatusCode}", response.StatusCode);
-=======
                 var storeContext = await BuildStoreContext(userMessage);
 
                 var chatHistory = await GetChatHistory(userId, guestToken, 10);
@@ -257,24 +152,10 @@ namespace San_Pham_Do_An1.Controllers
                 {
                     var errorBody = await response.Content.ReadAsStringAsync();
                     _logger.LogWarning("Groq API returned {StatusCode}: {Body}", response.StatusCode, errorBody);
->>>>>>> son
                     return GetFallbackResponse(userMessage);
                 }
 
                 var responseBody = await response.Content.ReadAsStringAsync();
-<<<<<<< HEAD
-                var geminiResponse = JsonSerializer.Deserialize<JsonElement>(responseBody);
-
-                // Extract AI text
-                var aiText = geminiResponse
-                    .GetProperty("candidates")[0]
-                    .GetProperty("content")
-                    .GetProperty("parts")[0]
-                    .GetProperty("text")
-                    .GetString() ?? GetFallbackResponse(userMessage);
-
-                // Clean up response
-=======
                 var groqResponse = JsonSerializer.Deserialize<JsonElement>(responseBody);
 
                 var aiText = groqResponse
@@ -283,63 +164,15 @@ namespace San_Pham_Do_An1.Controllers
                     .GetProperty("content")
                     .GetString() ?? GetFallbackResponse(userMessage);
 
->>>>>>> son
                 return CleanAIResponse(aiText);
             }
             catch (Exception ex)
             {
-<<<<<<< HEAD
-                _logger.LogError(ex, "Lỗi khi gọi Gemini API");
-=======
                 _logger.LogError(ex, "Lỗi khi gọi Groq API");
->>>>>>> son
                 return GetFallbackResponse(userMessage);
             }
         }
 
-<<<<<<< HEAD
-        // Build Gemini API contents with history
-        private List<object> BuildGeminiContents(string systemContext, List<TbChatMessage> history, string currentMessage)
-        {
-            var contents = new List<object>();
-
-            // Add system context as first user message
-            contents.Add(new
-            {
-                role = "user",
-                parts = new[] { new { text = systemContext } }
-            });
-
-            contents.Add(new
-            {
-                role = "model",
-                parts = new[] { new { text = "Tôi hiểu. Tôi sẽ hỗ trợ bạn với thông tin về cửa hàng thời trang theo đúng dữ liệu bạn cung cấp." } }
-            });
-
-            // Add chat history
-            foreach (var msg in history)
-            {
-                contents.Add(new
-                {
-                    role = msg.Sender == "user" ? "user" : "model",
-                    parts = new[] { new { text = msg.Message ?? "" } }
-                });
-            }
-
-            // Add current message
-            contents.Add(new
-            {
-                role = "user",
-                parts = new[] { new { text = currentMessage } }
-            });
-
-            return contents;
-        }
-
-        // Build system context from database
-        private async Task<string> BuildSystemContext()
-        {
-=======
         private List<object> BuildGroqMessages(string systemContext, List<TbChatMessage> history, string currentMessage)
         {
             var messages = new List<object>();
@@ -374,12 +207,11 @@ namespace San_Pham_Do_An1.Controllers
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine("Bạn là trợ lý bán hàng của cửa hàng thời trang NETMARK, đang trò chuyện trực tiếp với khách trên website. " +
-                          "Nói chuyện tự nhiên, thân thiện như một nhân viên tư vấn thực thụ, không máy móc, không rập khuôn. " +
+            sb.AppendLine("Bạn là trợ lý bán hàng của cửa hàng thời trang TSV, đang trò chuyện trực tiếp với khách trên website. " +
+                          "Nói chuyện tự nhiên, thân thiện như một nhân viên tư vấn thực thụ, không máy móc, không rập khuôn, không dài dòng, trả lời ngắn gọn, đúng yêu cầu " +
                           "Dưới đây là dữ liệu thật lấy từ hệ thống cửa hàng — chỉ dùng những thông tin này để trả lời, không tự bịa sản phẩm/giá không có trong dữ liệu.");
             sb.AppendLine();
 
->>>>>>> son
             var categories = await _context.TbProductCategories
                 .Include(c => c.TbProducts.Where(p => p.IsActive == true))
                 .Where(c => c.TbProducts.Any(p => p.IsActive == true))
@@ -388,52 +220,6 @@ namespace San_Pham_Do_An1.Controllers
                     c.Title,
                     ProductCount = c.TbProducts.Count(p => p.IsActive == true)
                 })
-<<<<<<< HEAD
-                .Take(10)
-                .ToListAsync();
-
-            var sampleProducts = await _context.TbProducts
-                .Include(p => p.CategoryProduct)
-                .Where(p => p.IsActive == true && p.IsBestSeller == true)
-                .OrderByDescending(p => p.Star)
-                .Take(5)
-                .Select(p => new
-                {
-                    p.Title,
-                    CategoryName = p.CategoryProduct != null ? p.CategoryProduct.Title : "Khác",
-                    Price = p.PriceSale ?? p.Price
-                })
-                .ToListAsync();
-
-            var categoryList = string.Join("\n", categories.Select(c => $"- {c.Title}: {c.ProductCount} sản phẩm"));
-            var productList = string.Join("\n", sampleProducts.Select(p => $"- {p.Title} ({p.CategoryName}): {FormatPrice(p.Price)}"));
-
-            return $@"BẠN LÀ TRỢ LÝ BÁN HÀNG CỦA CỬA HÀNG THỜI TRANG NETMARK
-
-**QUY TẮC TRẢLỜI:**
-1. Trả lời ngắn gọn, thân thiện và chuyên nghiệp (tối đa 2-3 câu)
-2. Chỉ sử dụng thông tin có trong danh sách bên dưới
-3. KHÔNG bịa đặt sản phẩm hoặc giá cả
-4. Khi khách hỏi về danh mục, CHỈ nói chung chung, KHÔNG liệt kê sản phẩm cụ thể
-5. Khuyến khích khách xem danh sách chi tiết trên website
-6. Sử dụng emoji phù hợp để tạo cảm giác thân thiện
-
-**DANH MỤC SẢN PHẨM:**
-{categoryList}
-
-**SẢN PHẨM NỔI BẬT:**
-{productList}
-
-**CÁC TÍNH NĂNG HỖ TRỢ:**
-- Tra cứu đơn hàng (khách có thể hỏi về mã đơn hàng)
-- Tư vấn sản phẩm theo tiêu chí (giới tính, phong cách, giá)
-- Thông tin về danh mục và sản phẩm
-
-Hãy bắt đầu hỗ trợ khách hàng!";
-        }
-
-        // Get chat history
-=======
                 .ToListAsync();
 
             sb.AppendLine("=== DANH MỤC SẢN PHẨM ===");
@@ -502,7 +288,6 @@ Hãy bắt đầu hỗ trợ khách hàng!";
         }
 
   
->>>>>>> son
         private async Task<List<TbChatMessage>> GetChatHistory(int? userId, string guestToken, int limit)
         {
             var query = _context.TbChatMessages
@@ -514,197 +299,7 @@ Hãy bắt đầu hỗ trợ khách hàng!";
             return await query.ToListAsync();
         }
 
-<<<<<<< HEAD
-        // Handle special queries (categories, product search)
-        private async Task<SpecialResponse?> HandleSpecialQueries(string messageLower)
-        {
-            // Check for category listing
-            var categoryKeywords = new[] { "danh mục", "loại", "category", "có những gì", "có gì", "loại nào" };
-            if (categoryKeywords.Any(kw => messageLower.Contains(kw)))
-            {
-                var categories = await FetchCategories();
-                return new SpecialResponse
-                {
-                    Message = "Chúng tôi có các danh mục sản phẩm sau. Bạn có thể xem danh sách chi tiết bên dưới: 📂",
-                    Data = new { categories }
-                };
-            }
-
-            // Check for specific category match
-            var matchedCategory = await FindMatchingCategory(messageLower);
-            if (matchedCategory != null)
-            {
-                var productList = await FetchCategoryProducts(matchedCategory.CategoryProductId);
-                return new SpecialResponse
-                {
-                    Message = $"Đây là các sản phẩm trong danh mục {matchedCategory.Title}: 🛍️",
-                    Data = new
-                    {
-                        category_matched = matchedCategory.Title,
-                        category_id = matchedCategory.CategoryProductId,
-                        product_list = productList.ProductList,
-                        top_products = productList.TopProducts,
-                        show_category_button = true
-                    }
-                };
-            }
-
-            // Check for product search
-            var searchKeywords = ExtractProductKeywords(messageLower);
-            if (searchKeywords.Any(kw => kw.Length >= 3))
-            {
-                var products = await SearchProducts(messageLower, searchKeywords);
-                if (products != null && products.Any())
-                {
-                    return new SpecialResponse
-                    {
-                        Message = $"Tìm thấy {products.Count()} sản phẩm phù hợp với yêu cầu của bạn: ✨",
-                        Data = new
-                        {
-                            products,
-                            search_type = products.Count() == 1 ? "exact_match" : "keyword_match",
-                            is_specific_product = true
-                        }
-                    };
-                }
-            }
-
-            return null;
-        }
-
-        // Detect and fetch structured data
-        private async Task<object?> DetectAndFetchStructuredData(string messageLower)
-        {
-            // This is already handled in HandleSpecialQueries, 
-            // but we keep this for additional context detection
-            return null;
-        }
-
-        // Fetch categories
-        private async Task<List<object>> FetchCategories()
-        {
-            return await _context.TbProductCategories
-                .Include(c => c.TbProducts.Where(p => p.IsActive == true))
-                .Where(c => c.TbProducts.Any(p => p.IsActive == true))
-                .OrderBy(c => c.Title)
-                .Select(c => new
-                {
-                    id = c.CategoryProductId,
-                    name = c.Title,
-                    slug = c.Alias ?? c.Title.ToLower().Replace(" ", "-"),
-                    product_count = c.TbProducts.Count(p => p.IsActive == true)
-                })
-                .ToListAsync<object>();
-        }
-
-        // Find matching category
-        private async Task<TbProductCategory?> FindMatchingCategory(string messageLower)
-        {
-            var allCategories = await _context.TbProductCategories.ToListAsync();
-            return allCategories.FirstOrDefault(cat =>
-            {
-                var catName = cat.Title?.ToLower() ?? "";
-                return messageLower.Contains(catName);
-            });
-        }
-
-        // Fetch category products
-        private async Task<(List<object> ProductList, List<object> TopProducts)> FetchCategoryProducts(int categoryId)
-        {
-            var products = await _context.TbProducts
-                .Include(p => p.TbOrderDetails)
-                .Where(p => p.CategoryProductId == categoryId && p.IsActive == true)
-                .OrderByDescending(p => p.TbOrderDetails.Sum(od => od.Quantity ?? 0))
-                .ToListAsync();
-
-            var productList = products.Select(p => new
-            {
-                id = p.ProductId,
-                name = p.Title
-            }).ToList<object>();
-
-            var topProducts = products.Take(3).Select(p => new
-            {
-                id = p.ProductId,
-                name = p.Title,
-                slug = p.Alias ?? p.Title?.ToLower().Replace(" ", "-"),
-                price = p.PriceSale ?? p.Price,
-                price_formatted = FormatPrice(p.PriceSale ?? p.Price),
-                description = TruncateDescription(p.Description, 150),
-                image_url = p.Image ?? "/assets/img/default-product.png",
-                detail_url = $"/product/{(p.Alias ?? p.ProductId.ToString())}-{p.ProductId}.html"
-            }).ToList<object>();
-
-            return (productList, topProducts);
-        }
-
-        // Search products
-        private async Task<List<object>?> SearchProducts(string cleanMessage, List<string> keywords)
-        {
-            // Try exact match first
-            var exactMatch = await _context.TbProducts
-                .Include(p => p.CategoryProduct)
-                .Where(p => p.IsActive == true && p.Title != null &&
-                           p.Title.ToLower().Contains(cleanMessage))
-                .FirstOrDefaultAsync();
-
-            if (exactMatch != null)
-            {
-                return new List<object>
-                {
-                    new
-                    {
-                        id = exactMatch.ProductId,
-                        name = exactMatch.Title,
-                        slug = exactMatch.Alias ?? exactMatch.Title?.ToLower().Replace(" ", "-"),
-                        price = exactMatch.PriceSale ?? exactMatch.Price,
-                        price_formatted = FormatPrice(exactMatch.PriceSale ?? exactMatch.Price),
-                        description = TruncateDescription(exactMatch.Description, 150),
-                        image_url = exactMatch.Image ?? "/assets/img/default-product.png",
-                        detail_url = $"/product/{(exactMatch.Alias ?? exactMatch.ProductId.ToString())}-{exactMatch.ProductId}.html"
-                    }
-                };
-            }
-
-            // Keyword search
-            var matchedProducts = await _context.TbProducts
-                .Include(p => p.CategoryProduct)
-                .Include(p => p.TbOrderDetails)
-                .Where(p => p.IsActive == true &&
-                           keywords.Any(kw => kw.Length >= 3 &&
-                           p.Title != null && p.Title.ToLower().Contains(kw)))
-                .ToListAsync();
-
-            if (!matchedProducts.Any()) return null;
-
-            return matchedProducts
-                .Select(p => new
-                {
-                    Product = p,
-                    Score = keywords.Count(kw => kw.Length >= 3 &&
-                            p.Title != null && p.Title.ToLower().Contains(kw)) * 10 +
-                            p.TbOrderDetails.Sum(od => od.Quantity ?? 0)
-                })
-                .OrderByDescending(p => p.Score)
-                .Take(3)
-                .Select(p => (object)new
-                {
-                    id = p.Product.ProductId,
-                    name = p.Product.Title,
-                    slug = p.Product.Alias ?? p.Product.Title?.ToLower().Replace(" ", "-"),
-                    price = p.Product.PriceSale ?? p.Product.Price,
-                    price_formatted = FormatPrice(p.Product.PriceSale ?? p.Product.Price),
-                    description = TruncateDescription(p.Product.Description, 150),
-                    image_url = p.Product.Image ?? "/assets/img/default-product.png",
-                    detail_url = $"/product/{(p.Product.Alias ?? p.Product.ProductId.ToString())}-{p.Product.ProductId}.html"
-                })
-                .ToList();
-        }
-
-        // Track order
-=======
     
->>>>>>> son
         [HttpPost("track-order")]
         public async Task<IActionResult> TrackOrder([FromBody] TrackOrderRequest request)
         {
@@ -740,18 +335,10 @@ Hãy bắt đầu hỗ trợ khách hàng!";
                     return Ok(new { bot = botMsg });
                 }
 
-<<<<<<< HEAD
-                // Build order message
-                var orderMessage = BuildOrderMessage(order);
-                var botMsg2 = await SaveBotMessage(userId, guestToken, orderMessage);
-
-                // Build order data
-=======
                 var orderMessage = BuildOrderMessage(order);
                 var botMsg2 = await SaveBotMessage(userId, guestToken, orderMessage);
 
         
->>>>>>> son
                 var orderData = BuildOrderData(order);
 
                 return Ok(new { bot = botMsg2, order = orderData });
@@ -763,10 +350,6 @@ Hãy bắt đầu hỗ trợ khách hàng!";
             }
         }
 
-<<<<<<< HEAD
-        // Build order message
-=======
->>>>>>> son
         private string BuildOrderMessage(TbOrder order)
         {
             var statusLabel = order.OrderStatus?.Name ?? "Chưa xác định";
@@ -796,10 +379,6 @@ Hãy bắt đầu hỗ trợ khách hàng!";
             return message;
         }
 
-<<<<<<< HEAD
-        // Build order data
-=======
->>>>>>> son
         private object BuildOrderData(TbOrder order)
         {
             var statusLabel = order.OrderStatus?.Name ?? "Chưa xác định";
@@ -831,11 +410,7 @@ Hãy bắt đầu hỗ trợ khách hàng!";
             };
         }
 
-<<<<<<< HEAD
-        // Perfume Advisor
-=======
    
->>>>>>> son
         [HttpPost("perfume-advisor")]
         public async Task<IActionResult> PerfumeAdvisor([FromBody] PerfumeAdvisorRequest request)
         {
@@ -852,11 +427,7 @@ Hãy bắt đầu hỗ trợ khách hàng!";
 
                 var searchKeywords = new List<string>();
 
-<<<<<<< HEAD
-                // Gender filter
-=======
            
->>>>>>> son
                 if (!string.IsNullOrEmpty(request.Gender))
                 {
                     var genderMap = new Dictionary<string, string[]>
@@ -875,11 +446,7 @@ Hãy bắt đầu hỗ trợ khách hàng!";
                 if (!string.IsNullOrEmpty(request.Style)) searchKeywords.Add(request.Style);
                 if (!string.IsNullOrEmpty(request.Note)) searchKeywords.Add(request.Note);
 
-<<<<<<< HEAD
-                // Apply keyword search
-=======
             
->>>>>>> son
                 if (searchKeywords.Any())
                 {
                     query = query.Where(p =>
@@ -890,11 +457,7 @@ Hãy bắt đầu hỗ trợ khách hàng!";
                     );
                 }
 
-<<<<<<< HEAD
-                // Price range filter
-=======
          
->>>>>>> son
                 if (!string.IsNullOrEmpty(request.PriceRange))
                 {
                     var range = request.PriceRange.Split('-');
@@ -924,11 +487,7 @@ Hãy bắt đầu hỗ trợ khách hàng!";
                     })
                     .ToList();
 
-<<<<<<< HEAD
-                // Build criteria text
-=======
          
->>>>>>> son
                 var criteria = new List<string>();
                 if (!string.IsNullOrEmpty(request.Gender)) criteria.Add($"giới tính: {request.Gender}");
                 if (!string.IsNullOrEmpty(request.Style)) criteria.Add($"phong cách: {request.Style}");
@@ -970,11 +529,7 @@ Hãy bắt đầu hỗ trợ khách hàng!";
             }
         }
 
-<<<<<<< HEAD
-        // ========== Helper Methods ==========
-=======
 
->>>>>>> son
 
         private async Task<TbChatMessage> SaveUserMessage(int? userId, string guestToken, string message)
         {
@@ -1046,11 +601,7 @@ Hãy bắt đầu hỗ trợ khách hàng!";
 
             if (additionalData != null)
             {
-<<<<<<< HEAD
-                // Merge additional data with response
-=======
        
->>>>>>> son
                 var dict = new Dictionary<string, object?>
                 {
                     ["user"] = response.user,
@@ -1070,19 +621,11 @@ Hãy bắt đầu hỗ trợ khách hàng!";
 
         private string CleanAIResponse(string text)
         {
-<<<<<<< HEAD
-            // Remove markdown bold markers
-            text = Regex.Replace(text, @"\*\*(.*?)\*\*", "$1");
-            // Remove bullet points at start of lines
-            text = Regex.Replace(text, @"^\s*[-*•]\s+", "", RegexOptions.Multiline);
-            // Remove excessive newlines
-=======
    
             text = Regex.Replace(text, @"\*\*(.*?)\*\*", "$1");
        
             text = Regex.Replace(text, @"^\s*[-*•]\s+", "", RegexOptions.Multiline);
         
->>>>>>> son
             text = Regex.Replace(text, @"\n{3,}", "\n\n");
             return text.Trim();
         }
@@ -1105,11 +648,7 @@ Hãy bắt đầu hỗ trợ khách hàng!";
 
         private int? GetUserId()
         {
-<<<<<<< HEAD
-            // TODO: Implement authentication and get user ID from claims
-=======
       
->>>>>>> son
             return null;
         }
 
@@ -1202,11 +741,7 @@ Hãy bắt đầu hỗ trợ khách hàng!";
         }
     }
 
-<<<<<<< HEAD
-    // Request/Response Models
-=======
    
->>>>>>> son
     public class SendMessageRequest
     {
         public string Message { get; set; } = string.Empty;
@@ -1224,15 +759,4 @@ Hãy bắt đầu hỗ trợ khách hàng!";
         public string? Note { get; set; }
         public string? PriceRange { get; set; }
     }
-<<<<<<< HEAD
-
-    internal class SpecialResponse
-    {
-        public string Message { get; set; } = string.Empty;
-        public object? Data { get; set; }
-    }
 }
-
-=======
-}
->>>>>>> son

@@ -13,18 +13,18 @@ namespace San_Pham_Do_An1.Controllers
         }
         public IActionResult Index(int? categoryId, decimal? priceMin, decimal? priceMax, string? sortBy, string? search)
         {
-            // Lấy tất cả sản phẩm đang active
+
             var query = _context.TbProducts
                 .Include(p => p.CategoryProduct)
                 .Where(p => p.IsActive == true);
 
-            // Lọc theo danh mục
+
             if (categoryId.HasValue && categoryId.Value > 0)
             {
                 query = query.Where(p => p.CategoryProductId == categoryId.Value);
             }
 
-            // Lọc theo khoảng giá (sử dụng PriceSale nếu có, nếu không thì dùng Price)
+
             if (priceMin.HasValue)
             {
                 query = query.Where(p => (p.PriceSale ?? p.Price ?? 0) >= priceMin.Value);
@@ -34,21 +34,14 @@ namespace San_Pham_Do_An1.Controllers
                 query = query.Where(p => (p.PriceSale ?? p.Price ?? 0) <= priceMax.Value);
             }
 
-<<<<<<< HEAD
-            // Tìm kiếm theo tên sản phẩm
-            if (!string.IsNullOrEmpty(search))
-            {
-                query = query.Where(p => p.Title != null && p.Title.Contains(search));
-=======
-            // Tìm kiếm theo tên hoặc mô tả sản phẩm
+
             if (!string.IsNullOrWhiteSpace(search))
             {
                 var keyword = search.Trim();
                 query = query.Where(p => (p.Title != null && p.Title.Contains(keyword)) || (p.Description != null && p.Description.Contains(keyword)));
->>>>>>> son
             }
 
-            // Sắp xếp
+
             switch (sortBy)
             {
                 case "popularity":
@@ -66,16 +59,16 @@ namespace San_Pham_Do_An1.Controllers
                 case "price_desc":
                     query = query.OrderByDescending(p => p.PriceSale ?? p.Price ?? 0);
                     break;
-                default: // latest
+                default:
                     query = query.OrderByDescending(p => p.CreatedDate);
                     break;
             }
 
             var products = query.ToList();
 
-            // Giá đã được lưu trong database từ lúc edit, không cần tính toán lại
 
-            // Lưu các giá trị filter để hiển thị lại trên view
+
+
             ViewBag.ProductCategories = _context.TbProductCategories.ToList();
             ViewBag.SelectedCategoryId = categoryId;
             ViewBag.PriceMin = priceMin;
@@ -100,7 +93,7 @@ namespace San_Pham_Do_An1.Controllers
                 return NotFound();
             }
 
-            // Giá đã được lưu trong database từ lúc edit, không cần tính toán lại
+
 
             ViewBag.ProductImages = _context.TbProductVariants
                 .Where(v => v.ProductId == id && v.IsActive == true)

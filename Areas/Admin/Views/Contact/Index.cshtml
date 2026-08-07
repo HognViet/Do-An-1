@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Danh sách liên hệ";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml"; // Kiểm tra lại tên layout admin của bạn
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 <div class="content-wrapper">
@@ -80,23 +80,23 @@
         @section Scripts {
     <script>
         $(document).ready(function () {
-            // Bắt sự kiện khi bấm nút có class .btnDelete
+
             $('body').on('click', '.btnDelete', function (e) {
-                e.preventDefault(); // Chặn link nhảy linh tinh
+                e.preventDefault();
                 var id = $(this).data("id");
                 var conf = confirm('Bạn có chắc chắn muốn xóa tin nhắn này không?');
-                
+
                 if (conf === true) {
                     $.ajax({
-                        url: '/Admin/Contact/Delete', // Gọi đến hàm Delete trong Controller
+                        url: '/Admin/Contact/Delete',
                         type: 'POST',
                         data: { id: id },
                         success: function (rs) {
                             if (rs.success) {
-                                // Nếu xóa thành công, xóa dòng đó khỏi bảng ngay lập tức
-                                $('#trow_' + id).remove(); 
-                                // Hoặc reload lại trang nếu không dùng id dòng
-                                // location.reload(); 
+
+                                $('#trow_' + id).remove();
+
+
                             } else {
                                 alert("Xóa thất bại!");
                             }

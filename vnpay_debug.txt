@@ -67,3 +67,121 @@ Parameters:
   vnp_TxnRef = 639213855108326739
   vnp_Version = 2.1.0
 ======================================
+=== VNPAY CREATE PAYMENT URL DEBUG ===
+Time: 04/08/2026 1:18:06 PM
+TmnCode: WPUK9JZT
+HashSecret: XEFEUOXAIOKSLVJDWQMSTMXSQUURPDNX
+PaymentUrl base: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+Generated URL: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=37500000&vnp_Command=pay&vnp_CreateDate=20260804131806&vnp_CurrCode=VND&vnp_ExpireDate=20260804133306&vnp_IpAddr=127.0.0.1&vnp_Locale=vn&vnp_OrderInfo=Thanh+toan+don+hang+639214210867486206&vnp_OrderType=other&vnp_ReturnUrl=http%3A%2F%2Flocalhost%3A5140%2FCheckout%2FPaymentCallback&vnp_TmnCode=WPUK9JZT&vnp_TxnRef=639214210867486206&vnp_Version=2.1.0&vnp_SecureHash=18852AAF2F0B504D4F7061EB3AADA5388019AB9045C0C03D33F627897660F0583F2D3618086555B18877FDD3C23A4CC2DF0B14D4576F7B72A7C4F518B811C40F
+Sign Data: vnp_Amount=37500000&vnp_Command=pay&vnp_CreateDate=20260804131806&vnp_CurrCode=VND&vnp_ExpireDate=20260804133306&vnp_IpAddr=127.0.0.1&vnp_Locale=vn&vnp_OrderInfo=Thanh+toan+don+hang+639214210867486206&vnp_OrderType=other&vnp_ReturnUrl=http%3A%2F%2Flocalhost%3A5140%2FCheckout%2FPaymentCallback&vnp_TmnCode=WPUK9JZT&vnp_TxnRef=639214210867486206&vnp_Version=2.1.0
+vnp_SecureHash: 18852AAF2F0B504D4F7061EB3AADA5388019AB9045C0C03D33F627897660F0583F2D3618086555B18877FDD3C23A4CC2DF0B14D4576F7B72A7C4F518B811C40F
+Parameters:
+  vnp_Amount = 37500000
+  vnp_Command = pay
+  vnp_CreateDate = 20260804131806
+  vnp_CurrCode = VND
+  vnp_ExpireDate = 20260804133306
+  vnp_IpAddr = 127.0.0.1
+  vnp_Locale = vn
+  vnp_OrderInfo = Thanh toan don hang 639214210867486206
+  vnp_OrderType = other
+  vnp_ReturnUrl = http://localhost:5140/Checkout/PaymentCallback
+  vnp_TmnCode = WPUK9JZT
+  vnp_TxnRef = 639214210867486206
+  vnp_Version = 2.1.0
+======================================
+=== VNPAY VALIDATE SIGNATURE DEBUG ===
+Time: 04/08/2026 1:18:17 PM
+HashSecret: XEFEUOXAIOKSLVJDWQMSTMXSQUURPDNX
+Received Hash: 2cca436fed7ed1d87f223eadeba6659c183839207070db25076670c5bd41c3ef79c2d6ba9b24734a75b00832541f5fb589ce503b27f649980090d5e22c457597
+Calculated Hash: 2CCA436FED7ED1D87F223EADEBA6659C183839207070DB25076670C5BD41C3EF79C2D6BA9B24734A75B00832541F5FB589CE503B27F649980090D5E22C457597
+Sign Data: vnp_Amount=37500000&vnp_BankCode=VNPAY&vnp_CardType=QRCODE&vnp_OrderInfo=Thanh+toan+don+hang+639214210867486206&vnp_PayDate=20260804125238&vnp_ResponseCode=24&vnp_TmnCode=WPUK9JZT&vnp_TransactionNo=0&vnp_TransactionStatus=02&vnp_TxnRef=639214210867486206
+Parameters:
+  vnp_Amount = 37500000
+  vnp_BankCode = VNPAY
+  vnp_CardType = QRCODE
+  vnp_OrderInfo = Thanh toan don hang 639214210867486206
+  vnp_PayDate = 20260804125238
+  vnp_ResponseCode = 24
+  vnp_TmnCode = WPUK9JZT
+  vnp_TransactionNo = 0
+  vnp_TransactionStatus = 02
+  vnp_TxnRef = 639214210867486206
+======================================
+=== VNPAY VALIDATE SIGNATURE DEBUG ===
+Time: 04/08/2026 1:18:17 PM
+HashSecret: XEFEUOXAIOKSLVJDWQMSTMXSQUURPDNX
+Received Hash: 2cca436fed7ed1d87f223eadeba6659c183839207070db25076670c5bd41c3ef79c2d6ba9b24734a75b00832541f5fb589ce503b27f649980090d5e22c457597
+Calculated Hash: 2CCA436FED7ED1D87F223EADEBA6659C183839207070DB25076670C5BD41C3EF79C2D6BA9B24734A75B00832541F5FB589CE503B27F649980090D5E22C457597
+Sign Data: vnp_Amount=37500000&vnp_BankCode=VNPAY&vnp_CardType=QRCODE&vnp_OrderInfo=Thanh+toan+don+hang+639214210867486206&vnp_PayDate=20260804125238&vnp_ResponseCode=24&vnp_TmnCode=WPUK9JZT&vnp_TransactionNo=0&vnp_TransactionStatus=02&vnp_TxnRef=639214210867486206
+Parameters:
+  vnp_Amount = 37500000
+  vnp_BankCode = VNPAY
+  vnp_CardType = QRCODE
+  vnp_OrderInfo = Thanh toan don hang 639214210867486206
+  vnp_PayDate = 20260804125238
+  vnp_ResponseCode = 24
+  vnp_TmnCode = WPUK9JZT
+  vnp_TransactionNo = 0
+  vnp_TransactionStatus = 02
+  vnp_TxnRef = 639214210867486206
+======================================
+=== VNPAY CREATE PAYMENT URL DEBUG ===
+Time: 04/08/2026 2:37:18 PM
+TmnCode: WPUK9JZT
+HashSecret: XEFEUOXAIOKSLVJDWQMSTMXSQUURPDNX
+PaymentUrl base: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+Generated URL: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=107800000&vnp_Command=pay&vnp_CreateDate=20260804143718&vnp_CurrCode=VND&vnp_ExpireDate=20260804145218&vnp_IpAddr=127.0.0.1&vnp_Locale=vn&vnp_OrderInfo=Thanh+toan+don+hang+639214258380740827&vnp_OrderType=other&vnp_ReturnUrl=http%3A%2F%2Flocalhost%3A5140%2FCheckout%2FPaymentCallback&vnp_TmnCode=WPUK9JZT&vnp_TxnRef=639214258380740827&vnp_Version=2.1.0&vnp_SecureHash=E76951BF76A879DC4D6A5DFF617A6E5744BE858116AD19B5BED2ED989C838D38660E12C8A4930D8CBA3C0FA60969E8371AEAD804F3B178477407DEE53A9A010E
+Sign Data: vnp_Amount=107800000&vnp_Command=pay&vnp_CreateDate=20260804143718&vnp_CurrCode=VND&vnp_ExpireDate=20260804145218&vnp_IpAddr=127.0.0.1&vnp_Locale=vn&vnp_OrderInfo=Thanh+toan+don+hang+639214258380740827&vnp_OrderType=other&vnp_ReturnUrl=http%3A%2F%2Flocalhost%3A5140%2FCheckout%2FPaymentCallback&vnp_TmnCode=WPUK9JZT&vnp_TxnRef=639214258380740827&vnp_Version=2.1.0
+vnp_SecureHash: E76951BF76A879DC4D6A5DFF617A6E5744BE858116AD19B5BED2ED989C838D38660E12C8A4930D8CBA3C0FA60969E8371AEAD804F3B178477407DEE53A9A010E
+Parameters:
+  vnp_Amount = 107800000
+  vnp_Command = pay
+  vnp_CreateDate = 20260804143718
+  vnp_CurrCode = VND
+  vnp_ExpireDate = 20260804145218
+  vnp_IpAddr = 127.0.0.1
+  vnp_Locale = vn
+  vnp_OrderInfo = Thanh toan don hang 639214258380740827
+  vnp_OrderType = other
+  vnp_ReturnUrl = http://localhost:5140/Checkout/PaymentCallback
+  vnp_TmnCode = WPUK9JZT
+  vnp_TxnRef = 639214258380740827
+  vnp_Version = 2.1.0
+======================================
+=== VNPAY VALIDATE SIGNATURE DEBUG ===
+Time: 04/08/2026 2:37:40 PM
+HashSecret: XEFEUOXAIOKSLVJDWQMSTMXSQUURPDNX
+Received Hash: b6a324c115d88122cfcc7da83b87aad34d6fb47953b266899ee980b824ca098e11fe607f91d2882811494015b3468188162d4dd3c4b7b3215a8907428141f536
+Calculated Hash: B6A324C115D88122CFCC7DA83B87AAD34D6FB47953B266899EE980B824CA098E11FE607F91D2882811494015B3468188162D4DD3C4B7B3215A8907428141F536
+Sign Data: vnp_Amount=107800000&vnp_BankCode=VNPAY&vnp_CardType=QRCODE&vnp_OrderInfo=Thanh+toan+don+hang+639214258380740827&vnp_PayDate=20260804141149&vnp_ResponseCode=24&vnp_TmnCode=WPUK9JZT&vnp_TransactionNo=0&vnp_TransactionStatus=02&vnp_TxnRef=639214258380740827
+Parameters:
+  vnp_Amount = 107800000
+  vnp_BankCode = VNPAY
+  vnp_CardType = QRCODE
+  vnp_OrderInfo = Thanh toan don hang 639214258380740827
+  vnp_PayDate = 20260804141149
+  vnp_ResponseCode = 24
+  vnp_TmnCode = WPUK9JZT
+  vnp_TransactionNo = 0
+  vnp_TransactionStatus = 02
+  vnp_TxnRef = 639214258380740827
+======================================
+=== VNPAY VALIDATE SIGNATURE DEBUG ===
+Time: 04/08/2026 2:37:41 PM
+HashSecret: XEFEUOXAIOKSLVJDWQMSTMXSQUURPDNX
+Received Hash: b6a324c115d88122cfcc7da83b87aad34d6fb47953b266899ee980b824ca098e11fe607f91d2882811494015b3468188162d4dd3c4b7b3215a8907428141f536
+Calculated Hash: B6A324C115D88122CFCC7DA83B87AAD34D6FB47953B266899EE980B824CA098E11FE607F91D2882811494015B3468188162D4DD3C4B7B3215A8907428141F536
+Sign Data: vnp_Amount=107800000&vnp_BankCode=VNPAY&vnp_CardType=QRCODE&vnp_OrderInfo=Thanh+toan+don+hang+639214258380740827&vnp_PayDate=20260804141149&vnp_ResponseCode=24&vnp_TmnCode=WPUK9JZT&vnp_TransactionNo=0&vnp_TransactionStatus=02&vnp_TxnRef=639214258380740827
+Parameters:
+  vnp_Amount = 107800000
+  vnp_BankCode = VNPAY
+  vnp_CardType = QRCODE
+  vnp_OrderInfo = Thanh toan don hang 639214258380740827
+  vnp_PayDate = 20260804141149
+  vnp_ResponseCode = 24
+  vnp_TmnCode = WPUK9JZT
+  vnp_TransactionNo = 0
+  vnp_TransactionStatus = 02
+  vnp_TxnRef = 639214258380740827
+======================================

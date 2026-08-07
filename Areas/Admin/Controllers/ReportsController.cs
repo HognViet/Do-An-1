@@ -18,7 +18,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             _context = context;
         }
 
-        // GET: Admin/Reports/Revenue
+
         public async Task<IActionResult> Revenue(DateTime? startDate, DateTime? endDate)
         {
             if (HttpContext.Session.GetString("AdminId") == null)
@@ -26,7 +26,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                 return RedirectToAction("Login", "Accounts", new { area = "Admin" });
             }
 
-            // Chỉ lọc khi người dùng bấm nút "Lọc"
+
             DateTime? start = startDate;
             DateTime? end = endDate;
 
@@ -50,20 +50,20 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             ViewBag.StartDate = start;
             ViewBag.EndDate = end;
 
-            // Tính doanh thu từ TẤT CẢ đơn hàng có TotalAmount > 0 trong khoảng thời gian
+
             var allOrdersWithAmount = orders.Where(o => o.TotalAmount.HasValue && o.TotalAmount > 0).ToList();
 
-            // Đơn hàng đã hoàn thành (đã giao hoặc đã thanh toán)
+
             var completedOrders = allOrdersWithAmount.Where(o =>
-                o.OrderStatusId == 5 || // Đã giao
-                o.PaymentMethod == "VNPAY" || // Đã thanh toán
+                o.OrderStatusId == 5 ||
+                o.PaymentMethod == "VNPAY" ||
                 (o.OrderStatus != null && (
                     (o.OrderStatus.Name != null && (o.OrderStatus.Name.Contains("Đã giao") || o.OrderStatus.Name.Contains("Hoàn thành"))) ||
                     (o.OrderStatus.Description != null && (o.OrderStatus.Description.Contains("Đã giao") || o.OrderStatus.Description.Contains("Hoàn thành")))
                 ))
             ).ToList();
 
-            // Tính tổng doanh thu từ tất cả đơn hàng có giá trị
+
             ViewBag.TotalRevenue = allOrdersWithAmount.Sum(o => o.TotalAmount ?? 0);
             ViewBag.TotalOrders = orders.Count;
             ViewBag.CompletedOrders = completedOrders.Count;
@@ -72,7 +72,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(orders);
         }
 
-        // GET: Admin/Reports/Inventory
+
         public async Task<IActionResult> Inventory()
         {
             if (HttpContext.Session.GetString("AdminId") == null)

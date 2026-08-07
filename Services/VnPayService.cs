@@ -25,7 +25,7 @@ namespace San_Pham_Do_An1.Services
         {
             var timeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
             var createDate = TimeZoneInfo.ConvertTime(DateTime.UtcNow, timeZone);
-            // VNPAY yêu cầu sort key theo thứ tự ASCII (Ordinal)
+
             var vnpParams = new SortedDictionary<string, string>(StringComparer.Ordinal)
             {
                 ["vnp_Version"] = "2.1.0",
@@ -43,20 +43,20 @@ namespace San_Pham_Do_An1.Services
                 ["vnp_ExpireDate"] = createDate.AddMinutes(15).ToString("yyyyMMddHHmmss")
             };
 
-            // Nếu cấu hình BankCode (ví dụ: "NCB") thì gửi vnp_BankCode cố định để test.
-            // Nếu để rỗng, VNPAY sẽ hiển thị màn hình chọn ngân hàng.
+
+
             if (!string.IsNullOrWhiteSpace(_settings.BankCode))
             {
                 vnpParams["vnp_BankCode"] = _settings.BankCode;
             }
 
-            // VNPAY yêu cầu chuỗi ký sử dụng giá trị đã UrlEncode, key sort tăng dần, nối key=value bằng &
+
             var signData = BuildDataToSign(vnpParams);
             var vnpSecureHash = HmacSHA512(_settings.HashSecret, signData);
 
             var queryString = BuildDataToSign(vnpParams);
 
-            // VNPAY 2.1.0 không cần gửi vnp_SecureHashType nữa, gửi đi sẽ gây lỗi sai chữ ký trên cổng VNPAY
+
             var url = $"{_settings.PaymentUrl}?{queryString}&vnp_SecureHash={vnpSecureHash}";
 
             try
@@ -108,7 +108,7 @@ namespace San_Pham_Do_An1.Services
                 sortedParams[param.Key] = param.Value.ToString();
             }
 
-            // Chuỗi gốc để ký lại phải encode value giống cách VNPAY tạo chữ ký
+
             var signData = BuildDataToSign(sortedParams);
             var calculatedHash = HmacSHA512(_settings.HashSecret, signData);
 
@@ -134,10 +134,10 @@ namespace San_Pham_Do_An1.Services
             return string.Equals(receivedHash, calculatedHash, StringComparison.OrdinalIgnoreCase);
         }
 
-        /// <summary>
-        /// Xây dựng chuỗi dữ liệu theo chuẩn VNPAY:
-        /// key1=value1&key2=value2... với key đã sort tăng dần.
-        /// </summary>
+
+
+
+
         private string BuildDataToSign(SortedDictionary<string, string> vnpParams)
         {
             var builder = new StringBuilder();

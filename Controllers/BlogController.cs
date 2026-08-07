@@ -14,17 +14,13 @@ namespace San_Pham_Do_An1.Controllers
         }
         public IActionResult Index(int? categoryId)
         {
-            // Lấy tất cả blog đang active
+
             var query = _context.TbBlogs
                 .Include(b => b.BlogCategory)
-<<<<<<< HEAD
-                .Where(b => b.IsActive == true)
-=======
                 .Where(b => b.IsActive == true && b.BlogId != 1 && !string.IsNullOrEmpty(b.Alias))
->>>>>>> son
                 .AsQueryable();
 
-            // Lọc theo danh mục nếu có
+
             if (categoryId.HasValue && categoryId.Value > 0)
             {
                 query = query.Where(b => b.BlogCategoryId == categoryId.Value);
@@ -34,7 +30,7 @@ namespace San_Pham_Do_An1.Controllers
                 .OrderByDescending(b => b.CreatedDate)
                 .ToList();
 
-            // Lưu thông tin filter để hiển thị
+
             ViewBag.BlogCategories = _context.TbBlogCategories
                 .OrderByDescending(c => c.CreatedDate)
                 .ToList();
@@ -44,10 +40,6 @@ namespace San_Pham_Do_An1.Controllers
             return View(blog);
         }
         [Route("/blog/{alias}-{id}.html")]
-<<<<<<< HEAD
-        [Route("/blog/{id:int}.html")]
-=======
->>>>>>> son
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.TbBlogs == null)

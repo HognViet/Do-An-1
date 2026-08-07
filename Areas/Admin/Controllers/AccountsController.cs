@@ -21,7 +21,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             _context = context;
         }
 
-        // Hàm mã hóa MD5
+
         public static string ToMD5(string str)
         {
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
@@ -31,11 +31,11 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return sbHash.ToString();
         }
 
-        // GET: Trang đăng nhập Admin
+
         [HttpGet]
         public IActionResult Login()
         {
-            // Nếu đã đăng nhập Admin/Employee rồi thì vào thẳng trang tương ứng
+
             if (HttpContext.Session.GetString("AdminId") != null)
             {
                 var roleId = HttpContext.Session.GetString("RoleId");
@@ -48,16 +48,16 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Xử lý đăng nhập
+
         [HttpPost]
         public IActionResult Login(string email, string password)
         {
             if (ModelState.IsValid)
             {
-                string passHash = ToMD5(password); // Mã hóa mật khẩu nhập vào
+                string passHash = ToMD5(password);
 
-                // Tìm trong bảng TbAccount (Admin hoặc Employee)
-                // Lưu ý: So sánh cả Email hoặc Username đều được
+
+
                 var account = _context.TbAccounts.FirstOrDefault(x => (x.Email == email || x.Username == email) && x.Password == passHash);
 
                 if (account != null)
@@ -68,16 +68,16 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                         return View();
                     }
 
-                    // Lưu Session dành cho Admin/Employee
+
                     HttpContext.Session.SetString("AdminId", account.AccountId.ToString());
                     HttpContext.Session.SetString("AdminName", account.Username ?? account.FullName);
                     HttpContext.Session.SetString("RoleId", account.RoleId.ToString() ?? "0");
 
-                    // Cập nhật thời gian đăng nhập
+
                     account.LastLogin = DateTime.Now;
                     _context.SaveChanges();
 
-                    // Điều hướng theo Role
+
                     if (account.RoleId == 2)
                     {
                         return RedirectToAction("Index", "Orders", new { area = "Employees" });
@@ -92,11 +92,11 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View();
         }
 
-        // GET: Trang đăng ký Admin
+
         [HttpGet]
         public IActionResult Register()
         {
-            // Nếu đã đăng nhập Admin/Employee rồi thì vào thẳng trang tương ứng
+
             if (HttpContext.Session.GetString("AdminId") != null)
             {
                 var roleId = HttpContext.Session.GetString("RoleId");
@@ -109,20 +109,20 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Xử lý đăng ký
+
         [HttpPost]
         public IActionResult Register(string username, string email, string password, string confirmPassword, string fullName, string phone, int roleId)
         {
             if (ModelState.IsValid)
             {
-                // Kiểm tra mật khẩu xác nhận
+
                 if (password != confirmPassword)
                 {
                     ViewBag.Error = "Mật khẩu xác nhận không khớp!";
                     return View();
                 }
 
-                // Kiểm tra trùng tài khoản (Username)
+
                 var existingUsername = _context.TbAccounts.FirstOrDefault(x => x.Username == username);
                 if (existingUsername != null)
                 {
@@ -130,7 +130,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                     return View();
                 }
 
-                // Kiểm tra trùng Email
+
                 if (!string.IsNullOrEmpty(email))
                 {
                     var existingEmail = _context.TbAccounts.FirstOrDefault(x => x.Email == email);
@@ -141,15 +141,15 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                     }
                 }
 
-                // Tạo tài khoản mới
+
                 var newAccount = new TbAccount
                 {
                     Username = username,
                     Email = email,
-                    Password = ToMD5(password), // Mã hóa mật khẩu
+                    Password = ToMD5(password),
                     FullName = fullName,
                     Phone = phone,
-                    IsActive = true, // Mặc định kích hoạt
+                    IsActive = true,
                     RoleId = (roleId == 1 || roleId == 2) ? roleId : 1
                 };
 
@@ -163,7 +163,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View();
         }
 
-        // GET: Admin/Accounts
+
         public async Task<IActionResult> Index()
         {
             var accounts = await _context.TbAccounts
@@ -173,7 +173,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(accounts);
         }
 
-        // GET: Admin/Accounts/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -195,21 +195,21 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(account);
         }
 
-        // GET: Admin/Accounts/Create
+
         public IActionResult Create()
         {
             ViewData["RoleId"] = new SelectList(_context.TbRoles, "RoleId", "RoleName");
             return View();
         }
 
-        // POST: Admin/Accounts/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Username,Password,FullName,Phone,Email,RoleId,IsActive")] TbAccount account, string password)
         {
             if (ModelState.IsValid)
             {
-                // Kiểm tra trùng Username
+
                 if (await _context.TbAccounts.AnyAsync(a => a.Username == account.Username))
                 {
                     ModelState.AddModelError("Username", "Tên đăng nhập này đã tồn tại!");
@@ -217,7 +217,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                     return View(account);
                 }
 
-                // Kiểm tra trùng Email nếu có
+
                 if (!string.IsNullOrEmpty(account.Email) && await _context.TbAccounts.AnyAsync(a => a.Email == account.Email))
                 {
                     ModelState.AddModelError("Email", "Email này đã được sử dụng!");
@@ -225,7 +225,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                     return View(account);
                 }
 
-                // Mã hóa mật khẩu
+
                 if (!string.IsNullOrEmpty(password))
                 {
                     account.Password = ToMD5(password);
@@ -239,7 +239,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(account);
         }
 
-        // GET: Admin/Accounts/Edit/5
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -256,7 +256,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(account);
         }
 
-        // POST: Admin/Accounts/Edit/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("AccountId,Username,Password,FullName,Phone,Email,RoleId,IsActive")] TbAccount account, string newPassword)
@@ -270,7 +270,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             {
                 try
                 {
-                    // Kiểm tra trùng Username (trừ chính nó)
+
                     if (await _context.TbAccounts.AnyAsync(a => a.Username == account.Username && a.AccountId != account.AccountId))
                     {
                         ModelState.AddModelError("Username", "Tên đăng nhập này đã tồn tại!");
@@ -278,7 +278,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                         return View(account);
                     }
 
-                    // Kiểm tra trùng Email (trừ chính nó)
+
                     if (!string.IsNullOrEmpty(account.Email) && await _context.TbAccounts.AnyAsync(a => a.Email == account.Email && a.AccountId != account.AccountId))
                     {
                         ModelState.AddModelError("Email", "Email này đã được sử dụng!");
@@ -286,11 +286,11 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                         return View(account);
                     }
 
-                    // Lấy account hiện tại để giữ password cũ nếu không đổi
+
                     var existingAccount = await _context.TbAccounts.AsNoTracking().FirstOrDefaultAsync(a => a.AccountId == id);
                     if (existingAccount != null)
                     {
-                        // Nếu có mật khẩu mới thì mã hóa, không thì giữ nguyên
+
                         if (!string.IsNullOrEmpty(newPassword))
                         {
                             account.Password = ToMD5(newPassword);
@@ -321,7 +321,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(account);
         }
 
-        // GET: Admin/Accounts/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -341,7 +341,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(account);
         }
 
-        // POST: Admin/Accounts/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -360,10 +360,10 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return _context.TbAccounts.Any(e => e.AccountId == id);
         }
 
-        // Đăng xuất
+
         public IActionResult Logout()
         {
-            // Xóa Session Admin
+
             HttpContext.Session.Remove("AdminId");
             HttpContext.Session.Remove("AdminName");
             HttpContext.Session.Remove("RoleId");

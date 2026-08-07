@@ -6,11 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using San_Pham_Do_An1.Models;
 
-<<<<<<< HEAD
-=======
 using Microsoft.AspNetCore.Http;
 
->>>>>>> son
 namespace San_Pham_Do_An1.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -23,29 +20,23 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             _context = context;
         }
 
-        // GET: Admin/BlogCategory
+
         public async Task<IActionResult> Index()
         {
-<<<<<<< HEAD
-=======
             if (HttpContext.Session.GetString("AdminId") == null)
             {
                 return RedirectToAction("Login", "Accounts", new { area = "Admin" });
             }
->>>>>>> son
             return View(await _context.TbBlogCategories.ToListAsync());
         }
 
-        // GET: Admin/BlogCategory/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
-<<<<<<< HEAD
-=======
             if (HttpContext.Session.GetString("AdminId") == null)
             {
                 return RedirectToAction("Login", "Accounts", new { area = "Admin" });
             }
->>>>>>> son
             if (id == null)
             {
                 return NotFound();
@@ -61,20 +52,17 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(category);
         }
 
-        // GET: Admin/BlogCategory/Create
+
         public IActionResult Create()
         {
-<<<<<<< HEAD
-=======
             if (HttpContext.Session.GetString("AdminId") == null)
             {
                 return RedirectToAction("Login", "Accounts", new { area = "Admin" });
             }
->>>>>>> son
             return View();
         }
 
-        // POST: Admin/BlogCategory/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,Alias,Description,CreatedDate")] TbBlogCategory category)
@@ -88,7 +76,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(category);
         }
 
-        // GET: Admin/BlogCategory/Edit/5
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -103,7 +91,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(category);
         }
 
-        // POST: Admin/BlogCategory/Edit/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("BlogCategoryId,Title,Alias,Description,CreatedDate")] TbBlogCategory category)
@@ -135,7 +123,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(category);
         }
 
-        // GET: Admin/BlogCategory/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -153,7 +141,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(category);
         }
 
-        // POST: Admin/BlogCategory/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

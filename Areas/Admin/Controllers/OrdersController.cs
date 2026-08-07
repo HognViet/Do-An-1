@@ -47,17 +47,27 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
 
             ViewBag.Status = status;
 
-            // Lấy danh sách trạng thái từ database và chỉ lấy các trạng thái cần thiết
-            var allStatuses = await _context.TbOrderStatuses.ToListAsync();
             var statusList = new List<object> { new { Value = "all", Text = "Tất cả đơn hàng" } };
 
-            // Chỉ lấy các trạng thái theo yêu cầu: 1, 3, 4, 5, 6, 7, 9, 10
             var allowedStatusIds = new[] { 1, 3, 4, 5, 6, 7, 9, 10 };
-            foreach (var statusItem in allStatuses.Where(s => allowedStatusIds.Contains(s.OrderStatusId)))
+            var statusDict = new Dictionary<int, string>
             {
-                statusList.Add(new { Value = statusItem.OrderStatusId.ToString(), Text = statusItem.Description ?? statusItem.Name ?? $"Trạng thái {statusItem.OrderStatusId}" });
+                { 1, "Chờ xử lý" },
+                { 3, "Đang xử lý" },
+                { 4, "Đã gửi hàng" },
+                { 5, "Đã giao" },
+                { 6, "Đã hủy" },
+                { 7, "Đã hoàn tiền" },
+                { 9, "Trả hàng" },
+                { 10, "Giao dịch thất bại" }
+            };
+
+            foreach (var id in allowedStatusIds)
+            {
+                statusList.Add(new { Value = id.ToString(), Text = statusDict.ContainsKey(id) ? statusDict[id] : $"Trạng thái {id}" });
             }
 
+            ViewBag.StatusDict = statusDict;
             ViewBag.StatusList = new SelectList(statusList, "Value", "Text", status);
 
             return View(await query.OrderByDescending(o => o.CreatedDate).ToListAsync());
@@ -66,13 +76,10 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
         // GET: Admin/Orders/Details/5
         public async Task<IActionResult> Details(int? id, string status = "all")
         {
-<<<<<<< HEAD
-=======
             if (HttpContext.Session.GetString("AdminId") == null)
             {
                 return RedirectToAction("Login", "Accounts", new { area = "Admin" });
             }
->>>>>>> son
             if (id == null)
             {
                 return NotFound();
@@ -90,7 +97,26 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            ViewBag.OrderStatuses = new SelectList(_context.TbOrderStatuses, "OrderStatusId", "Description", order.OrderStatusId);
+            var statuses = await _context.TbOrderStatuses.ToListAsync();
+            var statusDict = new Dictionary<int, string>
+            {
+                { 1, "Chờ xử lý" },
+                { 2, "Đang xử lý" },
+                { 3, "Đã gửi hàng" },
+                { 4, "Đã giao" },
+                { 5, "Đã hủy" },
+                { 6, "Đã hoàn tiền" },
+                { 7, "Trả hàng" },
+                { 8, "Giao dịch thất bại" }
+            };
+
+            var statusListItems = statuses.Select(s => new SelectListItem
+            {
+                Value = s.OrderStatusId.ToString(),
+                Text = statusDict.ContainsKey(s.OrderStatusId) ? statusDict[s.OrderStatusId] : $"Trạng thái {s.OrderStatusId}"
+            }).ToList();
+
+            ViewBag.OrderStatuses = new SelectList(statusListItems, "Value", "Text", order.OrderStatusId?.ToString());
             ViewBag.Status = status; // Lưu status để quay lại
             return View(order);
         }
@@ -100,13 +126,10 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateStatus(int id, int orderStatusId, string status = "all")
         {
-<<<<<<< HEAD
-=======
             if (HttpContext.Session.GetString("AdminId") == null)
             {
                 return RedirectToAction("Login", "Accounts", new { area = "Admin" });
             }
->>>>>>> son
             var order = await _context.TbOrders.FindAsync(id);
             if (order == null)
             {
@@ -123,13 +146,10 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
         // GET: Admin/Orders/Delete/5
         public async Task<IActionResult> Delete(int? id, string status = "all")
         {
-<<<<<<< HEAD
-=======
             if (HttpContext.Session.GetString("AdminId") == null)
             {
                 return RedirectToAction("Login", "Accounts", new { area = "Admin" });
             }
->>>>>>> son
             if (id == null)
             {
                 return NotFound();
@@ -182,4 +202,6 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
         }
     }
 }
+
+
 

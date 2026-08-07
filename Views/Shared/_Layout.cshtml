@@ -28,32 +28,6 @@
     <link rel="stylesheet" href="~/assets/css/style.css">
     <link rel="stylesheet" href="~/assets/css/chat.css">
 
-<<<<<<< HEAD
-    <style>
-        @@keyframes bounceCart {
-            0% { transform: scale(1); }
-            30% { transform: scale(1.3); }
-            50% { transform: scale(0.9); }
-            70% { transform: scale(1.15); }
-            100% { transform: scale(1); }
-        }
-        .bounce-cart {
-            animation: bounceCart 0.5s ease-in-out;
-            display: inline-block !important;
-        }
-        .fly-image-clone {
-            position: fixed;
-            z-index: 999999;
-            border-radius: 50%;
-            pointer-events: none;
-            object-fit: cover;
-            transition: all 0.8s cubic-bezier(0.1, 0.8, 0.3, 1);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            border: 2px solid #fff;
-        }
-    </style>
-=======
->>>>>>> son
 </head>
 
 <body>
@@ -112,12 +86,7 @@
                             <li class="header__shipping--text text-white d-sm-2-none"><img
                                     class="header__shipping--text__icon" src="~/assets/img/icon/email.png"
                                     alt="email-icon"> <a class="header__shipping--text__link"
-<<<<<<< HEAD
-                                                          href="mailto:ntpthao.dhti17a5hn@sv.uneti.edu.vn">ntpthao.dhti17a5hn@sv.uneti.edu.vn</a>
-                            </li>
-=======
                                     href="mailto:ntpthao.dhti17a5hn@sv.uneti.edu.vn">ntpthao.dhti17a5hn@sv.uneti.edu.vn</a></li>
->>>>>>> son
                         </ul>
                     </div>
                     <div class="language__currency d-none d-lg-block">
@@ -126,31 +95,11 @@
                                 <a class="language__switcher text-white" href="#">
                                     <img class="language__switcher--icon__img" src="~/assets/img/icon/covn.png"
                                         alt="currency">
-<<<<<<< HEAD
-                                    <span>Tiếng Việt</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="11.797" height="9.05"
-                                        viewBox="0 0 9.797 6.05">
-                                        <path d="M14.646,8.59,10.9,12.329,7.151,8.59,6,9.741l4.9,4.9,4.9-4.9Z"
-                                            transform="translate(-6 -8.59)" fill="currentColor" opacity="0.7" />
-                                    </svg>
-                                </a>
-                                <div class="dropdown__language">
-                                    <ul>
-                                        <li class="language__items"><a class="language__text" href="#">Pháp</a></li>
-                                        <li class="language__items"><a class="language__text" href="#">Nga</a></li>
-                                        <li class="language__items"><a class="language__text" href="#">Tây Ban Nha</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            
-=======
                                     
                                 </a>
                                 
                             </li>
                            
->>>>>>> son
                         </ul>
                     </div>
                 </div>
@@ -177,19 +126,11 @@
                         </h1>
                     </div>
                     <div class="header__search--widget header__sticky--none d-none d-lg-block">
-<<<<<<< HEAD
-                        <form class="d-flex header__search--form" action="#">
-                            
-                            <div class="header__search--box">
-                                <label>
-                                    <input class="header__search--input" placeholder="Nhập từ khóa..." type="text">
-=======
                         <form class="d-flex header__search--form" action="@Url.Action("Index", "Product")" method="get">
                             
                             <div class="header__search--box">
                                 <label>
                                     <input class="header__search--input" name="search" value="@ViewBag.Search" placeholder="Nhập từ khóa..." type="text">
->>>>>>> son
                                 </label>
                                 <button class="header__search--button bg__secondary text-white" type="submit"
                                     aria-label="search button">
@@ -206,28 +147,11 @@
                         </form>
                     </div>
                     <div class="header__account header__sticky--none">
-<<<<<<< HEAD
-                        <ul class="d-flex align-items-center">
-=======
                         <ul class="d-flex">
->>>>>>> son
                             <li class="header__account--items">
                                 <a class="header__account--btn" href="/Customer/Dashboard">
                                     @if (Context.Session.GetString("CustomerId") != null)
                                     {
-<<<<<<< HEAD
-                                        var avatarUrl = Context.Session.GetString("Avatar");
-                                        if (string.IsNullOrEmpty(avatarUrl))
-                                        {
-                                            avatarUrl = "/assets/img/avatar/default-avatar.png";
-                                        }
-                                        <img src="@avatarUrl" alt="Avatar" class="header__account--avatar" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto;" />
-                                        <span class="header__account--btn__text">@Context.Session.GetString("UserName")</span>
-                                    }
-                                    else
-                                    {
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" style="width: 28px; height: 28px; display: block; margin: 0 auto;"
-=======
                                         <!-- Icon người dùng dạng hình tròn -->
                                         @if (string.IsNullOrEmpty(Context.Session.GetString("Avatar")))
                                         {
@@ -252,7 +176,6 @@
                                     else
                                     {
                                         <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443"
->>>>>>> son
                                              viewBox="0 0 512 512">
                                             <path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z"
                                                   fill="none" stroke="currentColor" stroke-linecap="round"
@@ -281,11 +204,7 @@
                             <li class="header__account--items">
                                 <a class="header__account--btn minicart__open--btn" href="javascript:void(0)"
                                     data-offcanvas>
-<<<<<<< HEAD
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" style="width: 24px; height: 24px; display: inline-block; vertical-align: middle;"
-=======
                                     <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443"
->>>>>>> son
                                         viewBox="0 0 14.706 13.534">
                                         <g transform="translate(0 0)">
                                             <g>
@@ -323,11 +242,7 @@
                         </nav>
                     </div>
                     <div class="header__account header__account2 header__sticky--block">
-<<<<<<< HEAD
-                        <ul class="d-flex align-items-center">
-=======
                         <ul class="d-flex">
->>>>>>> son
                             <li
                                 class="header__account--items header__account2--items  header__account--search__items d-none d-lg-block">
                                 <a class="header__account--btn search__open--btn" href="javascript:void(0)"
@@ -345,31 +260,6 @@
                             </li>
                             <li class="header__account--items header__account2--items">
                                 <a class="header__account--btn" href="/Customer/Dashboard">
-<<<<<<< HEAD
-                                    @if (Context.Session.GetString("CustomerId") != null)
-                                    {
-                                        var avatarUrl = Context.Session.GetString("Avatar");
-                                        if (string.IsNullOrEmpty(avatarUrl))
-                                        {
-                                            avatarUrl = "/assets/img/avatar/default-avatar.png";
-                                        }
-                                        <img src="@avatarUrl" alt="Avatar" class="header__account--avatar" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; display: inline-block; vertical-align: middle;" />
-                                    }
-                                    else
-                                    {
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" style="width: 28px; height: 28px; display: block; margin: 0 auto;"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z"
-                                                fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="32" />
-                                            <path
-                                                d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z"
-                                                fill="none" stroke="currentColor" stroke-miterlimit="10"
-                                                stroke-width="32" />
-                                        </svg>
-                                    }
-=======
                                     <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443"
                                         viewBox="0 0 512 512">
                                         <path
@@ -381,7 +271,6 @@
                                             fill="none" stroke="currentColor" stroke-miterlimit="10"
                                             stroke-width="32" />
                                     </svg>
->>>>>>> son
                                 </a>
                             </li>
                             @* <li class="header__account--items header__account2--items d-none d-lg-block"> 
@@ -399,11 +288,7 @@
                             <li class="header__account--items header__account2--items">
                                 <a class="header__account--btn minicart__open--btn" href="javascript:void(0)"
                                     data-offcanvas>
-<<<<<<< HEAD
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" style="width: 24px; height: 24px; display: inline-block; vertical-align: middle;"
-=======
                                     <svg xmlns="http://www.w3.org/2000/svg" width="26.51" height="23.443"
->>>>>>> son
                                         viewBox="0 0 14.706 13.534">
                                         <g transform="translate(0 0)">
                                             <g>
@@ -579,42 +464,6 @@
                         </li>
                     </ul>
                     <div class="offcanvas__account--items">
-<<<<<<< HEAD
-                        @if (Context.Session.GetString("CustomerId") != null)
-                        {
-                            <a class="offcanvas__account--items__btn d-flex align-items-center" href="/Customer/Dashboard">
-                                <span class="offcanvas__account--items__icon">
-                                    @{
-                                        var avatarUrl = Context.Session.GetString("Avatar");
-                                        if (string.IsNullOrEmpty(avatarUrl))
-                                        {
-                                            avatarUrl = "/assets/img/avatar/default-avatar.png";
-                                        }
-                                    }
-                                    <img src="@avatarUrl" alt="Avatar" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; margin-right: 5px;" />
-                                </span>
-                                <span class="offcanvas__account--items__label">@Context.Session.GetString("UserName")</span>
-                            </a>
-                        }
-                        else
-                        {
-                            <a class="offcanvas__account--items__btn d-flex align-items-center" href="login.html">
-                                <span class="offcanvas__account--items__icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20.51" height="19.443"
-                                        viewBox="0 0 512 512">
-                                        <path
-                                            d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z"
-                                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="32" />
-                                        <path
-                                            d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z"
-                                            fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
-                                    </svg>
-                                </span>
-                                <span class="offcanvas__account--items__label">Đăng nhập / Đăng ký</span>
-                            </a>
-                        }
-=======
                         <a class="offcanvas__account--items__btn d-flex align-items-center" href="login.html">
                             <span class="offcanvas__account--items__icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20.51" height="19.443"
@@ -630,7 +479,6 @@
                             </span>
                             <span class="offcanvas__account--items__label">Đăng nhập / Đăng ký</span>
                         </a>
->>>>>>> son
                     </div>
                     <div class="language__currency">
                         <ul class="d-flex align-items-center">
@@ -765,15 +613,9 @@
         <div class="predictive__search--box ">
             <div class="predictive__search--box__inner">
                 <h2 class="predictive__search--title">Tìm kiếm sản phẩm</h2>
-<<<<<<< HEAD
-                <form class="predictive__search--form" action="#">
-                    <label>
-                        <input class="predictive__search--input" placeholder="Tìm kiếm tại đây" type="text">
-=======
                 <form class="predictive__search--form" action="@Url.Action("Index", "Product")" method="get">
                     <label>
                         <input class="predictive__search--input" name="search" value="@ViewBag.Search" placeholder="Tìm kiếm tại đây" type="text">
->>>>>>> son
                     </label>
                     <button class="predictive__search--button" aria-label="search button" type="submit"><svg
                             class="header__search--button__svg" xmlns="http://www.w3.org/2000/svg" width="30.51"
@@ -1104,13 +946,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
 
     <!-- Customscript js -->
-<<<<<<< HEAD
-    <script src="~/js/site.js"></script>
-    <script src="~/assets/js/script.js"></script>
-=======
     <script src="~/js/site.js?v=1.2"></script>
     <script src="~/assets/js/script.js?v=1.2"></script>
->>>>>>> son
     <script src="~/assets/toastr/js/toastr.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
@@ -1167,100 +1004,7 @@
             }
         })();
 
-<<<<<<< HEAD
-        function flyToCart(clickedEl) {
-            if (!clickedEl) return;
-            
-            // Prevent duplicate triggers
-            if (clickedEl.dataset.flying === "true") return;
-            clickedEl.dataset.flying = "true";
-            setTimeout(function() { clickedEl.dataset.flying = "false"; }, 1000);
-
-            // Find the image element to animate
-            var img = null;
-            
-            // Try to find image relative to the clicked button
-            var container = clickedEl.closest('.product__details, .quickview__inner, .product__details__side, .product__items');
-            if (container) {
-                // Try swiper active slide first, then any preview image
-                img = container.querySelector('.swiper-slide-active img.product__media--preview__items--img') 
-                   || container.querySelector('img.product__media--preview__items--img')
-                   || container.querySelector('.product__primary--img')
-                   || container.querySelector('img');
-            }
-            
-            if (!img) {
-                // Search globally
-                img = document.querySelector('.swiper-slide-active img.product__media--preview__items--img')
-                   || document.querySelector('img.product__media--preview__items--img')
-                   || document.querySelector('.product__primary--img')
-                   || document.querySelector('img');
-            }
-            
-            if (!img) return;
-
-            // Get source image position and clone it
-            var rect = img.getBoundingClientRect();
-            var clone = document.createElement('img');
-            clone.src = img.src;
-            clone.className = 'fly-image-clone';
-            clone.style.left = rect.left + 'px';
-            clone.style.top = rect.top + 'px';
-            clone.style.width = rect.width + 'px';
-            clone.style.height = rect.height + 'px';
-            document.body.appendChild(clone);
-
-            // Find target shopping cart icon (the visible one)
-            var cartBtn = document.querySelector('.header__account2--items .minicart__open--btn'); // Sticky cart
-            if (!cartBtn || cartBtn.offsetWidth === 0 || cartBtn.offsetHeight === 0) {
-                cartBtn = document.querySelector('.header__sticky--none .minicart__open--btn'); // Main header cart
-            }
-            if (!cartBtn) {
-                cartBtn = document.querySelector('.minicart__open--btn'); // General fallback
-            }
-
-            if (!cartBtn) {
-                clone.remove();
-                return;
-            }
-
-            var cartRect = cartBtn.getBoundingClientRect();
-
-            // Force reflow
-            clone.offsetWidth;
-
-            // Set final coordinates (centered on cart button)
-            clone.style.left = (cartRect.left + cartRect.width / 2 - 15) + 'px';
-            clone.style.top = (cartRect.top + cartRect.height / 2 - 15) + 'px';
-            clone.style.width = '30px';
-            clone.style.height = '30px';
-            clone.style.opacity = '0.1';
-
-            // Clean up and animate cart button scale/bounce
-            setTimeout(function () {
-                clone.remove();
-                cartBtn.classList.add('bounce-cart');
-                setTimeout(function () {
-                    cartBtn.classList.remove('bounce-cart');
-                }, 500);
-            }, 800);
-        }
-
         function addToCart(productId, size, color, quantity) {
-            // Auto fly to cart using window.event if active
-            if (window.event) {
-                var target = window.event.target || window.event.srcElement;
-                if (target) {
-                    var clickedEl = target.closest('.quickview__cart--btn, .add__to--cart, button, a');
-                    if (clickedEl) {
-                        flyToCart(clickedEl);
-                    }
-                }
-            }
-
-=======
-        function addToCart(productId, size, color, quantity) {
->>>>>>> son
             fetch('/Cart/AddToCart', {
                 method: 'POST',
                 headers: {

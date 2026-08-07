@@ -19,7 +19,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             _context = context;
         }
 
-        // GET: Admin/Menus
+
         public async Task<IActionResult> Index()
         {
             if (HttpContext.Session.GetString("AdminId") == null)
@@ -35,7 +35,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(menus);
         }
 
-        // GET: Admin/Menus/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -50,7 +50,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            // Load parent menu name if exists
+
             if (tbMenu.ParentId.HasValue)
             {
                 var parent = await _context.TbMenus.FindAsync(tbMenu.ParentId.Value);
@@ -60,10 +60,10 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(tbMenu);
         }
 
-        // GET: Admin/Menus/Create
+
         public IActionResult Create()
         {
-            // Load danh sách menu để chọn menu cha
+
             var menus = _context.TbMenus
                 .Where(m => m.IsActive == true)
                 .OrderBy(m => m.Position)
@@ -73,26 +73,26 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/Menus/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,Alias,Description,ParentId,Position,IsActive")] TbMenu tbMenu)
         {
             if (ModelState.IsValid)
             {
-                // Tự động tạo alias nếu không có
+
                 if (string.IsNullOrEmpty(tbMenu.Alias) && !string.IsNullOrEmpty(tbMenu.Title))
                 {
                     tbMenu.Alias = San_Pham_Do_An1.Utilities.Function.TitleSlugGenerationAlias(tbMenu.Title);
                 }
 
-                // Lấy thông tin admin từ session
+
                 var adminName = HttpContext.Session.GetString("AdminName") ?? "Admin";
 
                 tbMenu.CreatedDate = DateTime.Now;
                 tbMenu.CreatedBy = adminName;
 
-                // Tự động tính level nếu có parent
+
                 if (tbMenu.ParentId.HasValue)
                 {
                     var parent = await _context.TbMenus.FindAsync(tbMenu.ParentId.Value);
@@ -111,7 +111,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            // Reload danh sách menu nếu có lỗi
+
             var menus = _context.TbMenus
                 .Where(m => m.IsActive == true)
                 .OrderBy(m => m.Position)
@@ -121,7 +121,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(tbMenu);
         }
 
-        // GET: Admin/Menus/Edit/5
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -135,7 +135,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            // Load danh sách menu để chọn menu cha (loại trừ chính nó)
+
             var menus = _context.TbMenus
                 .Where(m => m.IsActive == true && m.MenuId != id)
                 .OrderBy(m => m.Position)
@@ -145,7 +145,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(tbMenu);
         }
 
-        // POST: Admin/Menus/Edit/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("MenuId,Title,Alias,Description,Levels,ParentId,Position,CreatedDate,CreatedBy,IsActive")] TbMenu tbMenu)
@@ -159,13 +159,13 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             {
                 try
                 {
-                    // Lấy thông tin admin từ session
+
                     var adminName = HttpContext.Session.GetString("AdminName") ?? "Admin";
 
                     tbMenu.ModifiedDate = DateTime.Now;
                     tbMenu.ModifiedBy = adminName;
 
-                    // Tự động tính level nếu có parent
+
                     if (tbMenu.ParentId.HasValue)
                     {
                         var parent = await _context.TbMenus.FindAsync(tbMenu.ParentId.Value);
@@ -196,7 +196,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            // Reload danh sách menu nếu có lỗi
+
             var menus = _context.TbMenus
                 .Where(m => m.IsActive == true && m.MenuId != id)
                 .OrderBy(m => m.Position)
@@ -206,7 +206,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(tbMenu);
         }
 
-        // GET: Admin/Menus/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -221,7 +221,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            // Load parent menu name if exists
+
             if (tbMenu.ParentId.HasValue)
             {
                 var parent = await _context.TbMenus.FindAsync(tbMenu.ParentId.Value);
@@ -231,7 +231,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             return View(tbMenu);
         }
 
-        // POST: Admin/Menus/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -239,7 +239,7 @@ namespace San_Pham_Do_An1.Areas.Admin.Controllers
             var tbMenu = await _context.TbMenus.FindAsync(id);
             if (tbMenu != null)
             {
-                // Kiểm tra xem có menu con không
+
                 var hasChildren = await _context.TbMenus.AnyAsync(m => m.ParentId == id);
                 if (hasChildren)
                 {

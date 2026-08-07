@@ -70,13 +70,28 @@
                                             <td>@Html.DisplayFor(m => item.ShippingAddress)</td>
                                             <td>@string.Format("{0:n0}", item.TotalAmount) đ</td>
                                             <td>
-                                                <span
-                                                    class="badge badge-@(item.OrderStatus?.Name?.Contains("Mới") == true ? "primary" : 
-                                                                                                                            item.OrderStatus?.Name?.Contains("Xử lý") == true ? "warning" :
-                                                                                                                            item.OrderStatus?.Name?.Contains("Giao hàng") == true ? "info" :
-                                                                                                                            item.OrderStatus?.Name?.Contains("Hoàn thành") == true ? "success" :
-                                                                                                                            item.OrderStatus?.Name?.Contains("Hủy") == true ? "danger" : "secondary")">
-                                                @(item.OrderStatus?.Description ?? "N/A")
+                                                @{
+                                                var statusName = "";
+                                                if (item.OrderStatusId.HasValue && ViewBag.StatusDict != null)
+                                                {
+                                                    var dict = ViewBag.StatusDict as Dictionary<int, string>;
+                                                    if (dict != null && dict.ContainsKey(item.OrderStatusId.Value))
+                                                    {
+                                                        statusName = dict[item.OrderStatusId.Value];
+                                                    }
+                                                }
+                                                if (string.IsNullOrEmpty(statusName))
+                                                {
+                                                    statusName = item.OrderStatus?.Description ?? "N/A";
+                                                }
+                                            }
+                                            <span 
+                                                    class="badge badge-@(statusName.Contains("xử lý") == true ? "warning" : 
+                                                                         statusName.Contains("giao") == true ? "info" :
+                                                                         statusName.Contains("thành") == true ? "success" :
+                                                                         statusName.Contains("hủy") == true ? "danger" : 
+                                                                         statusName.Contains("thất bại") == true ? "danger" : "secondary")">
+                                                @statusName
                                             </span>
                                         </td>
                                         <td>@(item.CreatedDate?.ToString("dd/MM/yyyy HH:mm") ?? "")</td>
